@@ -1,0 +1,484 @@
+\chapter{Theoretical Background}
+
+\lettrine[depth=1, lines=4]{D}{\bfseries\color{Blue} eep learning}\index{Deep
+learning}, \emph{a class of \gls{ml}\index{Machine learning} algorithms based on
+\glspl{nn}}, has revolutionized the way we tackle a problem from a \gls{ml}
+perspective and is one if not the most important factor for recent \gls{ml}
+achievements. Solving complex tasks such image classification\index{Image
+classification} or language translation\index{Language translation}, that for
+years have bedevilled traditional \gls{ml} algorithms, constitutes the signature
+of \gls{dl}.  Admittedly, \emph{the advent of a deep
+\gls{cnn}\index{Convolutional neural network}}, the \texttt{AlexNet}
+\parencite{alexnet} on September 30 of 2012, signified the ``modern birthday''
+of this field. On this day, \texttt{AlexNet}\index{AlexNet} not only won the
+\texttt{ImageNet} \parencite{Deng_2009} \gls{ilsvrc}, but dominated it,
+achieving a top-5 accuracy\index{Top-5 accuracy} of 85\%, surpassing the
+runner-up which achieved a top-5 accuracy of 75\%. \texttt{AlexNet} showed that
+\glspl{nn} are not merely a pipe-dream, but they can be applied in real-world
+problems. It is worth to notice that ideas of \glspl{nn} trace back to 1943, but
+it was until recently that these ideas got materialized. The reason for this
+recent breakthrough of \gls{dl} (and \gls{ml}) is twofold. First, the
+availability of large datasets---the era of big data\index{Big data}---such as
+\texttt{ImagNet}\index{ImageNet}. Second, the increase in computational power,
+mainly of \acrshortpl{gpu} for \gls{dl}, accelerating the training of deep
+\glspl{nn} and traditional \gls{ml} algorithms.
+
+\section{Machine Learning Preliminaries}
+
+Since \gls{dl} is a subfield of \gls{ml}, it is necessary to familiarize with
+the later before diving into the former. In this section, the minimum
+theoretical background and jargon of \gls{ml} is presented. \acrlong{ml} can be
+defined as \emph{``the science and (art) of programming computers so they can
+learn from the data''} \parencite{ml}. A more technical definition is the following:
+
+\begin{definition}[name={Machine learning, \cite{mitchell}}]
+	A computer program is said to learn from experience\index{Experience}
+	\textbf{E} with respect to some class of tasks\index{Task} \textbf{T} and some
+	performance measure \textbf{P}\index{Performance measure}, if its
+	performance on \textbf{T}, as measured by \textbf{P}, improves with
+	experience \textbf{E}.
+\end{definition}
+
+For instance, a computer program\index{Spam filter} that classifies emails into
+spam and non-spam (the task \textbf{T}), can improve its accuracy, i.e. the
+percentage of correctly classified emails (the performance \textbf{P}), through
+examples of spam and non-spam emails (the experience \textbf{E}). But in order
+to take advantage of the experience (aka \emph{data}\index{Data}), it must be written
+in such a way that \emph{adapts to the patterns in the data}. Certainly, a
+\emph{traditional spam filter can not learn from experience}, since the latter
+does not affect the classification rules of the former and as such, its
+performance. For a traditional spam filter to adapt to new patterns and perform
+better, it must change its hard-wired rules, but by then it will be a different
+program. In contrast, a \emph{\gls{ml}-based filter can adapt to new patterns,
+simply because it has been programmed to do so}. In other words, \emph{in
+traditional programming\index{Traditional programming} we write rules for
+solving \textbf{T} whereas \textbf{in \gls{ml} we write rules to learn the
+rules} for solving \textbf{T}}. This subtle but essential difference is what
+gives \gls{ml} algorithms the ability to take advantage of the data.
+
+\subsection{Learning paradigms}
+
+Depending on the type of experience they are allowed to have during their
+\emph{training phase}, \gls{ml} approaches are divided into three main
+\emph{learning paradigms}\index{Learning paradigms}: \emph{\textbf{unsupervised
+learning}\index{Learning paradigms!Unsupervised learning}, \textbf{supervised
+learning}\index{Learning paradigms!Supervised learning} and
+\textbf{reinforcement learning}\index{Learning paradigms!Reinforcement
+learning}}. The following definitions are not by any means formal, but merely
+serve as an intuitive description of the different paradigms.
+
+\begin{definition}[name=Unsupervised learning]
+	The experience comes in the form $\dtrain = \{\vcx_i\}$, where $\vcx_i \sim
+	p(\vcx)$ is the input of the $i$-th training instance\index{Training
+	instance}. In this paradigm we are interested in learning useful properties
+	of the underlying structure captured by $p(\vcx)$.
+\end{definition}
+
+For example, suppose we are interested in generating images that look like
+Picasso paintings. In this case, the input is just the pixel values, i.e.  $\vcx
+\in \mathbb{R}^{W \times H \times 3}$. The latter follow a distribution
+$p(\vcx)$, so all we have to do is to train an unsupervised learning algorithm
+with many Picasso paintings to get a \emph{model}, that is $\hat{p}(\vcx)$.
+Assuming the estimation of the original distribution is good enough, new
+realistically looking paintings (with respect to original Picasso paintings) can
+be ``drawn'' by just sampling from $\hat{p}(\vcx)$. In the ML parlance, inputs
+are also called \emph{features, predictors or
+descriptors}\index{Feature}\index{Descriptor}\index{Predictor}.
+
+\begin{definition}[name=Supervised learning]
+	The experience comes in the form $\dtrain = \{(\vcx_i, \vcy_i)\}$, where
+	$(\vcx_i, \vcy_i) \sim p(\vcx, \vcy)$ and $\vcy_i$ is the output aka
+	label\index{Label} of the $i$-th training instance. In this paradigm we are
+	usually interested in learning a function $f \colon X \to Y$.
+\end{definition}
+
+This paradigm comes mainly under two flavors: \emph{regression\index{Regression}
+and classification\index{Classification}.} In regression the interest is in
+predicting a continuous value given an input, i.e.  $y \in \mathbb{R}$, such as
+a molecular property given a mathematical representation of a molecule. In
+classification, the interest is to predict in which of $k$ classes an input
+belongs to, i.e. $y \in \{1, \ldots, k\}$, such as predicting the breed of a dog
+image given the raw pixel values of the image. The term ``supervised'' is coined
+due to the ``human supervision'' the algorithm receives during its training
+phase, through the presence of the correct answer (the label) in the experience.
+In a sense, in this paradigm we ``teach'' the learning algorithm aka
+\emph{learner}. It should be emphasized that the label is not constrained to be
+single-valued, but can also be multi-valued. In this case, one talks about
+\emph{multi-label regression\index{Regression!Multi-label regression} or
+classification\index{Classification!Multi-label classification}}
+\parencite{Read_2009}.
+
+A more exotic form of supervised learning is \emph{conditional generative
+modelling}\index{Conditional generative modelling}, where the interest is in
+estimating $p(\vcx \mid \vcy)$. But why such a conditional distri
+
+\textbf{ADD RANDOM ERASING IN DATA AUGMENTATION}
+%\begin{definition}[Overfitting]
+%	Add some text!
+%\end{definition}
+%
+%\begin{definition}[Underfitting]
+%	Add some text!
+%\end{definition}
+%
+%\begin{theorem}[No free lunch]
+%	Add some text!
+%\end{theorem}
+%
+%\begin{theorem}[Bias-variance tradeoff]
+%\end{theorem}
+%
+%\begin{proof}
+%	This is mhy proof.
+%\end{proof}
+%
+%\section{Deep Learning}
+%
+%\section{Training Neural Networks}
+%
+%\begin{algorithm}[H]
+%	\KwIn{
+%	   $\dtrain$, model parameters $\vcth$, loss function
+%	   $\loss$, learning rate $\eta$, batch size $\lvert\mcl{B}\rvert$
+%	}
+%	\KwOut{Estimated parameters $\hvcth$}
+%	\BlankLine
+%	$\vcth \gets$ random initialization\;
+%	\While{stopping criterion not met}{
+%		$\mcl{B} \gets$ sample $\lvert\mcl{B}\rvert$ datapoints from $\dtrain$\;
+%		$\gloss \gets \frac{1}{\lvert\mcl{B}\rvert} \sum_{i \in \mcl{B}}
+%		\nabla_{\vcth}\mcl{L}_i(\vcth)$\;
+%		$\vcth \gets \vcth - \eta\gloss$\;
+%	}
+%	$\hvcth \gets \vcth$\;
+%	\Return{$\hvcth$}
+%	\caption{Batch\index{Batch gradient descent}, mini-batch\index{Mini-batch
+%	gradient descent} and stochastic gradient descent\index{Stochastic gradient
+%	descent} algorithms}
+%\end{algorithm}
+%
+%\begin{algorithm}[H]
+%	\KwIn{Model parameters $\vcth$, loss function
+%	$\loss$, momentum $\beta$, learning rate $\eta$}
+%	\KwOut{Estimated parameters $\hvcth$}
+%	\BlankLine
+%	$\vcth \gets$ random initialization\;
+%	\While{stopping criterion not met}{
+%		$\vc{m} \gets \beta\vc{m} - \gloss$\;
+%		$\vcth \gets \vcth + \vc{m}$\;
+%	}
+%	$\hvcth \gets \vcth$\;
+%	\Return{$\hvcth$}
+%	\caption{Momentum\index{Momentum} algorithm, citation}
+%	\label{algo:momentum}
+%\end{algorithm}
+%
+%\begin{algorithm}[H]
+%	\KwIn{
+%		Model parameters $\vcth$, loss function $\loss$,
+%		momentum $\beta$, learning rate $\eta$
+%	}
+%	\KwOut{Estimated parameters $\hvcth$}
+%	\BlankLine
+%	$\vcth \gets$ random initialization\;
+%	\While{stopping criterion not met}{
+%		$\vc{m} \gets \beta\vc{m} -
+%		\eta\nabla_{\vcth}\loss(\vcth + \beta\vc{m})$\;
+%		$\vcth \gets \vcth + \vc{m}$\;
+%	}
+%	$\hvcth \gets \vcth$\;
+%	\Return{$\hvcth$}
+%	\caption{Nesterov momentum\index{Nesterov momentum} algorithm, citation}
+%	\label{algo:nesterov}
+%\end{algorithm}
+%
+%\begin{algorithm}[H]
+%	\KwIn{
+%		Model parameters $\vcth$, loss function $\loss$,
+%		momentum $\beta$, learning rate $\eta$,
+%		small constant $\epsilon$
+%	}
+%	\KwOut{Estimated parameters $\hvcth$}
+%	\BlankLine
+%	$\vcth \gets$ random initialization\;
+%	\While{stopping criterion not met}{
+%		$\vc{s} \gets \vc{s} + \gloss \odot \gloss$\;
+%		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
+%	}
+%	$\hvcth \gets \vcth$\;
+%	\Return{$\hvcth$}
+%	\caption{AdaGrad\index{AdaGrad} algorithm, citation}
+%	\label{algo:adagrad}
+%\end{algorithm}
+%
+%\begin{algorithm}[H]
+%	\KwIn{
+%		Model parameters $\vcth$, loss function
+%		$\loss$, decay rate $\beta$, learning rate $\eta$,
+%		small constant $\epsilon$
+%	}
+%	\KwOut{Estimated parameters $\hvcth$}
+%	\BlankLine
+%	$\vcth \gets$ random initialization\;
+%	\While{stopping criterion not met}{
+%		$\vc{s} \gets \vc{s} + (1 - \beta) \gloss \odot \gloss$\;
+%		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
+%	}
+%	$\hvcth \gets \vcth$\;
+%	\Return{$\hvcth$}
+%	\caption{RMSProp\index{RMSProp} algorithm, citation}
+%	\label{algo:rmsprop}
+%\end{algorithm}
+%
+%\begin{algorithm}[H]
+%	\KwIn{
+%		Model parameters $\vcth$, loss function $\loss$,
+%		decay rate $\beta$, learning rate $\eta$, small constant $\epsilon$,
+%		momentum decay $\beta_1$, scaling decay $\beta_2$
+%	}
+%	\KwOut{Estimated parameters $\hvcth$}
+%	\BlankLine
+%	$\vcth \gets$ random initialization\;
+%	\While{stopping criterion not met}{
+%		$\vc{m} \gets \beta_1\vc{m} - (1 - \beta_1) \gloss$\;
+%		$\vc{s} \gets \beta_2\vc{s} + (1 - \beta_2) \gloss \odot \gloss$\;
+%		$\vc{\widehat{m}} \gets \frac{\vc{m}}{1 - \beta_1^t}$\;
+%		$\vc{\widehat{s}} \gets \frac{\vc{s}}{1 - \beta_2^t}$\;
+%		$\vcth \gets \vcth + \eta\widehat{\vc{m}}
+%		\oslash \sqrt{\vc{\widehat{s}} + \epsilon}$\;
+%	}
+%	$\hvcth \gets \vcth$\;
+%	\Return{$\hvcth$}
+%	\caption{Adam\index{Adam} algorithm, citation}
+%	\label{algo:adam}
+%\end{algorithm}
+%
+%\begin{algorithm}[H]
+%	\KwIn{Computational graph $\mcl{G}$ where nodes $u_i$ follow a topological
+%	ordering\footnote{Any ordering such that parents come before children.}}
+%	\KwOut{Derivatives $\bar{u}_i$}
+%	\BlankLine
+%	\tcc{Forward pass}
+%	\For{$i=1$ \KwTo $N$}{
+%		Compute $u_i$ as a function of $\text{Pa}_\mcl{G}(u_i)$\;
+%	}
+%	$u_N = 1$\;
+%	\tcc{Backward pass}
+%	\For{$i=N-1$ \KwTo $1$}{
+%		$\bar{u}_i =
+%		\sum_{j \in \text{Ch}_\mcl{G}(u_i)} \bar{u}_j \pd{u_j}{u_i}$\;
+%	}
+%	\caption{Backpropagation\index{Backpropagation} algorithm, citation}
+%	\label{algo:backpropagation}
+%\end{algorithm}
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=\textwidth]{momentum.pdf}
+%\end{figure}
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=\textwidth]{nesterov.pdf}
+%\end{figure}
+
+
+%\begin{figure}
+%	\begin{subfigure}{0.49\textwidth}
+%		\begin{tikzpicture}
+%			\begin{axis}[custom axis, no markers, title=Foo]
+%				\addplot {tanh(x)};
+%				\addlegendentry {$\tanh(x)$};
+%			\end{axis}
+%		\end{tikzpicture}
+%	\end{subfigure}
+%	\hfill
+%	\begin{subfigure}{0.49\textwidth}
+%		\begin{tikzpicture}
+%			\begin{axis}[custom axis, no markers, title=Foo bar]
+%				\addplot {max(0, x)};
+%			\end{axis}
+%		\end{tikzpicture}
+%	\end{subfigure}
+%	\caption{Plots of some common activation functions.}
+%\end{figure}
+%
+%\lipsum
+%
+%\begin{figure}
+%	\centering
+%	\begin{tikzpicture}
+%		\pgfplotsset{width=0.8\textwidth}
+%		\begin{axis}[
+%				clip mode=individual, custom axis, domain=-8:8, ymin=0, ymax=10,
+%				no markers, xlabel=$w$, ylabel=$\mathcal{L}(w)$, samples=500, grid=none
+%			]
+%			\draw[gray, fill=gray!30] (-2, 0) rectangle (2, 10);
+%			\addplot {pow(x-2, 2)};
+%			\addlegendentry{$\mathcal{L}_1$};
+%			\addplot {pow(x, 2)};
+%			\addlegendentry{$\mathcal{L}_2$};
+%			\addplot {pow(x+2, 2)};
+%			\addlegendentry{$\mathcal{L}_3$};
+%			\addplot {pow(3*x, 2) + 2.667};
+%			\addlegendentry{$\mathcal{L}_{\mathrm{T}}$};
+%			%\node at (-2, -0.9) [font=\scriptsize] {$\min_i w_i$};
+%			\node at (-2, -0.9)  {$\min_i w_i$};
+%			%\node at (2, -0.9) [font=\scriptsize] {$\max_i w_i$};
+%			\node at (2, -0.9)  {$\max_i w_i$};
+%			\node at (0, 2.4) {$w^*$};
+%			%\draw[dotted, -Diamond] (0, 0) -- (0, 2.1) node[above] {$w^*$};
+%		\end{axis}
+%	\end{tikzpicture}
+%	\caption{Explaining why SGD works.}
+%\end{figure}
+%
+%\lipsum
+%
+%\begin{figure}
+%	\centering
+%	\begin{tikzpicture}
+%		\begin{axis}[
+%				width=0.8\textwidth, custom axis, domain=0:2,
+%				xlabel=Complexity | $\Omega$, ylabel=Error | $\mathcal{E}$,
+%				samples=50, ymin=0, ymax=2, grid=none, ticks=none
+%			]
+%			\addplot+ [no markers] {1/(x+0.3)-0.2}; % Bias^2
+%			\addlegendentry{Bias$^2$};
+%			\addplot+ [no markers] {0.12*e^(1.40*x)}; % Variance
+%			\addlegendentry{Variance};
+%			\addplot+ [no markers] {3*(x-2)*x+3.8}; % Total error
+%			\addlegendentry{Total error};
+%			\draw[dotted, -Diamond] (1, 0) -- (1, 0.83) node[
+%				above, yshift=0.2cm
+%			] {$\argmin_{\Omega} \mathcal{E}$};
+%		\end{axis}
+%	\end{tikzpicture}
+%	\caption{The bias-variance tradeoff in \LaTeX.}
+%\end{figure}
+%%
+%%Drawing overfitting and underfitting with \LaTeX:
+%%
+%%\begin{figure}
+%%	\centering
+%%	\includesvg{image}
+%%	\caption{Drawn with Inkscape!}
+%%\end{figure}
+%
+%\lipsum
+%
+%\begin{figure}
+%	\begin{subfigure}{0.5\textwidth}
+%		\centering
+%		\begin{tikzpicture}%[trim axis left, trim axis right]
+%			\begin{axis}[
+%					custom axis, no markers, ticks=none,
+%					xmin=0, xmax=3.5, domain=0:3.5, grid=none,
+%					ymin=0, ymax=1.2, clip mode=individual,
+%					xlabel=Number of training samples, ylabel=Accuracy,
+%					axis background/.style={
+%						shade,
+%						right color=gray,
+%						left color=white,
+%						middle color=Blue!90,
+%					}
+%				]
+%				%\shadedraw[
+%				%	left color=Peach!40,
+%				%	right color=Blue!50,
+%				%	middle color=Blue!20,
+%				%	black
+%				%] (0, 0) rectangle (3.5, 1.2);
+%				\addplot+[ultra thick] {divide(25*x, 2+25*x)*0.6};
+%				\addlegendentry{Test accuracy};
+%				\addplot+[ultra thick] {1 - 0.59*divide(25*x, 2+25*x)*0.6};
+%				\addlegendentry{Training accuracy};
+%				\addplot+ [black, dashed] {1};
+%				\node at (-0.29, 1) {100\%};
+%			\end{axis}
+%		\end{tikzpicture}
+%	\end{subfigure}
+%	\begin{subfigure}{0.5\textwidth}
+%		\centering
+%		\begin{tikzpicture}%[trim axis left, trim axis right]
+%			\begin{axis}[
+%					custom axis, no markers, ticks=none,
+%					xmin=0, xmax=3.5, domain=0:3.5,
+%					ymin=0, ymax=1.2, clip mode=individual,
+%					xlabel=Number of training samples, ylabel=Accuracy,
+%				]
+%				\shadedraw[
+%					left color=Peach!40,
+%					right color=Blue!50,
+%					middle color=Peach!20,
+%					black
+%				] (0, 0) rectangle (3.5, 1.2);
+%				\addplot+[ultra thick] {divide(25*x, 11+25*x)*0.97};
+%				\addlegendentry{Test accuracy};
+%				\addplot+[ultra thick] {1 - 0.1*divide(25*x, 11+25*x)*0.97};
+%				\addlegendentry{Training accuracy};
+%				\addplot+[black, dashed] {1};
+%				\node at (-0.29, 1) {100\%};
+%			\end{axis}
+%		\end{tikzpicture}
+%	\end{subfigure}
+%\end{figure}
+%
+%\lipsum
+%
+%\begin{figure}
+%	\begin{subfigure}{0.24\textwidth}
+%		\centering
+%		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
+%			\node[custom node] (1) {1};
+%			\node[custom node, right of=1] (2) {2};
+%			\node[custom node, above of=1] (3) {3}
+%				edge (1);
+%			\node[custom node, above of=2] (4) {4}
+%				edge (2) edge (3);
+%			\node[custom node, above of=3, xshift=0.75cm] {5}
+%				edge (3) edge (4);
+%		\end{tikzpicture}
+%	\end{subfigure}
+%	\begin{subfigure}{0.24\textwidth}
+%		\centering
+%		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
+%			\node[custom node] (1) {1};
+%			\node[custom node, right of=1] (2) {2};
+%			\node[custom node, above of=1] (3) {3}
+%				edge [<-] (1);
+%			\node[custom node, above of=2] (4) {4}
+%				edge [<-] (2) edge [blue, <-] (3);
+%			\node[custom node, above of=3, xshift=0.75cm] {5}
+%				edge [blue, ->] (3) edge [blue, <-] (4);
+%		\end{tikzpicture}
+%	\end{subfigure}
+%	\begin{subfigure}{0.24\textwidth}
+%		\centering
+%		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
+%			\node[custom node] (1) {1};
+%			\node[custom node, right of=1] (2) {2};
+%			\node[custom node, above of=1] (3) {3}
+%				edge [<-] (1);
+%			\node[custom node, above of=2] (4) {4}
+%				edge [<-] (2) edge [blue, <-] (3);
+%			\node[custom node, above of=3, xshift=0.75cm] {5}
+%				edge [blue, <-] (3) edge [blue, <-] (4);
+%		\end{tikzpicture}
+%	\end{subfigure}
+%	\begin{subfigure}{0.24\textwidth}
+%		\centering
+%		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
+%			\node[custom node] (x1) {$x_1$};
+%			\node[custom node, right of=x1] (x2) {$x_2$};
+%			\node[custom node, above of=x1] (h1) {$h_1$}
+%				edge[<-] (x1) edge[<-] (x2);
+%			\node[custom node, above of=x2] (h2) {$h_2$}
+%				edge [<-] (x1) edge[<-] (x2);
+%			\node[custom node, above of=h1, xshift=0.75cm] {$y$}
+%				edge [<-] (h1) edge [<-] (h2);
+%		\end{tikzpicture}
+%	\end{subfigure}
+%\end{figure}
+%
+%\lipsum

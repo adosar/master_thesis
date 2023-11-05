@@ -1,0 +1,135 @@
+\documentclass[chapterprefix=true]{scrreport}
+
+% Information
+\author{Antonios P. Sarikas}
+\title{\scshape Master Thesis}
+\publishers{Publisher}
+%\titlehead{Head}
+
+% Koma Script
+\addtokomafont{chapter}{\color{Blue}}
+\addtokomafont{chapterentry}{\rmfamily}
+\addtokomafont{chapter}{\rmfamily}
+\addtokomafont{title}{\scshape\rmfamily}
+\addtokomafont{section}{\rmfamily}
+\addtokomafont{subsection}{\rmfamily}
+\setkomafont{captionlabel}{\sffamily\bfseries}
+
+% Fonts
+\usepackage[T1]{fontenc}
+%\usepackage[cal=rsfso, calscaled=0.94]{mathalpha}
+\usepackage{ebgaramond}
+
+% Graphics
+\usepackage{graphicx, subcaption}
+\graphicspath{{fig}}
+
+% Bibliography
+\usepackage[style=authoryear, maxcitenames=1]{biblatex}
+\addbibresource{~/Dropbox/tex/common.bib}
+
+% Maths
+\usepackage{amsmath, amssymb, amsthm, thmtools}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\declaretheoremstyle[
+	headfont=\color{Blue}\bfseries\scshape,
+	notefont=\color{black}\normalfont,
+	bodyfont=\itshape,
+	postheadspace=6pt
+]{custom}
+\declaretheorem[parent=chapter, style=custom]{definition}
+\declaretheorem[style=custom]{theorem}
+
+% Index and acronyms
+\usepackage{imakeidx}
+\makeindex[intoc]
+\usepackage[toc, acronym]{glossaries}
+\makeglossaries
+
+% Algorithms
+\usepackage[linesnumbered, lined, ruled]{algorithm2e}
+
+% Others
+\usepackage[inline]{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks]{hyperref}
+%\hypersetup{plainpages=false}
+\usepackage{lipsum}
+\usepackage{lettrine}
+\renewcommand{\LettrineFontHook}{\color{Blue}\initials}
+
+% Inkscape
+%\usepackage[inkscapelatex=false, inkscapeformat=pdf]{svg}
+%\svgpath{{fig}}
+
+% TiKZ and PGF
+\usepackage{tikz}
+\usetikzlibrary{
+	arrows, arrows.meta, decorations.pathmorphing,
+	shadows, graphs, positioning, intersections
+}
+\tikzset{
+	custom node/.style = {
+		circle, draw=black, fill=blue!20, thick, minimum width=20pt,
+		circular drop shadow, inner sep=0pt,
+	}
+}
+\usepackage{pgfplots}
+\pgfplotsset{
+	compat=newest, width=\textwidth,
+	custom axis/.style = {
+		thick, domain=-1:1, samples=50,
+		ymin=-1, ymax=1, xlabel=$x$, ylabel=$y$,
+		xtick align=outside, ytick align=outside,
+		ticklabel style={font=\small}, tick pos=left,
+		grid=major, xlabel near ticks, ylabel near ticks,
+		max space between ticks=100, try min ticks=5,
+		legend style={legend pos=south east,
+		opacity=0.7, draw opacity=1, text opacity=1},
+		legend image post style={scale=0.7},
+	}
+}
+
+% Acronyms
+\newacronym{ml}{ML}{Machine Learning}
+\newacronym{dl}{DL}{Deep Learning}
+\newacronym{nn}{NN}{neural network}
+\newacronym{mlp}{MLP}{multilayer perceptron}
+\newacronym{cnn}{CNN}{convolutional neural network}
+\newacronym{ilsvrc}{ILSVRC}{Large Scale Visual Recognition Challenge}
+\newacronym{gpu}{GPU}{Graphics processing unit}
+
+% User-defined commands
+\newcommand{\mcl}{\mathcal}
+\newcommand{\vc}{\boldsymbol}
+\newcommand{\vcx}{\boldsymbol{x}}
+\newcommand{\vcy}{\boldsymbol{y}}
+\newcommand{\vcth}{\boldsymbol{\theta}}
+\newcommand{\hvcth}{{\boldsymbol{\hat{\theta}}}}
+\newcommand{\loss}{\mathcal{L}}
+\newcommand{\gloss}{\nabla_{\vcth}\mathcal{L}(\vcth)}
+\newcommand{\dtrain}{\mathcal{D}_\text{train}}
+\newcommand{\dtest}{\mathcal{D}_\text{test}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+
+\includeonly{assets/theory}
+
+\begin{document}
+
+%\maketitle
+%\tableofcontents
+
+
+%\include{assets/abstract}
+%\include{assets/introduction}
+%\include{assets/literature}
+\include{assets/theory}
+%\include{assets/methodology}
+%\include{assets/results}
+%\include{assets/conclusions}
+
+\printindex
+\printglossaries
+
+\end{document}

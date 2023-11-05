@@ -1,0 +1,25 @@
+1. https://ai.stackexchange.com/questions/31724/when-should-we-use-cnn-instead-of-mlp
+
+2. https://dsp.stackexchange.com/questions/24900/translation-invariance-in-max-pooling-and-cascading-with-convolutional-layer
+
+3. https://www.reddit.com/r/MachineLearning/comments/m7nl3o/comment/jntw9hm/?context=3
+
+4. https://www.deeplearning.ai/ai-notes/initialization/index.html
+
+5. https://stats.stackexchange.com/questions/446391/glorot-xavier-init-for-sigmoid-and-tanh
+
+6. ESLII Vapnik-Chervonenkis
+
+7. https://datascience.stackexchange.com/questions/32557/what-is-the-exact-definition-of-vc-dimension
+
+8. https://yangfengji.net/uva-ml-course/slides/lecture-04.pdf
+
+9. https://scicoding.com/practical-guide-to-cross-correlation/
+
+10. https://dl.acm.org/doi/fullHtml/10.1145/3446776
+
+11. https://stackoverflow.com/questions/61692599/what-are-the-differences-between-artificial-neural-networks-ann-and-convolutio
+
+12. https://datascience.stackexchange.com/questions/85582/dense-layer-vs-convolutional-layer-when-to-use-them-and-how
+
+13. https://datascience.stackexchange.com/questions/16807/why-mini-batch-size-is-better-than-one-single-batch-with-all-training-data
