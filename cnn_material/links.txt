@@ -23,3 +23,5 @@
 12. https://datascience.stackexchange.com/questions/85582/dense-layer-vs-convolutional-layer-when-to-use-them-and-how
 
 13. https://datascience.stackexchange.com/questions/16807/why-mini-batch-size-is-better-than-one-single-batch-with-all-training-data
+
+14. https://work.caltech.edu/telecourse
