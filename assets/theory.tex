@@ -59,13 +59,14 @@ gives \gls{ml} algorithms the ability to take advantage of the data.
 \subsection{Learning paradigms}
 
 Depending on the type of experience they are allowed to have during their
-\emph{training phase}, \gls{ml} approaches are divided into three main
-\emph{learning paradigms}\index{Learning paradigms}: \emph{\textbf{unsupervised
-learning}\index{Learning paradigms!Unsupervised learning}, \textbf{supervised
-learning}\index{Learning paradigms!Supervised learning} and
-\textbf{reinforcement learning}\index{Learning paradigms!Reinforcement
-learning}}. The following definitions are not by any means formal, but merely
-serve as an intuitive description of the different paradigms.
+\emph{training phase} \parencite{deeplearning}, \gls{ml} approaches are divided
+into three main \emph{learning paradigms}\index{Learning paradigms}:
+\emph{\textbf{unsupervised learning}\index{Learning paradigms!Unsupervised
+learning}, \textbf{supervised learning}\index{Learning paradigms!Supervised
+learning} and \textbf{reinforcement learning}\index{Learning
+paradigms!Reinforcement learning}}. The following definitions are not by any
+means formal, but merely serve as an intuitive description of the different
+paradigms.
 
 \begin{definition}[name=Unsupervised learning]
 	The experience comes in the form $\dtrain = \{\vcx_i\}$, where $\vcx_i \sim
@@ -112,12 +113,30 @@ A more exotic form of supervised learning is \emph{conditional generative
 modelling}\index{Conditional generative modelling}, where the interest is in
 estimating $p(\vcx \mid \vcy)$. For example, one may want to build a model that
 generates images of a specific category or a \emph{model that designs
-molecules/materials with tailored properties}\parencite{Kim2018, Yao2021,
+molecules/materials with tailored properties} \parencite{Kim2018, Yao2021,
 Gebauer2022}. This is one approach of how \gls{ml} can solve the \emph{inverse
-design problem}\index{Inverse design}.
+design problem}\index{Inverse design} in chemistry.
 
 \begin{definition}[Reinforcement learning]
+	The experience comes from the interaction of the learner, called
+	agent\index{Agent} in this context, with its environment. In other words,
+	there is a feedback loop between the learner and its environment. In this
+	learning paradigm we are interested in building an agent that can take
+	suitable actions in a given situation.
 \end{definition}
+
+The agent observes its \emph{environment}, selects and performs \emph{actions}
+and gets \emph{rewards or penalties} in return. The goal is to learn an optimal
+strategy, called a \emph{policy}, that \emph{maximizes the long-term reward}
+\parencite{sklearn}. A policy simply defines the action that the agent should
+choose in a given situation. In contrast to supervised learning, where the
+correct answers are provided to the learner, \emph{in reinforcement learning the
+learner must find the optimal answers by trial and error}
+\parencite{bishop2007}. Reinforcement learning techniques find application in
+fields such as gaming (\texttt{AlphaGo} is a well known example), robotics,
+autonomous driving and recently chemistry \parencite{li, Gow2022}. Since in the
+present thesis only supervised learning techniques were employed, the remaining
+of this chapter is devoted to this learning paradigm.
 
 %\begin{definition}[Overfitting]
 %	Add some text!
