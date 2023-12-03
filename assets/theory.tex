@@ -114,15 +114,15 @@ modelling}\index{Conditional generative modelling}, where the interest is in
 estimating $p(\vcx \mid \vcy)$. For example, one may want to build a model that
 generates images of a specific category or a \emph{model that designs
 molecules/materials with tailored properties} \parencite{Kim2018, Yao2021,
-Gebauer2022}. This is one approach of how \gls{ml} can solve the \emph{inverse
+Gebauer2022}. This is one approach of how \gls{ml} can tackle the \emph{inverse
 design problem}\index{Inverse design} in chemistry.
 
 \begin{definition}[Reinforcement learning]
 	The experience comes from the interaction of the learner, called
 	agent\index{Agent} in this context, with its environment. In other words,
 	there is a feedback loop between the learner and its environment. In this
-	learning paradigm we are interested in building an agent that can take
-	suitable actions in a given situation.
+	paradigm we are interested in building an agent that can take suitable
+	actions in a given situation.
 \end{definition}
 
 The agent observes its \emph{environment}, selects and performs \emph{actions}
@@ -137,6 +137,119 @@ fields such as gaming (\texttt{AlphaGo} is a well known example), robotics,
 autonomous driving and recently chemistry \parencite{li, Gow2022}. Since in the
 present thesis only supervised learning techniques were employed, the remaining
 of this chapter is devoted to this learning paradigm.
+
+\subsection{Formulating the problem of supervised learning}
+
+The general setting of supervised learning is as follows: we assume that there
+is some relationship between $\vcx$ and $\vcy$:
+\begin{equation}
+	\label{eq:supervised}
+	\vcy = f(\vcx) + \vc{\epsilon}
+\end{equation}
+and we want to estimate $f$ from the data. The function $f$ represents the
+\emph{systematic information} that $\vcx$ gives about $\vcy$ while
+$\vc{\epsilon}$ is a random \emph{error term}\index{Error term} independent of
+$\vcx$ and with zero mean. More formally, we have an input space $X$, an output
+space $Y$ and we are interested in learning a function $\hat{h} \colon X \to Y$,
+called the \emph{hypothesis}\index{Hypothesis}, which produces an output $\vcy
+\in Y$ given an input $\vcx \in X$. At our disposal we have a collection of
+input-output pairs $(\vcx_i, \vcy_i)$, forming the \emph{training set}\index{Training set}
+$\dtrain$, with the pairs drawn \acrshort{iid} from $p(\vcx, \vcy)$.
+
+Ideally, we would like to learn a hypothesis that minimizes the
+\emph{generalization error}\index{Generalization error} $\mcl{E}$:
+\begin{equation}
+	\label{eq:generalization}
+	\mcl{E} = \int_{X \times Y} L(h(\vcx), \vcy) p(\vcx, \vcy) d\vcx d\vcy
+\end{equation}
+that is, the expected value of some \emph{loss function}\index{Loss function}
+$L$ over all possible input-output pairs. A loss function just measures the
+discrepancy between the prediction $\hat{\vcy}$ from the true value $\vcy$ and
+as such, the best hypothesis is the one that minimizes this integral. Obviously,
+it is impossible to evaluate the integral in Equation \ref{eq:generalization}
+since we don't have access to infinite data.
+
+The idea is to use the \emph{training error or loss}\index{Training
+error}\index{Training loss} as a proxy for the 
+
+%\begin{figure}
+%	\centering
+%	\begin{tikzpicture}
+%		\begin{axis}[
+%				width=0.8\textwidth, custom axis, domain=0:2,
+%				xlabel=Complexity | $\Omega$, ylabel=Error | $\mathcal{E}$,
+%				samples=50, ymin=0, ymax=2, grid=none, ticks=none
+%			]
+%			\addplot+ [no markers] {1/(x+0.3)-0.2}; % Bias^2
+%			\addlegendentry{Bias$^2$};
+%			\addplot+ [no markers] {0.12*e^(1.40*x)}; % Variance
+%			\addlegendentry{Variance};
+%			\addplot+ [no markers] {3*(x-2)*x+3.8}; % Total error
+%			\addlegendentry{Total error};
+%			\draw[dotted, -Diamond] (1, 0) -- (1, 0.83) node[
+%				above, yshift=0.2cm
+%			] {$\argmin_{\Omega} \mathcal{E}$};
+%		\end{axis}
+%	\end{tikzpicture}
+%	\caption{The bias-variance tradeoff in \LaTeX.}
+%\end{figure}
+%
+%\begin{figure}
+%	\begin{subfigure}{0.5\textwidth}
+%		\centering
+%		\begin{tikzpicture}%[trim axis left, trim axis right]
+%			\begin{axis}[
+%					custom axis, no markers, ticks=none,
+%					xmin=0, xmax=3.5, domain=0:3.5, grid=none,
+%					ymin=0, ymax=1.2, clip mode=individual,
+%					xlabel=Number of training samples, ylabel=Accuracy,
+%					axis background/.style={
+%						shade,
+%						right color=gray,
+%						left color=white,
+%						middle color=Blue!90,
+%					}
+%				]
+%				%\shadedraw[
+%				%	left color=Peach!40,
+%				%	right color=Blue!50,
+%				%	middle color=Blue!20,
+%				%	black
+%				%] (0, 0) rectangle (3.5, 1.2);
+%				\addplot+[ultra thick] {divide(25*x, 2+25*x)*0.6};
+%				\addlegendentry{Test accuracy};
+%				\addplot+[ultra thick] {1 - 0.59*divide(25*x, 2+25*x)*0.6};
+%				\addlegendentry{Training accuracy};
+%				\addplot+ [black, dashed] {1};
+%				\node at (-0.29, 1) {100\%};
+%			\end{axis}
+%		\end{tikzpicture}
+%	\end{subfigure}
+%	\begin{subfigure}{0.5\textwidth}
+%		\centering
+%		\begin{tikzpicture}%[trim axis left, trim axis right]
+%			\begin{axis}[
+%					custom axis, no markers, ticks=none,
+%					xmin=0, xmax=3.5, domain=0:3.5,
+%					ymin=0, ymax=1.2, clip mode=individual,
+%					xlabel=Number of training samples, ylabel=Accuracy,
+%				]
+%				\shadedraw[
+%					left color=Peach!40,
+%					right color=Blue!50,
+%					middle color=Peach!20,
+%					black
+%				] (0, 0) rectangle (3.5, 1.2);
+%				\addplot+[ultra thick] {divide(25*x, 11+25*x)*0.97};
+%				\addlegendentry{Test accuracy};
+%				\addplot+[ultra thick] {1 - 0.1*divide(25*x, 11+25*x)*0.97};
+%				\addlegendentry{Training accuracy};
+%				\addplot+[black, dashed] {1};
+%				\node at (-0.29, 1) {100\%};
+%			\end{axis}
+%		\end{tikzpicture}
+%	\end{subfigure}
+%\end{figure}
 
 %\begin{definition}[Overfitting]
 %	Add some text!
@@ -360,94 +473,6 @@ of this chapter is devoted to this learning paradigm.
 %
 %\lipsum
 %
-%\begin{figure}
-%	\centering
-%	\begin{tikzpicture}
-%		\begin{axis}[
-%				width=0.8\textwidth, custom axis, domain=0:2,
-%				xlabel=Complexity | $\Omega$, ylabel=Error | $\mathcal{E}$,
-%				samples=50, ymin=0, ymax=2, grid=none, ticks=none
-%			]
-%			\addplot+ [no markers] {1/(x+0.3)-0.2}; % Bias^2
-%			\addlegendentry{Bias$^2$};
-%			\addplot+ [no markers] {0.12*e^(1.40*x)}; % Variance
-%			\addlegendentry{Variance};
-%			\addplot+ [no markers] {3*(x-2)*x+3.8}; % Total error
-%			\addlegendentry{Total error};
-%			\draw[dotted, -Diamond] (1, 0) -- (1, 0.83) node[
-%				above, yshift=0.2cm
-%			] {$\argmin_{\Omega} \mathcal{E}$};
-%		\end{axis}
-%	\end{tikzpicture}
-%	\caption{The bias-variance tradeoff in \LaTeX.}
-%\end{figure}
-%%
-%%Drawing overfitting and underfitting with \LaTeX:
-%%
-%%\begin{figure}
-%%	\centering
-%%	\includesvg{image}
-%%	\caption{Drawn with Inkscape!}
-%%\end{figure}
-%
-%\lipsum
-%
-%\begin{figure}
-%	\begin{subfigure}{0.5\textwidth}
-%		\centering
-%		\begin{tikzpicture}%[trim axis left, trim axis right]
-%			\begin{axis}[
-%					custom axis, no markers, ticks=none,
-%					xmin=0, xmax=3.5, domain=0:3.5, grid=none,
-%					ymin=0, ymax=1.2, clip mode=individual,
-%					xlabel=Number of training samples, ylabel=Accuracy,
-%					axis background/.style={
-%						shade,
-%						right color=gray,
-%						left color=white,
-%						middle color=Blue!90,
-%					}
-%				]
-%				%\shadedraw[
-%				%	left color=Peach!40,
-%				%	right color=Blue!50,
-%				%	middle color=Blue!20,
-%				%	black
-%				%] (0, 0) rectangle (3.5, 1.2);
-%				\addplot+[ultra thick] {divide(25*x, 2+25*x)*0.6};
-%				\addlegendentry{Test accuracy};
-%				\addplot+[ultra thick] {1 - 0.59*divide(25*x, 2+25*x)*0.6};
-%				\addlegendentry{Training accuracy};
-%				\addplot+ [black, dashed] {1};
-%				\node at (-0.29, 1) {100\%};
-%			\end{axis}
-%		\end{tikzpicture}
-%	\end{subfigure}
-%	\begin{subfigure}{0.5\textwidth}
-%		\centering
-%		\begin{tikzpicture}%[trim axis left, trim axis right]
-%			\begin{axis}[
-%					custom axis, no markers, ticks=none,
-%					xmin=0, xmax=3.5, domain=0:3.5,
-%					ymin=0, ymax=1.2, clip mode=individual,
-%					xlabel=Number of training samples, ylabel=Accuracy,
-%				]
-%				\shadedraw[
-%					left color=Peach!40,
-%					right color=Blue!50,
-%					middle color=Peach!20,
-%					black
-%				] (0, 0) rectangle (3.5, 1.2);
-%				\addplot+[ultra thick] {divide(25*x, 11+25*x)*0.97};
-%				\addlegendentry{Test accuracy};
-%				\addplot+[ultra thick] {1 - 0.1*divide(25*x, 11+25*x)*0.97};
-%				\addlegendentry{Training accuracy};
-%				\addplot+[black, dashed] {1};
-%				\node at (-0.29, 1) {100\%};
-%			\end{axis}
-%		\end{tikzpicture}
-%	\end{subfigure}
-%\end{figure}
 %
 %\lipsum
 %
