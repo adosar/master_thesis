@@ -157,20 +157,27 @@ input-output pairs $(\vcx_i, \vcy_i)$, forming the \emph{training set}\index{Tra
 $\dtrain$, with the pairs drawn \acrshort{iid} from $p(\vcx, \vcy)$.
 
 Ideally, we would like to learn a hypothesis that minimizes the
-\emph{generalization error}\index{Generalization error} $\mcl{E}$:
+\emph{generalization error or loss}\index{Generalization
+error}\index{Generalization loss} $\mcl{E}$:
 \begin{equation}
-	\label{eq:generalization}
+	\label{eq:generalization_loss}
 	\mcl{E} = \int_{X \times Y} L(h(\vcx), \vcy) p(\vcx, \vcy) d\vcx d\vcy
 \end{equation}
 that is, the expected value of some \emph{loss function}\index{Loss function}
 $L$ over all possible input-output pairs. A loss function just measures the
 discrepancy between the prediction $\hat{\vcy}$ from the true value $\vcy$ and
 as such, the best hypothesis is the one that minimizes this integral. Obviously,
-it is impossible to evaluate the integral in Equation \ref{eq:generalization}
-since we don't have access to infinite data.
+it is impossible to evaluate the integral in Equation
+\ref{eq:generalization_loss} since we don't have access to infinite data.
 
 The idea is to use the \emph{training error or loss}\index{Training
-error}\index{Training loss} as a proxy for the 
+error}\index{Training loss}:
+\begin{equation}
+	\label{eq:training_loss}
+	\mcl{L}_{\dtrain} = \frac{1}{\lvert \dtrain \rvert} \sum_{i \in \dtrain}
+	L(h(\vcx_i), \vcy_i)
+\end{equation}
+as an approximation for the generalization loss, and 
 
 %\begin{figure}
 %	\centering
