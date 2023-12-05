@@ -29,7 +29,7 @@
 \addbibresource{~/Dropbox/tex/common.bib}
 
 % Maths
-\usepackage{amsmath, amssymb, amsthm, thmtools}
+\usepackage{amsmath, amssymb, amsthm, thmtools, mathtools}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \declaretheoremstyle[
@@ -113,6 +113,8 @@
 \newcommand{\dtrain}{\mathcal{D}_\text{train}}
 \newcommand{\dtest}{\mathcal{D}_\text{test}}
 \newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\ltrain}{\mcl{L}_\text{train}}
+\newcommand{\ltest}{\mcl{L}_\text{test}}
 
 \includeonly{assets/theory}
 
