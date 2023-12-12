@@ -39,22 +39,23 @@ learn from the data''} \parencite{ml}. A more technical definition is the follow
 	experience \textbf{E}.
 \end{definition}
 
-For instance, a computer program\index{Spam filter} that classifies emails into
-spam and non-spam (the task \textbf{T}), can improve its accuracy, i.e. the
-percentage of correctly classified emails (the performance \textbf{P}), through
-examples of spam and non-spam emails (the experience \textbf{E}). But in order
-to take advantage of the experience (aka \emph{data}\index{Data}), it must be written
-in such a way that \emph{adapts to the patterns in the data}. Certainly, a
-\emph{traditional spam filter can not learn from experience}, since the latter
-does not affect the classification rules of the former and as such, its
-performance. For a traditional spam filter to adapt to new patterns and perform
-better, it must change its hard-wired rules, but by then it will be a different
-program. In contrast, a \emph{\gls{ml}-based filter can adapt to new patterns,
-simply because it has been programmed to do so}. In other words, \emph{in
-traditional programming\index{Traditional programming} we write rules for
-solving \textbf{T} whereas \textbf{in \gls{ml} we write rules to learn the
-rules} for solving \textbf{T}}. This subtle but essential difference is what
-gives \gls{ml} algorithms the ability to take advantage of the data.
+For instance, a computer program\index{Classification!Spam filter} that
+classifies emails into spam and non-spam (the task \textbf{T}), can improve its
+accuracy, i.e. the percentage of correctly classified emails (the performance
+\textbf{P}), through examples of spam and non-spam emails (the experience
+\textbf{E}). But in order to take advantage of the experience aka
+\emph{data}\index{Data}, it must be written in such a way that \emph{adapts to
+the patterns in the data}. Certainly, a \emph{traditional spam filter can not
+learn from experience}, since the latter does not affect the classification
+rules of the former and as such, its performance. For a traditional spam filter
+to adapt to new patterns and perform better, it must change its hard-wired
+rules, but by then it will be a different program. In contrast, a
+\emph{\gls{ml}-based filter can adapt to new patterns, simply because it has
+been programmed to do so}. In other words, \emph{in traditional
+programming\index{Traditional programming} we write rules for solving \textbf{T}
+whereas \textbf{in \gls{ml} we write rules to learn the rules} for solving
+\textbf{T}}. This subtle but essential difference is what gives \gls{ml}
+algorithms the ability to take advantage of the data.
 
 \subsection{Learning paradigms}
 
@@ -151,20 +152,21 @@ and we want to estimate $f$ from the data. The function $f$ represents the
 $\vc{\epsilon}$ is a random \emph{error term}\index{Error term} independent of
 $\vcx$ and with zero mean. More formally, we have an input space $X$, an output
 space $Y$ and we are interested in learning a function $\hat{h} \colon X \to Y$,
-called the \emph{hypothesis}\index{Hypothesis}, which produces an output $\vcy
-\in Y$ given an input $\vcx \in X$. At our disposal we have a collection of
-input-output pairs $(\vcx_i, \vcy_i)$, forming the \emph{training set}\index{Training set}
-$\dtrain$, with the pairs drawn \acrshort{iid} from $p(\vcx, \vcy)$.
+called the \emph{hypothesis}\index{Hypothesis space!Hypothesis}, which produces
+an output $\vcy \in Y$ given an input $\vcx \in X$. At our disposal we have a
+collection of input-output pairs $(\vcx_i, \vcy_i)$, forming the \emph{training
+set}\index{Training set} $\dtrain$, with the pairs drawn \acrshort{iid} from
+$p(\vcx, \vcy)$.
 
 Ideally, we would like to learn a hypothesis that minimizes the
 \emph{generalization error or loss}\index{Generalization
 error}\index{Generalization loss}:
 \begin{equation}
 	\label{eq:generalization_loss}
-	\loss \coloneqq \int_{X \times Y} L(h(\vcx), \vcy) p(\vcx, \vcy) d\vcx d\vcy
+	\loss \coloneqq \int_{X \times Y} \ell(h(\vcx), \vcy) p(\vcx, \vcy) d\vcx d\vcy
 \end{equation}
 that is, the expected value of some \emph{loss function}\index{Loss function}
-$L$ over all possible input-output pairs. A loss function just measures the
+$\ell$ over all possible input-output pairs. A loss function just measures the
 discrepancy of the prediction $h(\vcx) = \hat{\vcy}$ from the true value $\vcy$
 and as such, the best hypothesis is the one that minimizes this integral.
 Obviously, it is impossible to evaluate the integral in Equation
@@ -175,7 +177,7 @@ error}\index{Training loss}:
 \begin{equation}
 	\label{eq:training_loss}
 	\loss_\text{train} \coloneqq \frac{1}{\lvert \dtrain \rvert} \sum_{i \in \dtrain}
-	L(h(\vcx_i), \vcy_i)
+	\ell(h(\vcx_i), \vcy_i)
 \end{equation}
 as an approximation for the generalization loss, and \emph{choose the hypothesis
 that minimizes the training loss}, a principle known as \emph{empirical risk
@@ -206,9 +208,96 @@ we will stick to examples from simple (single-valued) regression and binary
 classification.
 
 \begin{definition}[Hypothesis space]
+	The set of hypotheses (functions), denoted as $\mcl{H}$, from which the
+	learner is allowed to pick the solution of Equation \ref{eq:problem}.
 \end{definition}
 
-Shortly mention non-parametric learning methods also.
+A simple example of a hypothesis space, is the one used in univariate
+\emph{linear regression}\index{Regression!Linear regression}:
+\begin{equation}
+	\label{eq:linear}
+	\hat{y} = \beta_0 + \beta x
+\end{equation}
+where $\mcl{H}$ contains all lines (or hyperplanes in the multivariate case)
+defined by Equation \ref{eq:linear}. Of course, one can get \emph{a
+more expressive} hypothesis space, by including polynomial terms, e.g.:
+\begin{equation}
+	\label{eq:polynomial}
+	\hat{y} = \beta_0 + \beta_1 x + \beta_2 x^2
+\end{equation}
+The more expressive the hypothesis space, the larger the \emph{complexity or
+representational capacity}\index{Representational capacity} of the learning
+algorithm. For a formal definition of representational capacity, the interested
+reader can look at \emph{Vapnik-Chervonenkis
+Dimension}\index{Vapnik-Chervonenkis dimension} \parencite{statlearn}.
+
+\begin{definition}[Loss function]
+	A function that maps a set of predictions into a real number, intuitively
+	representing the quality of a candidate hypothesis.
+\end{definition}
+
+For example, a typical loss function used in regression is the \emph{squared
+loss}\index{Loss function!Squared loss}:
+\begin{equation}
+	\label{eq:squared_loss}
+	\ell(\hat{y}, y) \coloneqq (\hat{y} - y)^2
+\end{equation}
+where $y, \hat{y} \in \mathbb{R}$. A typical loss function for binary
+classification is the \emph{binary cross entropy
+loss}\index{Loss function!Binary cross entropy loss}:
+\begin{equation}
+	\label{eq:cross_entropy}
+	\ell(\hat{y}, y) \coloneqq y \cdot \log (\hat{y})
+	+ (1 - y) \cdot \log (1 - \hat{y})
+\end{equation}
+where $y \in \{0, 1\}$, indicating the correct class, and $\hat{y} \in [0, 1]$
+which corresponds to the predicted probability for class-$1$. Notice that in
+both cases the loss is minimum when the prediction is equal to the ground truth.
+For the cross entropy loss, if $y=1$ is the correct class, then the model must
+predict $\hat{y}=1$ for the loss to be minimized.
+
+Usually, we are not only penalizing a hypothesis for its mispredictions, but
+also for its complexity. This is done in purpose, since a learner with a very
+rich hypothesis space can easily memorize the training set but fail to
+generalize well to new unseen examples. \emph{Every modification that is made to
+a learner in order to reduce its generalization loss but not its training loss,
+is called regularization}\index{Regularization} \parencite{deeplearning}.
+
+A common---but not the only---way to achieve that, is by including another
+penalty term called \emph{regularization term or
+regularizer}\index{Regularization!Regularizer}, denoted as $\mcl{R}$, in Equation
+\ref{eq:training_loss}:
+\begin{equation}
+	\label{eq:regularization}
+	\loss_\text{train} \coloneqq \frac{1}{\lvert \dtrain \rvert} \sum_{i \in \dtrain}
+	\ell(h(\vcx_i), \vcy_i)
+	+
+	\lambda \mcl{R}
+\end{equation}
+The $\lambda$ factor controls the strength of regularization and it is an
+\emph{hyperparameter}\index{Hyperparameter}, i.e. a parameter that is not
+learned during training but whose value is used to control the training phase.
+In order to see how $\lambda$ penalizes model complexity, lets examine
+polynomial regression of degree $k$:
+\begin{equation}
+	\hat{y} = \beta_0 + \sum_{i=1}^k \beta_i x^i
+\end{equation}
+combining \emph{mean squared loss}\index{Loss function!Mean squared error} and
+\emph{Lasso regularization}\index{Regularization!Lasso} as training loss:
+\begin{equation}
+	\label{eq:lasso}
+	\loss_\text{train} = \frac{1}{\lvert \dtrain \rvert} \sum_{i \in \dtrain}
+	\ell(\hat{y}_i - y_i)^2
+	+
+	\lambda \sum_{i=1}^k \lvert \beta_i \rvert
+\end{equation}
+
+\begin{definition}[Optimizer]
+\end{definition}
+
+Mention that the loss affects represenational capacity.
+Mention why regularization is useful.
+Mention that the optimizer affects represenational capacity.
 
 %\begin{figure}
 %	\centering
