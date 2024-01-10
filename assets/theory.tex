@@ -1,6 +1,8 @@
 \chapter{Theoretical Background}
 
-\lettrine[depth=1, lines=4]{D}{\bfseries\color{Blue} eep learning}\index{Deep
+\lettrine[
+	nindent=0em, findent=0.5em, loversize=-0.12, lines=5
+]{\initfamily{D}}{\bfseries\color{Blue}eep learning}\index{Deep
 learning}, \emph{a class of \gls{ml}\index{Machine learning} algorithms based on
 \glspl{nn}}, has revolutionized the way we tackle a problem from a \gls{ml}
 perspective and is one if not the most important factor for recent \gls{ml}
@@ -39,7 +41,7 @@ learn from the data''} \parencite{ml}. A more technical definition is the follow
 	experience \textbf{E}.
 \end{definition}
 
-For instance, a computer program\index{Classification!Spam filter} that
+For instance, a computer program\index{Spam filter} that
 classifies emails into spam and non-spam (the task \textbf{T}), can improve its
 accuracy, i.e. the percentage of correctly classified emails (the performance
 \textbf{P}), through examples of spam and non-spam emails (the experience
@@ -62,18 +64,18 @@ algorithms the ability to take advantage of the data.
 Depending on the type of experience they are allowed to have during their
 \emph{training phase} \parencite{deeplearning}, \gls{ml} approaches are divided
 into three main \emph{learning paradigms}\index{Learning paradigms}:
-\emph{\textbf{unsupervised learning}\index{Learning paradigms!Unsupervised
-learning}, \textbf{supervised learning}\index{Learning paradigms!Supervised
-learning} and \textbf{reinforcement learning}\index{Learning
-paradigms!Reinforcement learning}}. The following definitions are not by any
-means formal, but merely serve as an intuitive description of the different
-paradigms.
+\emph{\textbf{unsupervised learning}\index{Unsupervised learning},
+\textbf{supervised learning}\index{Supervised learning} and
+\textbf{reinforcement learning}\index{Reinforcement learning}}. The following
+definitions are not by any means formal, but merely serve as an intuitive
+description of the different paradigms.
 
 \begin{definition}[name=Unsupervised learning]
 	The experience comes in the form $\dtrain = \{\vcx_i\}$, where $\vcx_i \sim
-	p(\vcx)$ is the input of the $i$-th training instance\index{Training
-	instance}. In this paradigm we are interested in learning useful properties
-	of the underlying structure captured by $p(\vcx)$.
+	p(\vcx)$ is the input\index{Input} of the $i$-th training
+	instance\index{Training instance}. In this paradigm we are interested in
+	learning useful properties of the underlying structure captured by
+	$p(\vcx)$.
 \end{definition}
 
 For example, suppose we are interested in generating images that look like
@@ -89,9 +91,10 @@ descriptors}\index{Feature}\index{Descriptor}\index{Predictor}.
 
 \begin{definition}[name=Supervised learning]
 	The experience comes in the form $\dtrain = \{(\vcx_i, \vcy_i)\}$, where
-	$(\vcx_i, \vcy_i) \sim p(\vcx, \vcy)$ and $\vcy_i$ is the output aka
-	label\index{Label} of the $i$-th training instance. In this paradigm we are
-	usually interested in learning a function $f \colon X \to Y$.
+	$(\vcx_i, \vcy_i) \sim p(\vcx, \vcy)$ and $\vcy_i$ is the
+	output\index{Output} aka label\index{Label} of the $i$-th training instance.
+	In this paradigm we are usually interested in learning a function $f \colon
+	X \to Y$.
 \end{definition}
 
 This paradigm comes mainly under two flavors: \emph{regression\index{Regression}
@@ -106,9 +109,8 @@ phase, through the presence of the correct answer (the label) in the experience.
 In a sense, in this paradigm we ``teach'' the learning algorithm aka
 \emph{learner}. It should be emphasized that the label is not constrained to be
 single-valued, but can also be multi-valued. In this case, one talks about
-\emph{multi-label regression\index{Regression!Multi-label regression} or
-classification\index{Classification!Multi-label classification}}
-\parencite{Read_2009}.
+\emph{multi-label regression\index{Multi-label regression} or
+classification\index{Multi-label classification}} \parencite{Read_2009}.
 
 A more exotic form of supervised learning is \emph{conditional generative
 modelling}\index{Conditional generative modelling}, where the interest is in
@@ -152,7 +154,7 @@ and we want to estimate $f$ from the data. The function $f$ represents the
 $\vc{\epsilon}$ is a random \emph{error term}\index{Error term} independent of
 $\vcx$ and with zero mean. More formally, we have an input space $X$, an output
 space $Y$ and we are interested in learning a function $\hat{h} \colon X \to Y$,
-called the \emph{hypothesis}\index{Hypothesis space!Hypothesis}, which produces
+called the \emph{hypothesis}\index{Hypothesis}, which produces
 an output $\vcy \in Y$ given an input $\vcx \in X$. At our disposal we have a
 collection of input-output pairs $(\vcx_i, \vcy_i)$, forming the \emph{training
 set}\index{Training set} $\dtrain$, with the pairs drawn \acrshort{iid} from
@@ -203,9 +205,9 @@ is comprised of the following three ``orthogonal'' components: a
 \emph{\textbf{hypothesis space}}\index{Hypothesis space}, a \emph{\textbf{loss
 function}} and an \emph{\textbf{optimizer}}. We now look into each of them
 individually and describe the contribution of each one to the solution of the
-optimization problem. For the sake of clarity, in the remaining of this chapter
-we will stick to examples from simple (single-valued) regression and binary
-classification.
+optimization problem. For the ease of notation and clarity, in the remaining of
+this chapter we will stick to examples from simple (single-valued) regression
+and binary classification.
 
 \begin{definition}[Hypothesis space]
 	The set of hypotheses (functions), denoted as $\mcl{H}$, from which the
@@ -213,7 +215,7 @@ classification.
 \end{definition}
 
 A simple example of a hypothesis space, is the one used in univariate
-\emph{linear regression}\index{Regression!Linear regression}:
+\emph{linear regression}\index{Linear regression}:
 \begin{equation}
 	\label{eq:linear}
 	\hat{y} = \beta_0 + \beta x
@@ -225,26 +227,26 @@ more expressive} hypothesis space, by including polynomial terms, e.g.:
 	\label{eq:polynomial}
 	\hat{y} = \beta_0 + \beta_1 x + \beta_2 x^2
 \end{equation}
-The more expressive the hypothesis space, the larger the \emph{complexity or
-representational capacity}\index{Representational capacity} of the learning
-algorithm. For a formal definition of representational capacity, the interested
-reader can look at \emph{Vapnik-Chervonenkis
-Dimension}\index{Vapnik-Chervonenkis dimension} \parencite{statlearn}.
+The more expressive the hypothesis space, the larger the \emph{representational
+capacity}\index{Representational capacity} of the learning algorithm. For a
+formal definition of representational capacity, the interested reader can look
+at \emph{Vapnik-Chervonenkis Dimension}\index{Vapnik-Chervonenkis dimension}
+\parencite{statlearn}.
 
 \begin{definition}[Loss function]
-	A function that maps a set of predictions into a real number, intuitively
-	representing the quality of a candidate hypothesis.
+	A function that maps a prediction into a real number, which intuitively
+	represents the quality of a candidate hypothesis.
 \end{definition}
 
 For example, a typical loss function used in regression is the \emph{squared
-loss}\index{Loss function!Squared loss}:
+loss}\index{Squared loss}:
 \begin{equation}
 	\label{eq:squared_loss}
 	\ell(\hat{y}, y) \coloneqq (\hat{y} - y)^2
 \end{equation}
 where $y, \hat{y} \in \mathbb{R}$. A typical loss function for binary
 classification is the \emph{binary cross entropy
-loss}\index{Loss function!Binary cross entropy loss}:
+loss}\index{Binary cross entropy loss}:
 \begin{equation}
 	\label{eq:cross_entropy}
 	\ell(\hat{y}, y) \coloneqq y \cdot \log (\hat{y})
@@ -257,15 +259,15 @@ For the cross entropy loss, if $y=1$ is the correct class, then the model must
 predict $\hat{y}=1$ for the loss to be minimized.
 
 Usually, we are not only penalizing a hypothesis for its mispredictions, but
-also for its complexity. This is done in purpose, since a learner with a very
-rich hypothesis space can easily memorize the training set but fail to
-generalize well to new unseen examples. \emph{Every modification that is made to
-a learner in order to reduce its generalization loss but not its training loss,
-is called regularization}\index{Regularization} \parencite{deeplearning}.
+also for its \emph{complexity}. This is done in purpose, since a learner with a
+\emph{very rich hypothesis space} can easily memorize the training set but fail
+to generalize well to new unseen examples. \emph{Every modification that is made
+to a learner in order to reduce its generalization loss but not its training
+loss, is called regularization}\index{Regularization} \parencite{deeplearning}.
 
 A common---but not the only---way to achieve that, is by including another
 penalty term called \emph{regularization term or
-regularizer}\index{Regularization!Regularizer}, denoted as $\mcl{R}$, in Equation
+regularizer}\index{Regularizer}, denoted as $\mcl{R}$, in Equation
 \ref{eq:training_loss}:
 \begin{equation}
 	\label{eq:regularization}
@@ -276,14 +278,15 @@ regularizer}\index{Regularization!Regularizer}, denoted as $\mcl{R}$, in Equatio
 \end{equation}
 The $\lambda$ factor controls the strength of regularization and it is an
 \emph{hyperparameter}\index{Hyperparameter}, i.e. a parameter that is not
-learned during training but whose value is used to control the training phase.
-In order to see how $\lambda$ penalizes model complexity, lets examine
-polynomial regression of degree $k$:
+learned during training but \emph{whose value is used to control the training
+phase.} In order to see how $\lambda$ penalizes model complexity, assume we
+perform univariate polynomial regression\index{Polynomial regression}
+of degree $k$:
 \begin{equation}
 	\hat{y} = \beta_0 + \sum_{i=1}^k \beta_i x^i
 \end{equation}
-combining \emph{mean squared loss}\index{Loss function!Mean squared error} and
-\emph{Lasso regularization}\index{Regularization!Lasso} as training loss:
+combining \emph{mean squared loss}\index{Mean squared error} and
+\emph{Lasso regularization}\index{Lasso} as training loss:
 \begin{equation}
 	\label{eq:lasso}
 	\loss_\text{train} = \frac{1}{\lvert \dtrain \rvert} \sum_{i \in \dtrain}
@@ -291,13 +294,84 @@ combining \emph{mean squared loss}\index{Loss function!Mean squared error} and
 	+
 	\lambda \sum_{i=1}^k \lvert \beta_i \rvert
 \end{equation}
+Lets apply a very strong regularization by setting $\lambda \to \infty$ (in
+practice we set $\lambda$ to a very large value) and observe what happens to the
+\emph{weights}\index{Weights} $\beta_i$. By setting $\lambda \to
+\infty$, the regularization term dominates the mean squared loss and as such,
+the only way to minimize the training loss is by setting $\beta_i \to 0$. This
+leave us with a very simple model---only the \emph{bias}\index{Bias}
+$\beta_0$ survives---which always predicts the mean value of $y$ in the training
+set.
+
+Applying a regularizer, is also useful when we need to select between two (or
+more) competing hypotheses that are equally good. For example, assuming two
+hypotheses achieve the same (unregularized) training loss, the inclusion of a
+regularization term help us decide between the two, \emph{by favoring the
+simplest one}. This is reminiscent of the \emph{Occam's razor aka principle of
+parsimony}, which advocates that between two competing theories with equal
+explanatory power, one should prefer the one with the fewest assumptions.
 
 \begin{definition}[Optimizer]
+	An algorithm that searches through $\mcl{H}$ for the solution of Equation
+	\ref{eq:problem}.
 \end{definition}
 
-Mention that the loss affects represenational capacity.
-Mention why regularization is useful.
-Mention that the optimizer affects represenational capacity.
+Having defined the set of candidate models (the hypothesis space) and a measure
+that quantifies the quality of a given model (the loss function), all that is
+remaining is a tool to scan the hypothesis space and pick the model that
+minimizes the training loss (the optimizer). A naive approach is to check all
+hypotheses in $\mcl{H}$ and then pick the one that achieves the lowest training
+loss. This approach can work if $\mcl{H}$ is finite, but obviously doesn't scale
+in the general case where $\mcl{H}$ is infinite\footnote{Note that is not
+uncommon for $\mcl{H}$ to be infinite. Even for simple learners like linear
+regression $\mcl{H}$ is infinite, since there infinite lines defined by Equation
+\ref{eq:linear}.}. More efficient approaches are needed if we are aiming to solve
+Equation \ref{eq:problem} in finite time.
+
+One optimizer that is frequently used in \gls{ml} and is the precursor of more
+refined ones, is \emph{gradient descent}\index{Gradient descent}. With
+this method, the exploration of hypothesis space\footnote{Note that we have
+implicitly assumed that $\mcl{H}$ can be parameterized, i.e. $\mcl{H} =
+\{h(\vcx;\vcth) \mid \vcth \in \Theta\}$, where $\Theta$ denotes the parameter
+space, the set of all values the parameter $\vcth$ can take. This allows us to
+write the training loss as function of model parameters and optimize them with
+gradient descent.} involves the following steps:
+
+\begin{algorithm}[H]
+	Random initialization of $\vcth$\;
+	\While{stopping criterion not met}{
+		$\vcth \gets \vcth - \eta \nabla_{\vcth}\ltrain(\vcth)$\; 
+	}
+	\caption{Gradient descent}
+	\label{algo:gd}
+\end{algorithm}
+
+\noindent where $\eta$ is a small number called the \emph{learning
+rate}\index{Learning rate}. Gradient descent is based on the idea that
+if a multivariate function is defined and differentiable at a point $\vcx$, then
+$f(\vcx)$ \emph{decreases fastest if one takes a small step from $\vcx$ in the
+direction of negative gradient at $\vcx$, $-\nabla f(\vcx)$}. The motivation
+becomes clear if we look at the differential of $f(\vcx)$ in direction $\vc{u}$:
+\begin{equation}
+	\label{eq:differential}
+	f(\vcx + \delta \vc{u}) - f(\vcx) = \nabla f(\vcx) \cdot \delta \vc{u}
+\end{equation}
+Equation \ref{eq:differential} says that this differential is
+minimized\footnote{Note that the right hand side of Equation
+\ref{eq:differential} is a dot product.} when $\delta \vc{u}$ is anti-parallel
+to $\nabla f(\vcx)$ and that is why we subtract the gradient in Algorithm
+\ref{algo:gd}. The fact that Equation \ref{eq:differential} holds only locally
+(magnitude of $\delta \vc{u}$ must be small) explains why $\eta$ must be a small
+number. It should be added that gradient descent can be trapped to (potential)
+local minima of the training loss and therefore fail to solve Equation
+\ref{eq:problem}. As it will be discussed later, this is not a problem, because
+\emph{the ultimate purpose is to find a hypothesis that generalizes well, not
+necessarily the one that minimizes the training loss}\footnote{Remember we use
+the training loss (see Equation \ref{eq:training_loss}) as a proxy for the
+generalization loss (see Equation \ref{eq:generalization_loss}).}. Optimizers are
+discussed in further detail in the next section.
+
+\textbf{ADD TEXT FOR EFFECTIVE CAPACITY}
 
 %\begin{figure}
 %	\centering
@@ -403,8 +477,9 @@ Mention that the optimizer affects represenational capacity.
 %
 %\begin{algorithm}[H]
 %	\KwIn{
-%	   $\dtrain$, model parameters $\vcth$, loss function
-%	   $\loss$, learning rate $\eta$, batch size $\lvert\mcl{B}\rvert$
+%		$\dtrain$, loss function $\ell$,
+%		model parameters $\vcth$, learning rate
+%		$\eta$, batch size $\lvert\mcl{B}\rvert$
 %	}
 %	\KwOut{Estimated parameters $\hvcth$}
 %	\BlankLine
@@ -412,7 +487,7 @@ Mention that the optimizer affects represenational capacity.
 %	\While{stopping criterion not met}{
 %		$\mcl{B} \gets$ sample $\lvert\mcl{B}\rvert$ datapoints from $\dtrain$\;
 %		$\gloss \gets \frac{1}{\lvert\mcl{B}\rvert} \sum_{i \in \mcl{B}}
-%		\nabla_{\vcth}\mcl{L}_i(\vcth)$\;
+%		\nabla_{\vcth}\ell_i(\vcth)$\;
 %		$\vcth \gets \vcth - \eta\gloss$\;
 %	}
 %	$\hvcth \gets \vcth$\;
@@ -423,8 +498,7 @@ Mention that the optimizer affects represenational capacity.
 %\end{algorithm}
 %
 %\begin{algorithm}[H]
-%	\KwIn{Model parameters $\vcth$, loss function
-%	$\loss$, momentum $\beta$, learning rate $\eta$}
+%	\KwIn{Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$}
 %	\KwOut{Estimated parameters $\hvcth$}
 %	\BlankLine
 %	$\vcth \gets$ random initialization\;
@@ -439,10 +513,7 @@ Mention that the optimizer affects represenational capacity.
 %\end{algorithm}
 %
 %\begin{algorithm}[H]
-%	\KwIn{
-%		Model parameters $\vcth$, loss function $\loss$,
-%		momentum $\beta$, learning rate $\eta$
-%	}
+%	\KwIn{Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$}
 %	\KwOut{Estimated parameters $\hvcth$}
 %	\BlankLine
 %	$\vcth \gets$ random initialization\;
@@ -459,8 +530,7 @@ Mention that the optimizer affects represenational capacity.
 %
 %\begin{algorithm}[H]
 %	\KwIn{
-%		Model parameters $\vcth$, loss function $\loss$,
-%		momentum $\beta$, learning rate $\eta$,
+%		Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$,
 %		small constant $\epsilon$
 %	}
 %	\KwOut{Estimated parameters $\hvcth$}
@@ -478,8 +548,7 @@ Mention that the optimizer affects represenational capacity.
 %
 %\begin{algorithm}[H]
 %	\KwIn{
-%		Model parameters $\vcth$, loss function
-%		$\loss$, decay rate $\beta$, learning rate $\eta$,
+%		Model parameters $\vcth$, decay rate $\beta$, learning rate $\eta$,
 %		small constant $\epsilon$
 %	}
 %	\KwOut{Estimated parameters $\hvcth$}
@@ -497,8 +566,8 @@ Mention that the optimizer affects represenational capacity.
 %
 %\begin{algorithm}[H]
 %	\KwIn{
-%		Model parameters $\vcth$, loss function $\loss$,
-%		decay rate $\beta$, learning rate $\eta$, small constant $\epsilon$,
+%		Model parameters $\vcth$, decay rate $\beta$,
+%		learning rate $\eta$, small constant $\epsilon$,
 %		momentum decay $\beta_1$, scaling decay $\beta_2$
 %	}
 %	\KwOut{Estimated parameters $\hvcth$}

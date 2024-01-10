@@ -1,5 +1,133 @@
 \chapter{Introduction}
 
-\section{Metal-Organic Frameworks}
+\lettrine[
+	nindent=0em, findent=0.5em, loversize=-0.12, lines=5
+]{\initfamily{R}}{\bfseries\color{Blue}eticular chemistry}\index{Reticular
+chemistry}\index{Reticular chemistry}, a field that bridges inorganic and
+organic chemistry \parencite{Yaghi2020}, has emerged from a simple albeit
+powerful idea: \emph{combining molecular building blocks to form extended
+crystalline structures} \parencite{yaghi}. It all started in 1990s, with the
+advent of \glspl{mof}\index{Metal-organic frameworks}, the first ``offspring''
+of reticular chemistry. \glspl{mof}, a class of nanoporous materials
+\emph{composed of metal ions\index{Metal ions} or clusters\index{Metal clusters}
+coordinated to organic ligands\index{Organic ligands} aka organic
+linkers\index{Organic linkers}}, possess extraordinary properties, such as
+ultrahigh porosity and huge surface areas \parencite{Farha_2012}. To get a sense
+of how extraordinary these materials are, it is suffice to say that \emph{one
+gram of such a material can have a surface area as large as a soccer field}.
+The fact that reticular materials are ``brought to life'' by combining
+simple building blocks, allows chemists and material scientists to design materials
+in a judicious manner. The epitome of design in reticular chemistry is found in
+the synthesis of a zirconium-based \gls{mof} \parencite{Alezi2016},
+incorporating the polybenzene network or ``cubic graphite'' structure, predicted
+about 70 years ago.
 
-\section{Gas Adsorption \textit{\&} MOFs}
+\section{Applications of Reticular Chemistry}
+
+Owing to their aforedescribed properties along with their extremely tunable and
+modular nature, \glspl{mof} have been considered prominent solutions for
+gas-adsorption related problems \parencite{Li2007, Jiang2022}.  \glspl{mof} find
+application in fields such as gas storage\index{Gas storage} and
+separation\index{Gas separation}, catalysis\index{Catalysis} and drug
+delivery\index{Drug delivery}, just to name a few.
+
+\emph{\bfseries Carbon capture}\index{Carbon capture} is a prime example
+\parencite{An_2009, Sumida2011, Qazvini2021}, where \gls{mof}-based sorbents
+have been deemed as green, low-cost and energy-efficient solutions. These
+materials provide versatile solutions to carbon capture, spanning various phases
+of the capture process, with \gls{dac}\index{Direct air capture} being a
+noteworthy example.  \gls{dac} includes chemical or physical methods for
+extracting carbon dioxide directly from the ambient air, with MOF-powered
+\gls{dac} showing great potential as a green and sustainable strategy for
+reducing carbon dioxide levels, contributing to the combating of climate change
+\parencite{Bose2023}.
+
+\emph{\bfseries Hydrogen storage}\index{Hydrogen storage} is one of the greatest
+challenges of hydrogen economy, currently inhibiting the transition from fossil
+fuels to hydrogen. Fortunately, characteristics of \gls{mof} adsorbents such as
+fast adsorption/desorption kinetics, low operating pressures and high hydrogen
+capacities, render them as promising answers to the aforementioned challenge
+\parencite{Suh2011, Suresh_2021}.
+
+Methane is an attractive fuel for vehicular applications, being a relatively
+clean-burning fuel compared to gasoline. \emph{\bfseries Methane
+storage}\index{Methane storage} in sorbents known as \gls{ang} exhibit
+advantages over \gls{cng} and \gls{lng}, both in terms of energy-efficiency and
+vehicular safety. \glspl{mof} \parencite{Ma2007, Spanopoulos_2016,
+Tsangarakis2023} and their ``reticular siblings'' \glspl{cof}\index{Covalent
+organic frameworks}---composed only of light elements---show great promise as
+\gls{ang} solutions \parencite{MendozaCortes2011, Furukawa_2009, Martin2014,
+Tong2018}.
+
+\section{The Problem}
+
+The intrinsic combinatorial character of reticular chemistry, translates to
+practically an infinite number of realizable structures. Currently, the
+\gls{csd} contains more than \num{100000} experimentally synthesized \glspl{mof}
+\parencite{siegel29} while the arrival of in silico designed \glspl{mof}
+\parencite{siegel36, Rosen2021, Chung2019, chong51, DeVos2023, trillions,
+Boyd_2019} has immensely expanded the available material pool. The huge size of
+current and future \gls{mof} databases\index{Database} \parencite{trillions} is
+both a blessing and a curse for the identification of novel materials. Blessing,
+since a large number of candidate structures doesn't limit our choices and as
+such, the chances to find the right material for a given problem. Curse, since
+the enormous size of \glspl{mof} space makes it harder for researchers to
+efficiently explore it, complicating the tracing of materials with the desired
+properties. It is therefore crucial to find a way that allows us to efficiently
+explore such a huge material space. Another way to rephrase our problem is the
+following: \emph{\bfseries Given a large catalog of \glspl{mof}, is there a way
+to efficiently filter out the most promising ones for the application of
+interest?}
+
+As a first approach to deal with this challenge, one could, in principle
+experimentally synthesize and characterize each one of the materials listed in
+the given catalog. Although \emph{experimental synthesis and
+characterization}\index{Experimental synthesis and characterization} is the
+ultimate way to assess the performance of a material\footnote{As Richard
+Feynmann said: \emph{``The test of all knowledge is experiment. Experiment is
+the sole judge of scientific truth''}.}, the fact that a single laboratory study
+can take days or even months, renders experimental techniques impractical.  A
+more efficient approach is computational screening\index{Computational
+screening} based on \emph{molecular simulations}\index{Molecular simulations},
+which for years has served as the principal tool for the discovery of
+high-performing \glspl{mof} \parencite{chong55, chong56, chong57, chong58,
+chong59}. Although computational screening dramatically accelerates the
+assessment of a single material compared to experimental techniques, brute-force
+screening of current and upcoming databases is considered suboptimal, given the
+size of the latter.
+
+\Gls{ml}\index{Machine learning} aka \emph{data-driven\index{Data-driven}
+techniques} come to the rescue when 
+
+
+%\begin{figure}
+%	\centering
+%	\begin{tikzpicture}
+%		\begin{axis}[
+%				axis background/.style={fill=blue!10},
+%				axis lines=box, width=0.5\textwidth,
+%				title=Material space,
+%				xlabel=$\leftarrow$ Metal cluster $\rightarrow$,
+%				ylabel=$\leftarrow$ Organic linker $\rightarrow$,
+%				xlabel near ticks, ylabel near ticks,
+%				domain=-4:4, view={0}{90}, colormap/viridis, ticks=none,
+%			]
+%			\addplot3 [contour filled={number=20}]
+%				{pow(x^2 + y - 11, 2) + pow(x + y^2 - 7, 2)};
+%			\addplot[
+%				only marks,
+%				mark options={fill=white, mark=pentagon*, scale=1.5pt,}
+%			] coordinates {
+%				(-3.5, 3.5) (-3.5, -3)
+%				(-3, 3) (-2.2, 3)
+%				(2.5, 2) (3, -2) (3.5, 0)
+%			};
+%		\end{axis}
+%	\end{tikzpicture}
+%	\caption{ADD CAPTION}
+%	\label{fig:mofs}
+%\end{figure}
+
+\section{Literature Review}
+
+\section{Objective of Thesis}

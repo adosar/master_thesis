@@ -25,3 +25,5 @@
 13. https://datascience.stackexchange.com/questions/16807/why-mini-batch-size-is-better-than-one-single-batch-with-all-training-data
 
 14. https://work.caltech.edu/telecourse
+
+15. https://srdas.github.io/DLBook/ImprovingModelGeneralization.html
