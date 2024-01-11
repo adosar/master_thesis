@@ -97,8 +97,25 @@ screening of current and upcoming databases is considered suboptimal, given the
 size of the latter.
 
 \Gls{ml}\index{Machine learning} aka \emph{data-driven\index{Data-driven}
-techniques} come to the rescue when 
+techniques} come to the rescue when dealing with \emph{big data}\index{Big data}
+and over the last years have picked up the torch from molecular simulations
+regarding material characterization. Given an
+\emph{input-output}\index{Input}\index{Output} pair, i.e. a mathematical
+rerpresentation of a material and a corresponding property, a \gls{ml}
+algorithm\index{Machine learning algorithm}\footnote{Note that \gls{ml}
+algorithms are not limited to solve only such kind of problems, which fall under
+the umbrella of supervised learning\index{Supervised learning}. See subsection
+\ref{subsec:paradigms} for other types of problem tackled by \gls{ml}.} seeks to
+\emph{uncover the underlying structure-property relationship}. To put it in a
+nutshell, a \gls{ml} algorithm ``eats'' data\footnote{The data may come either
+from experiments, simulations or a combination of the two} and ``spits out'' a
+\emph{model}\index{Model}, which can be \emph{used to sort a large catalog of
+MOFs in just few seconds}. Obviously, for \gls{ml} approaches to be effective
+and reliable, it is necessary that the resulting models are of high quality.
 
+\begin{itemize}
+	\item Decide if figures must be added
+\end{itemize}
 
 %\begin{figure}
 %	\centering
@@ -128,6 +145,29 @@ techniques} come to the rescue when
 %	\label{fig:mofs}
 %\end{figure}
 
-\section{Literature Review}
+\section{Literature Review \textit{\&} Objective of Thesis}
 
-\section{Objective of Thesis}
+\emph{One of, if not the most important factor for the performance of \gls{ml}
+models, is the way we select to mathematically represent materials or
+molecules}. In other words, the type and amount of chemical information that is
+``injected'' into these representations commonly known as
+\emph{descriptors}\index{descriptor}, can make the difference between a
+high-performing and a baseline model. As such, it is of uttermost importance to
+employ descriptors that provide sufficient information for the properties of
+materials or molecules we are interested in to predict.
+
+With regards to gas adsorption in \glspl{mof}, one of first and most commonly
+used descriptors, are the so called \emph{geometric}\index{Geometric
+descriptors} ones, which capture the pore environment of the framework. This
+type of descriptors includes \gls{mof} characteristics such as void
+fraction\index{Void fraction}, gravimetric surface area\index{Gravimetric
+surface area} and pore limiting diameter\index{Pore limiting diameter}. Although
+\gls{ml} models build with these descriptors work particularly well at the high
+pressure regime \parencite{Fernandez2013}, their performance deteriorates when
+adsorption takes place at low pressures or the guest molecules exhibit
+non-negligible electrostatic interactions.
+
+In order to account for the performance drop of \gls{ml} models in these
+conditions, \cite{Fernandez2013},
+
+%\section{Objective of Thesis}
