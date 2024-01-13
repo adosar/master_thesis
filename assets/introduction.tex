@@ -82,39 +82,41 @@ interest?}
 As a first approach to deal with this challenge, one could, in principle
 experimentally synthesize and characterize each one of the materials listed in
 the given catalog. Although \emph{experimental synthesis and
-characterization}\index{Experimental synthesis and characterization} is the
-ultimate way to assess the performance of a material\footnote{As Richard
-Feynmann said: \emph{``The test of all knowledge is experiment. Experiment is
-the sole judge of scientific truth''}.}, the fact that a single laboratory study
-can take days or even months, renders experimental techniques impractical.  A
-more efficient approach is computational screening\index{Computational
-screening} based on \emph{molecular simulations}\index{Molecular simulations},
-which for years has served as the principal tool for the discovery of
-high-performing \glspl{mof} \parencite{chong55, chong56, chong57, chong58,
-chong59}. Although computational screening dramatically accelerates the
-assessment of a single material compared to experimental techniques, brute-force
-screening of current and upcoming databases is considered suboptimal, given the
-size of the latter.
+characterization}\index{Experimental synthesis}\index{Experimental
+characterization} is the ultimate way to assess the performance of a
+material\footnote{As Richard Feynmann said: \emph{``The test of all knowledge is
+experiment. Experiment is the sole judge of scientific truth''}.}, the fact that
+a single laboratory study can take days or even months, renders experimental
+techniques impractical.  A more efficient approach is computational
+screening\index{Computational screening} based on \emph{molecular
+simulations}\index{Molecular simulations}, which for years has served as the
+principal tool for the discovery of high-performing \glspl{mof}
+\parencite{chong55, chong56, chong57, chong58, chong59}. Although computational
+screening dramatically accelerates the assessment of a single material compared
+to experimental techniques, brute-force screening of current and upcoming
+databases is considered suboptimal, given the size of the latter.
 
 \Gls{ml}\index{Machine learning} aka \emph{data-driven\index{Data-driven}
 techniques} come to the rescue when dealing with \emph{big data}\index{Big data}
 and over the last years have picked up the torch from molecular simulations
-regarding material characterization. Given an
-\emph{input-output}\index{Input}\index{Output} pair, i.e. a mathematical
-rerpresentation of a material and a corresponding property, a \gls{ml}
+regarding material characterization. Given a collection of
+\emph{input-output}\index{Input}\index{Output} pairs, i.e. a mathematical
+representation of a material and a corresponding property, a \gls{ml}
 algorithm\index{Machine learning algorithm}\footnote{Note that \gls{ml}
 algorithms are not limited to solve only such kind of problems, which fall under
 the umbrella of supervised learning\index{Supervised learning}. See subsection
 \ref{subsec:paradigms} for other types of problem tackled by \gls{ml}.} seeks to
 \emph{uncover the underlying structure-property relationship}. To put it in a
-nutshell, a \gls{ml} algorithm ``eats'' data\footnote{The data may come either
-from experiments, simulations or a combination of the two} and ``spits out'' a
-\emph{model}\index{Model}, which can be \emph{used to sort a large catalog of
-MOFs in just few seconds}. Obviously, for \gls{ml} approaches to be effective
-and reliable, it is necessary that the resulting models are of high quality.
+nutshell, a \gls{ml} algorithm ``eats'' \emph{data}\index{Data}\footnote{The
+data may come either from experiments, simulations or a combination of the two.}
+and ``spits out'' a \emph{model}\index{Model}, which can be \emph{used to sort a
+large catalog of MOFs in just few seconds}. Obviously, for \gls{ml} approaches
+to be effective and reliable, it is necessary that the resulting models are of
+high quality.
 
 \begin{itemize}
 	\item Decide if figures must be added
+	\item Add missing citations
 \end{itemize}
 
 %\begin{figure}
@@ -145,29 +147,63 @@ and reliable, it is necessary that the resulting models are of high quality.
 %	\label{fig:mofs}
 %\end{figure}
 
-\section{Literature Review \textit{\&} Objective of Thesis}
+\section{Literature Review}
 
 \emph{One of, if not the most important factor for the performance of \gls{ml}
 models, is the way we select to mathematically represent materials or
 molecules}. In other words, the type and amount of chemical information that is
 ``injected'' into these representations commonly known as
-\emph{descriptors}\index{descriptor}, can make the difference between a
+\emph{descriptors}\index{Descriptor}, can make the difference between a
 high-performing and a baseline model. As such, it is of uttermost importance to
 employ descriptors that provide sufficient information for the properties of
 materials or molecules we are interested in to predict.
 
-With regards to gas adsorption in \glspl{mof}, one of first and most commonly
-used descriptors, are the so called \emph{geometric}\index{Geometric
-descriptors} ones, which capture the pore environment of the framework. This
-type of descriptors includes \gls{mof} characteristics such as void
-fraction\index{Void fraction}, gravimetric surface area\index{Gravimetric
-surface area} and pore limiting diameter\index{Pore limiting diameter}. Although
-\gls{ml} models build with these descriptors work particularly well at the high
-pressure regime \parencite{Fernandez2013}, their performance deteriorates when
-adsorption takes place at low pressures or the guest molecules exhibit
-non-negligible electrostatic interactions.
+With regards to gas adsorption\index{Gas adsorption} in \glspl{mof}, one of the
+first and most commonly used descriptors, are the so called
+\emph{geometric}\index{Geometric descriptors} ones, which capture the pore
+environment of the framework. This type of descriptors includes textual
+characteristics of \glspl{mof} such as void fraction\index{Void fraction},
+gravimetric surface area\index{Gravimetric surface area} and pore limiting
+diameter\index{Pore limiting diameter}. Although \gls{ml} models build with
+these descriptors work particularly well at the high pressure regime
+\parencite{Fernandez2013, Wu2020, Dureckova_2019}, their performance
+deteriorates when adsorption takes place at low pressures or the guest molecules
+exhibit non-negligible electrostatic interactions with the framework atoms. This
+performance drop should be expected, since geometric descriptors completely
+ignore the ``cornerstone'' of adsorption: \emph{host-guest
+interactions}\index{Host-guest interactions}.
 
-In order to account for the performance drop of \gls{ml} models in these
-conditions, \cite{Fernandez2013},
+In order to improve the performance of \gls{ml} models and bypass the
+limitations of geometric descriptors in the aforementioned conditions, another
+type of descriptors known as \emph{energy-based} descriptors \index{Energy-based
+descriptors} \parencite{chong127, Shi_2023, robust, Orhan2023}, has been
+introduced. This type of descriptors supply \gls{ml} algorithms with information
+regarding the energetics of adsorption, and can be used standalone or in
+combination with geometric descriptors.
 
-%\section{Objective of Thesis}
+In one of the first works to fingerprint the energetic landscape of \glspl{mof}
+\parencite{bucior}, energy histograms\index{Energy histogram} derived from the
+interactions of guest molecules with the framework atoms were used to predict
+hydrogen and methane uptake with remarkable accuracy. Prior to calculating the
+energy histograms, a three dimensional grid is overlayed on the unit cell of the
+\gls{mof}. Next, at each point of the grid, the interaction between the guest
+molecule with the framework atoms is calculated, producing a three dimensional
+energy grid\index{Energy grid}. Finally, this energy grid is converted into a
+histogram, by partitioning the energy values of the grid into bins of specific
+energy width. By using solely these histograms as descriptors---without
+including any textual property---Bucior and his coworkers trained Lasso
+regression models\index{Regression}\index{Lasso}, for predicting:
+\begin{enumerate*}[label=\roman*).]
+	\item \ch{H2} swing capacity\index{Swing capacity} between \SI{100}{\bar}
+		and \SI{2}{\bar} at \SI{77}{\kelvin}
+	\item \ch{CH4} swing capacity\index{Swing capacity} between \SI{65}{\bar}
+		and \SI{5.8}{\bar} at \SI{298}{\kelvin}
+\end{enumerate*}.
+The resulting models were extremely accurate, achieving a \gls{mae}\index{Mean
+absolute error} of \SI{2.3}{\gram\per\liter} and
+\SI{12.9}{\cubic\centi\meter\per\cubic\centi\meter} for \ch{H2} and \ch{CH4},
+respectively, tested on the hMOFs database \parencite{siegel36}.
+
+\section{Objective of Thesis}
+
+print {\bfseries\normalfont Hello world}

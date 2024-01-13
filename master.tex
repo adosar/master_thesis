@@ -45,9 +45,10 @@
 
 % Index and acronyms
 \usepackage{imakeidx}
-\makeindex[intoc]
-\usepackage[toc, acronym]{glossaries}
+\makeindex[intoc, options= -s index_style.ist]
+\usepackage[toc, nomain, acronym]{glossaries}
 \makeglossaries
+\renewcommand{\glsnamefont}[1]{\textbf{\textrm{#1}}} %Change acronym name font
 
 % Algorithms
 \usepackage[linesnumbered, lined, ruled]{algorithm2e}
@@ -107,8 +108,10 @@
 \newacronym{dac}{DAC}{direct air capture}
 \newacronym{ang}{ANG}{adsorbed natural gas}
 \newacronym{cng}{CNG}{compressed natural gas}
-\newacronym{lng}{lNG}{liquefied natural gas}
+\newacronym{lng}{LNG}{liquefied natural gas}
 \newacronym{csd}{CSD}{Cambridge Structural Database}
+\newacronym{mae}{MAE}{mean absolute error}
+\newacronym{msl}{MSL}{mean squared loss}
 
 % User-defined commands
 \newcommand{\mcl}{\mathcal}
@@ -142,6 +145,6 @@
 %\include{assets/conclusions}
 
 \printindex
-\printglossaries
+\printacronyms
 
 \end{document}
