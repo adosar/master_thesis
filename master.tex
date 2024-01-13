@@ -13,7 +13,18 @@
 \addtokomafont{title}{\scshape\rmfamily}
 \addtokomafont{section}{\rmfamily}
 \addtokomafont{subsection}{\rmfamily}
-\setkomafont{captionlabel}{\sffamily\bfseries}
+\setkomafont{captionlabel}{\color{Blue}\scshape\bfseries}
+\addtokomafont{pagehead}{\color{Blue}}
+\addtokomafont{pagefoot}{\normalfont\color{Blue}}
+\addtokomafont{pagenumber}{\color{Blue}}
+
+% Headers and footers
+\usepackage[automark, autooneside=false]{scrlayer-scrpage}
+\ihead{\leftmark}
+\ohead{\rightmark}
+\chead{}
+\ifoot{$\langle$\textsc{Mm}$\lvert$}
+\ofoot{$\rvert$\textsc{dG}$\rangle$}
 
 % Fonts
 \usepackage[T1]{fontenc}
@@ -25,10 +36,10 @@
 
 % Bibliography
 \usepackage[
-	style=authoryear,
+	citestyle=authoryear,
+	maxcitenames=1,
 	sorting=ynt,
 	sortcites,
-	maxcitenames=1,
 	url=false,
 	eprint=false,
 	isbn=false,
@@ -148,8 +159,8 @@
 \include{assets/introduction}
 \include{assets/theory}
 
-\printbibliography
-%\printindex
+%\printbibliography
+\printindex
 %\printacronyms
 
 \end{document}
