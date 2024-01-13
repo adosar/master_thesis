@@ -119,8 +119,9 @@ acs-*.bib
 *.sls
 
 # uncomment this for glossaries-extra (will ignore makeindex's style files!)
+*.ist
 # Needed for custom index style with imakeidx.
-#*.ist
+!index_style.ist
 
 # gnuplot
 *.gnuplot

@@ -24,7 +24,15 @@
 \graphicspath{{fig}}
 
 % Bibliography
-\usepackage[style=authoryear, sorting=ynt, sortcites, maxcitenames=1]{biblatex}
+\usepackage[
+	style=authoryear,
+	sorting=ynt,
+	sortcites,
+	maxcitenames=1,
+	url=false,
+	eprint=false,
+	isbn=false,
+]{biblatex}
 \addbibresource{~/Dropbox/tex/common.bib}
 
 % Units
@@ -46,7 +54,7 @@
 % Index and acronyms
 \usepackage{imakeidx}
 \makeindex[intoc, options= -s index_style.ist]
-\usepackage[toc, nomain, acronym]{glossaries}
+\usepackage[toc, nomain, nonumberlist, acronym]{glossaries}
 \makeglossaries
 \renewcommand{\glsnamefont}[1]{\textbf{\textrm{#1}}} %Change acronym name font
 
@@ -138,13 +146,10 @@
 
 %\include{assets/abstract}
 \include{assets/introduction}
-%\include{assets/literature}
 \include{assets/theory}
-%\include{assets/methodology}
-%\include{assets/results}
-%\include{assets/conclusions}
 
-\printindex
-\printacronyms
+\printbibliography
+%\printindex
+%\printacronyms
 
 \end{document}
