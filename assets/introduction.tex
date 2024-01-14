@@ -185,14 +185,14 @@ In one of the first works to fingerprint the energetic landscape of \glspl{mof}
 \parencite{bucior}, energy histograms\index{Energy histogram} derived from the
 interactions of guest molecules with the framework atoms were used to predict
 hydrogen and methane uptake with remarkable accuracy. Prior to calculating the
-energy histograms, a three dimensional grid is overlayed on the unit cell of the
-\gls{mof}. Next, at each point of the grid, the interaction between the guest
-molecule with the framework atoms is calculated, producing a three dimensional
-energy grid\index{Energy grid}. Finally, this energy grid is converted into a
-histogram, by partitioning the energy values of the grid into bins of specific
-energy width. By using solely these histograms as descriptors---without
-including any textual property---Bucior and his coworkers trained Lasso
-regression models\index{Regression}\index{Lasso}, for predicting:
+energy histograms, a 3D grid is overlayed on the unit cell of the \gls{mof}.
+Next, at each point of the grid, the interaction between the guest molecule with
+the framework atoms is calculated, producing a 3D energy grid\index{Energy
+grid}. The latter is finally converted into a histogram, by partitioning the
+energy values of the grid into bins of specific energy width. By using solely
+these histograms as descriptors---without including any textual
+property---Bucior and his coworkers trained Lasso regression
+models\index{Regression}\index{Lasso}, for predicting:
 \begin{enumerate*}[label=\roman*).]
 	\item \ch{H2} swing capacity\index{Swing capacity} between \SI{100}{\bar}
 		and \SI{2}{\bar} at \SI{77}{\kelvin}
@@ -235,7 +235,40 @@ A highlight of this work was the exceptional performance of the \gls{ml} model
 with regards to \ch{CO2} uptake at \SI{300}{\kelvin} and \SI{0.1}{\bar},
 achieving an $R^2$ score of \num{0.832}. At the same conditions, the \gls{ml}
 model trained with geometric descriptors only achieved an $R^2$ score of
-\num{0.507}.  That is, the ``injection'' of energetic information resulted in
+\num{0.507}. That is, the ``injection'' of energetic information resulted in
 \SI{60}{\percent} increase in accuracy.
 
-\section{Objective of Thesis}
+\section{Thesis Statement}
+
+In the aforedescribed works \parencite{bucior, generic}, a general pattern can
+be recognized with regards to the building of the \gls{ml} models. Starting from
+the \gls{pes} or an approximation thereof, energetic fingerprints are manually
+handcrafted based on some heuristic, and these fingerprints are then used to
+train a \gls{ml} algorithm. However, a lot of information has been lost during
+the conversion of the \gls{pes} into fingerprints, as a 3D object is converted
+into an 1D object. \emph{Since gas adsorption comes down to the \gls{pes}, it is
+reasonable to question whether one can use the \gls{pes} itself as descriptor}.
+By doing this:
+\begin{enumerate*}[label=\roman*).]
+	\item The information content that goes into a \gls{ml} algorithm is increased
+	\item The computational cost\index{Computational cost} remains the same relative
+		to the previously described works
+	\item It is no longer necessary to manually handcraft fingerprints
+\end{enumerate*}.
+
+\emph{In this work, \textbf{a generalized framework to predict gas adsorption
+properties is proposed, using the \gls{pes} as raw input}. In order to be
+machine understandable, the \gls{pes} is first voxelized---the voxelized
+\gls{pes} is essentially a 3D energy image\index{Energy image}---and then, it is
+processed by a 3D \gls{cnn}, known for their ability to process image-like data.
+The proposed scheme is schematically presented} in Figure \ref{fig:approach}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{fig/approach.pdf}
+	\caption{Proposed scheme to predict gas adsorption properties, starting from
+	the \gls{pes} as raw input. A 3D \gls{cnn} extracts its
+	features\index{Feature} from the \gls{pes}, and then uses them to predict
+	the property of interest.}
+	\label{fig:approach}
+\end{figure}

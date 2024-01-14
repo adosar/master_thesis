@@ -20,8 +20,8 @@
 
 % Headers and footers
 \usepackage[automark, autooneside=false]{scrlayer-scrpage}
-\ihead{\leftmark}
-\ohead{\rightmark}
+\ihead{\pgfornament[scale=0.3, ydelta=-0.1cm]{14}\hspace{5pt}\leftmark}
+\ohead{\rightmark\hspace{5pt}\pgfornament[scale=0.3, ydelta=-0.1cm]{11}}
 \chead{}
 \cfoot{\colorbox{Blue}\pagemark}
 \ifoot{\colorbox{Blue}{$\langle$\textsc{Mm}$\lvert$}}
@@ -68,7 +68,7 @@
 \makeindex[intoc, options= -s index_style.ist]
 \usepackage[toc, nomain, nonumberlist, acronym]{glossaries}
 \makeglossaries
-\renewcommand{\glsnamefont}[1]{\textbf{\textrm{#1}}} %Change acronym name font
+\renewcommand{\glsnamefont}[1]{\textbf{\textrm{#1}}} % Change acronym name font
 
 % Algorithms
 \usepackage[linesnumbered, lined, ruled]{algorithm2e}
@@ -87,7 +87,7 @@
 \usepackage{chemmacros}
 
 % TiKZ and PGF
-\usepackage{tikz}
+\usepackage{pgfornament} % No need to load tikz
 \usetikzlibrary{
 	arrows, arrows.meta, decorations.pathmorphing,
 	shadows, graphs, positioning, intersections
@@ -134,6 +134,7 @@
 \newacronym{msl}{MSL}{mean squared loss}
 \newacronym{rf}{RF}{Random Forest}
 \newacronym{core}{CoRE}{Computation-Ready Experimental}
+\newacronym{pes}{PES}{potential energy surface}
 
 % User-defined commands
 \newcommand{\mcl}{\mathcal}
