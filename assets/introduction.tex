@@ -107,12 +107,12 @@ algorithms are not limited to solve only such kind of problems, which fall under
 the umbrella of supervised learning\index{Supervised learning}. See subsection
 \ref{subsec:paradigms} for other types of problem tackled by \gls{ml}.} seeks to
 \emph{uncover the underlying structure-property relationship}. To put it in a
-nutshell, a \gls{ml} algorithm ``eats'' \emph{data}\index{Data}\footnote{The
-data may come either from experiments, simulations or a combination of the two.}
-and ``spits out'' a \emph{model}\index{Model}, which can be \emph{used to sort a
-large catalog of MOFs in just few seconds}. Obviously, for \gls{ml} approaches
-to be effective and reliable, it is necessary that the resulting models are of
-high quality.
+nutshell, a \gls{ml} algorithm ``eats'' \emph{data}\index{Data}---which may come
+either from experiments, simulations or a combination of the two---and ``spits
+out'' a \emph{model}\index{Model}, which can be \emph{used to sort a large
+catalog of MOFs in just few seconds}. Obviously, for \gls{ml} approaches to be
+effective and reliable, it is necessary that the resulting models are of high
+quality.
 
 \begin{itemize}
 	\item Decide if figures must be added
@@ -156,7 +156,7 @@ molecules}. In other words, the type and amount of chemical information that is
 \emph{descriptors}\index{Descriptor}, can make the difference between a
 high-performing and a baseline model. As such, it is of uttermost importance to
 employ descriptors that provide sufficient information for the properties of
-materials or molecules we are interested in to predict.
+materials\index{Material} or molecules\index{Molecule} we are interested in to predict.
 
 With regards to gas adsorption\index{Gas adsorption} in \glspl{mof}, one of the
 first and most commonly used descriptors, are the so called
@@ -202,13 +202,40 @@ regression models\index{Regression}\index{Lasso}, for predicting:
 The resulting models were extremely accurate, achieving a \gls{mae}\index{Mean
 absolute error} of \SI{2.3}{\gram\per\liter} and
 \SI{12.9}{\cubic\centi\meter\per\cubic\centi\meter} for \ch{H2} and \ch{CH4},
-respectively, tested on the hMOFs database \parencite{siegel36}.
+respectively, tested on the hMOFs\index{hMOFs database} database
+\parencite{siegel36}.
+
+In another work \parencite{generic}, a set of descriptors based on the average
+interaction between fictitious probe particles\index{Probe particles} and the
+framework atoms was introduced. Two different types of probe particles were
+proposed:
+\begin{enumerate*}[label=\roman*).]
+	\item Vprobe particles, which account for the van der Waals
+		interactions\index{Van der Waals interactions}
+	\item Dprobe particles, which are neutrally charged electric dipoles and
+		account for the electrostatic interactions
+\end{enumerate*}.
+Each of these fictitious probe particles is randomly inserted at different
+positions of the unit cell, and the interaction energy between the probe and the
+framework atoms is calculated. The interaction energies at the different
+positions are averaged out, producing an energetic fingerprint\index{Energetic
+fingerprint} of the material. These fingerprints in combination with six
+geometric descriptors formed the input for the \gls{rf}\index{Random forest}
+algorithm, which was trained to predict gas uptake\index{Gas uptake} for a
+plethora of guest molecules\index{Guest molecule} and thermodynamic
+conditions\index{Thermodynamic conditions}, on the \gls{core}\index{CoRE MOF
+database} \gls{mof} database \parencite{chong47}. The \gls{ml} models showed
+impressive performance, showing an $R^2$ value of:
+\begin{enumerate*}[label=\roman*).]
+	\item \num{0.874} for \ch{H2} uptake at \SI{77}{\kelvin} and \SI{2}{\bar}
+	\item \num{0.889} for \ch{CH4} uptake at \SI{298}{\kelvin} and
+		\SI{5.8}{\bar}
+\end{enumerate*}.
+A highlight of this work was the exceptional performance of the \gls{ml} model
+with regards to \ch{CO2} uptake at \SI{300}{\kelvin} and \SI{0.1}{\bar},
+achieving an $R^2$ score of \num{0.832}. At the same conditions, the \gls{ml}
+model trained with geometric descriptors only achieved an $R^2$ score of
+\num{0.507}.  That is, the ``injection'' of energetic information resulted in
+\SI{60}{\percent} increase in accuracy.
 
 \section{Objective of Thesis}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.2\textwidth]{fig/uoclogo.pdf}
-	\caption{Logo of university!}
-\end{figure}
-

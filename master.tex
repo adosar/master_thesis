@@ -15,16 +15,17 @@
 \addtokomafont{subsection}{\rmfamily}
 \setkomafont{captionlabel}{\color{Blue}\scshape\bfseries}
 \addtokomafont{pagehead}{\color{Blue}}
-\addtokomafont{pagefoot}{\normalfont\color{Blue}}
-\addtokomafont{pagenumber}{\color{Blue}}
+\addtokomafont{pagenumber}{\color{white}}
+\addtokomafont{pagefoot}{\normalfont\color{white}}
 
 % Headers and footers
 \usepackage[automark, autooneside=false]{scrlayer-scrpage}
 \ihead{\leftmark}
 \ohead{\rightmark}
 \chead{}
-\ifoot{$\langle$\textsc{Mm}$\lvert$}
-\ofoot{$\rvert$\textsc{dG}$\rangle$}
+\cfoot{\colorbox{Blue}\pagemark}
+\ifoot{\colorbox{Blue}{$\langle$\textsc{Mm}$\lvert$}}
+\ofoot{\colorbox{Blue}{$\rvert$\textsc{dG}$\rangle$}}
 
 % Fonts
 \usepackage[T1]{fontenc}
@@ -131,6 +132,8 @@
 \newacronym{csd}{CSD}{Cambridge Structural Database}
 \newacronym{mae}{MAE}{mean absolute error}
 \newacronym{msl}{MSL}{mean squared loss}
+\newacronym{rf}{RF}{Random Forest}
+\newacronym{core}{CoRE}{Computation-Ready Experimental}
 
 % User-defined commands
 \newcommand{\mcl}{\mathcal}
