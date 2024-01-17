@@ -104,7 +104,7 @@ regarding material characterization. Given a collection of
 representation of a material and a corresponding property, a \gls{ml}
 algorithm\index{Machine learning algorithm}\footnote{Note that \gls{ml}
 algorithms are not limited to solve only such kind of problems, which fall under
-the umbrella of supervised learning\index{Supervised learning}. See subsection
+the umbrella of supervised learning\index{Supervised learning}. See Section
 \ref{subsec:paradigms} for other types of problem tackled by \gls{ml}.} seeks to
 \emph{uncover the underlying structure-property relationship}. To put it in a
 nutshell, a \gls{ml} algorithm ``eats'' \emph{data}\index{Data}---which may come
@@ -167,11 +167,11 @@ gravimetric surface area\index{Gravimetric surface area} and pore limiting
 diameter\index{Pore limiting diameter}. Although \gls{ml} models build with
 these descriptors work particularly well at the high pressure regime
 \parencite{Fernandez2013, Wu2020, Dureckova_2019}, their performance
-deteriorates when adsorption takes place at low pressures or the guest molecules
-exhibit non-negligible electrostatic interactions with the framework atoms. This
-performance drop should be expected, since geometric descriptors completely
-ignore the ``cornerstone'' of adsorption: \emph{host-guest
-interactions}\index{Host-guest interactions}.
+deteriorates when adsorption takes place at low pressures\index{Pressure} or the
+guest molecules exhibit non-negligible electrostatic interactions with the
+framework atoms. This performance drop should be expected, since geometric
+descriptors completely ignore the ``cornerstone'' of adsorption:
+\emph{host-guest interactions}\index{Host-guest interactions}.
 
 In order to improve the performance of \gls{ml} models and bypass the
 limitations of geometric descriptors in the aforementioned conditions, another
@@ -256,7 +256,7 @@ By doing this:
 	\item It is no longer necessary to manually handcraft fingerprints
 \end{enumerate*}.
 
-\emph{In this work, \textbf{a generalized framework to predict gas adsorption
+\emph{In this thesis, \textbf{a generalized framework to predict gas adsorption
 properties is proposed, using the \gls{pes} as raw input}. In order to be
 machine understandable, the \gls{pes} is first voxelized---the voxelized
 \gls{pes} is essentially a 3D energy image\index{Energy image}---and then, it is
@@ -269,6 +269,6 @@ The proposed scheme is schematically presented} in Figure \ref{fig:approach}.
 	\caption{Proposed scheme to predict gas adsorption properties, starting from
 	the \gls{pes} as raw input. A 3D \gls{cnn} extracts its
 	features\index{Feature} from the \gls{pes}, and then uses them to predict
-	the property of interest.}
+	the adsorption property of interest.}
 	\label{fig:approach}
 \end{figure}

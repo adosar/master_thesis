@@ -1,16 +1,38 @@
 \documentclass[chapterprefix=true]{scrreport}
 
 % Information
-\author{Antonios P. Sarikas}
-\title{\scshape Master Thesis}
-\publishers{Publisher}
-%\titlehead{Head}
+\author{
+	Antonios P. Sarikas
+	\\
+	\pgfornament[scale=0.3, ydelta=-0.1cm]{152}%
+	{\footnotesize\url{chemp1160@edu.chemistry.uoc.gr}}
+	\pgfornament[scale=0.3, ydelta=-0.1cm]{153}%
+}
+
+\title{
+	From Potential Energy Surface \\ to
+	\\
+	Gas Adsorption \\ via
+	\\
+	Deep Learning
+}
+
+\publishers{
+	\scshape\bfseries
+	Materials modelinG
+	\\
+	\textit{\&}
+	\\
+	Design grouP
+}
+
+\titlehead{\rule{\textwidth}{2pt}}
 
 % Koma Script
 \addtokomafont{chapter}{\color{Blue}}
 \addtokomafont{chapterentry}{\rmfamily}
 \addtokomafont{chapter}{\rmfamily}
-\addtokomafont{title}{\scshape\rmfamily}
+\addtokomafont{title}{\color{Blue}\scshape\rmfamily}
 \addtokomafont{section}{\rmfamily}
 \addtokomafont{subsection}{\rmfamily}
 \setkomafont{captionlabel}{\color{Blue}\scshape\bfseries}
@@ -133,6 +155,10 @@
 \newacronym{rf}{RF}{Random Forest}
 \newacronym{core}{CoRE}{Computation-Ready Experimental}
 \newacronym{pes}{PES}{potential energy surface}
+\newacronym{uo}{UO}{University of Ottawa}
+\newacronym{gcmc}{GCMC}{Grand Canonical Monte Carlo}
+\newacronym{lj}{LJ}{Lennard-Jones}
+\newacronym{ci}{CI}{confidence interval}
 
 % User-defined commands
 \newcommand{\mcl}{\mathcal}
@@ -148,21 +174,29 @@
 \newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\ltrain}{\mcl{L}_\text{train}}
 \newcommand{\ltest}{\mcl{L}_\text{test}}
+\newcommand{\conv}[1]{Conv\num{#1}}
+\newcommand{\pool}[1]{MaxPool\num{#1}}
 
-\includeonly{assets/introduction}
+\includeonly{
+	assets/theory,
+	%assets/methodology,
+	%assets/results,
+}
 
 \begin{document}
 
-%\maketitle
+\maketitle
 %\tableofcontents
 
 
 %\include{assets/abstract}
-\include{assets/introduction}
-\include{assets/theory}
+%\include{assets/introduction}
+%\include{assets/theory}
+%\include{assets/methodology}
+%\include{assets/results}
 
 %\printbibliography
-\printindex
+%\printindex
 %\printacronyms
 
 \end{document}
