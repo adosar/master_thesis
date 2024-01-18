@@ -74,10 +74,10 @@ such, the chances to find the right material for a given problem. Curse, since
 the enormous size of \glspl{mof} space makes it harder for researchers to
 efficiently explore it, complicating the tracing of materials with the desired
 properties. It is therefore crucial to find a way that allows us to efficiently
-explore such a huge material space. Another way to rephrase our problem is the
-following: \emph{\bfseries Given a large catalog of \glspl{mof}, is there a way
-to efficiently filter out the most promising ones for the application of
-interest?}
+explore such a huge material space (see Figure \ref{fig:mofs_space}. Another way
+to rephrase our problem is the following: \emph{\bfseries Given a large catalog
+of \glspl{mof}, is there a way to efficiently filter out the most promising ones
+for the application of interest?}
 
 As a first approach to deal with this challenge, one could, in principle
 experimentally synthesize and characterize each one of the materials listed in
@@ -114,38 +114,38 @@ catalog of MOFs in just few seconds}. Obviously, for \gls{ml} approaches to be
 effective and reliable, it is necessary that the resulting models are of high
 quality.
 
-\begin{itemize}
-	\item Decide if figures must be added
-	\item Add missing citations
-\end{itemize}
-
-%\begin{figure}
-%	\centering
-%	\begin{tikzpicture}
-%		\begin{axis}[
-%				axis background/.style={fill=blue!10},
-%				axis lines=box, width=0.5\textwidth,
-%				title=Material space,
-%				xlabel=$\leftarrow$ Metal cluster $\rightarrow$,
-%				ylabel=$\leftarrow$ Organic linker $\rightarrow$,
-%				xlabel near ticks, ylabel near ticks,
-%				domain=-4:4, view={0}{90}, colormap/viridis, ticks=none,
-%			]
-%			\addplot3 [contour filled={number=20}]
-%				{pow(x^2 + y - 11, 2) + pow(x + y^2 - 7, 2)};
-%			\addplot[
-%				only marks,
-%				mark options={fill=white, mark=pentagon*, scale=1.5pt,}
-%			] coordinates {
-%				(-3.5, 3.5) (-3.5, -3)
-%				(-3, 3) (-2.2, 3)
-%				(2.5, 2) (3, -2) (3.5, 0)
-%			};
-%		\end{axis}
-%	\end{tikzpicture}
-%	\caption{ADD CAPTION}
-%	\label{fig:mofs}
-%\end{figure}
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+				axis background/.style={fill=blue!10},
+				axis lines=box, width=0.5\textwidth,
+				title=Material space,
+				xlabel=$\leftarrow$ Metal cluster $\rightarrow$,
+				ylabel=$\leftarrow$ Organic linker $\rightarrow$,
+				xlabel near ticks, ylabel near ticks,
+				domain=-4:4, view={0}{90}, colormap/viridis, ticks=none,
+			]
+			\addplot3 [contour filled={number=20}]
+				{pow(x^2 + y - 11, 2) + pow(x + y^2 - 7, 2)};
+			\addplot[
+				only marks,
+				mark options={fill=white, mark=pentagon*, scale=1.5pt,}
+			] coordinates {
+				(-3.5, 3.5) (-3.5, -3)
+				(-3, 3) (-2.2, 3)
+				(2.5, 2) (3, -2) (3.5, 0)
+			};
+		\end{axis}
+	\end{tikzpicture}
+	\caption[Material space of \acrshortpl{mof}.]{Material space\index{Material
+	space} of \glspl{mof}. Each point in this space corresponds to a unique
+	combination of organic linker and metal cluster, whereas the associated
+	color denotes the ``score'' of material for a given application. Finding the
+	best material (the pentagons) for a given application, amounts to sovling a
+	(probably) non-convex optimization problem.}
+	\label{fig:mofs_space}
+\end{figure}
 
 \section{Literature Review}
 
@@ -191,7 +191,7 @@ the framework atoms is calculated, producing a 3D energy grid\index{Energy
 grid}. The latter is finally converted into a histogram, by partitioning the
 energy values of the grid into bins of specific energy width. By using solely
 these histograms as descriptors---without including any textual
-property---Bucior and his coworkers trained Lasso regression
+property---\textcite{bucior} trained Lasso regression
 models\index{Regression}\index{Lasso}, for predicting:
 \begin{enumerate*}[label=\roman*).]
 	\item \ch{H2} swing capacity\index{Swing capacity} between \SI{100}{\bar}
@@ -266,9 +266,11 @@ The proposed scheme is schematically presented} in Figure \ref{fig:approach}.
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{fig/approach.pdf}
-	\caption{Proposed scheme to predict gas adsorption properties, starting from
-	the \gls{pes} as raw input. A 3D \gls{cnn} extracts its
+	\caption[Generalized framework to predict gas adsorption
+	properties.]{Proposed scheme to predict gas adsorption properties, starting
+	from the \gls{pes} as raw input. A 3D \gls{cnn} extracts its
 	features\index{Feature} from the \gls{pes}, and then uses them to predict
-	the adsorption property of interest.}
+	the adsorption property of interest. The IRMOF-1 structure and PES were
+	visualized with the iRASPA software \parencite{Dubbeldam2018}.}
 	\label{fig:approach}
 \end{figure}

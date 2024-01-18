@@ -1,4 +1,4 @@
-\documentclass[chapterprefix=true]{scrreport}
+\documentclass[listof=totoc, chapterprefix=true]{scrreport}
 
 % Author information
 \author{
@@ -173,6 +173,7 @@
 \newacronym{ml}{ML}{machine learning}
 \newacronym{dl}{DL}{deep learning}
 \newacronym{nn}{NN}{neural network}
+\newacronym{fcnn}{FCNN}{fully connected neural network}
 \newacronym{mlp}{MLP}{multilayer perceptron}
 \newacronym{cnn}{CNN}{convolutional neural network}
 \newacronym{ilsvrc}{ILSVRC}{Large Scale Visual Recognition Challenge}
@@ -213,25 +214,27 @@
 \newcommand{\pool}[1]{MaxPool\num{#1}}
 
 \includeonly{
-	assets/theory,
-	%assets/methodology,
-	%assets/results,
+	%assets/theory,
+	assets/introduction,
+	assets/methodology,
+	assets/results,
 }
 
 \begin{document}
 
-\maketitle
-%\tableofcontents
+%\maketitle
+\tableofcontents
+\listoffigures
 
 
 %\include{assets/abstract}
-%\include{assets/introduction}
+\include{assets/introduction}
 %\include{assets/theory}
-%\include{assets/methodology}
-%\include{assets/results}
+\include{assets/methodology}
+\include{assets/results}
 
 %\printbibliography
-%\printindex
-%\printacronyms
+\printindex
+\printacronyms
 
 \end{document}
