@@ -35,9 +35,9 @@ the twelve feature maps of \conv{1} layer. In contrast, the feature maps of the
 \pool{1} layer, are just downsampled versions of the corresponding feature maps
 in \conv{2} layer. Although feature maps of \glspl{cnn} are not meant to be
 interpreted by humans---especially the ones found deeper in the network---it is
-worth noticing that early Conv layers (i.e. \conv{1} and \conv{2}) emphasize the
-texture of the structure. For instance, the third feature map of \conv{1} layer
-delineates the skeleton of the framework.
+worth noticing that early Conv layers\index{Conv layer} (i.e. \conv{1} and
+\conv{2}) emphasize the texture of the structure. For instance, the third
+feature map of \conv{1} layer delineates the skeleton of the framework.
 
 Moving towards the output layer, the alternation of MaxPool and Conv layers
 continues until the Flatten layer\index{Flatten layer}, which just flattens out
@@ -64,12 +64,6 @@ layer\index{Linear layer}, all that RetNet does is the following:
 	}_\text{output}
 \end{equation}
 
-Equation \ref{eq:retnet} says that RetNet, \emph{starting from the PES, it
-extracts a fingerprint\index{Energetic fingerprint}---that is, a high level
-representation\index{High level representation} of the \gls{pes}---and then
-predicts the gas uptake by using a linear model on top of this fingerprint}. All
-intermediate layers between Input\index{Input layer} and Output layer
-
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{fig/forward_pass.pdf}
@@ -82,6 +76,25 @@ intermediate layers between Input\index{Input layer} and Output layer
 	with the iRASPA software \parencite{Dubbeldam2018}.}
 	\label{fig:retnet}
 \end{figure}
+
+Equation \ref{eq:retnet} says that RetNet, \emph{starting from the PES,
+extracts a fingerprint\index{Energetic fingerprint}---that is, a high level
+representation\index{High level representation} of the \gls{pes}---and then
+predicts the gas uptake by using a linear model on top of this fingerprint}. All
+intermediate layers between Input\index{Input layer} and Output layer
+participate in this feature extraction step, with the Dense\num{2} layer
+determining the size of the fingerprint, which is a vector of size \num{20},
+i.e. $\phi(\vcx) \in \mathbb{R}^{20}$ (see Figure \ref{fig:fingerprints}). The
+fact that \emph{this fingerprint extraction\index{Fingerprint extraction} step
+is learnable}---the parameters $\vcth$ of $\phi$ are learned during the training
+phase\index{Training phase}---\emph{is what fundamentally distinguishes the
+proposed approach from methods that use hand-crafted
+fingerprints\index{Hand-crafted fingerprints}} (see Section
+\ref{sec:literature}). \emph{In these methods the fingerprint or
+extraction\index{Feature extraction} step is fixed}, and based on some
+heuristic, such as energy histograms \parencite{bucior} or average interactions
+\parencite{generic}. \emph{Hereon, feature extraction from the \gls{pes} is no
+longer fixed, but is an essential part of the training phase}.
 
 \begin{figure}
 	\centering
