@@ -75,7 +75,7 @@ description of the different paradigms.
 	p(\vcx)$ is the input\index{Input} of the $i$-th training
 	instance\index{Training instance}. In this paradigm we are interested in
 	learning useful properties of the underlying structure captured by
-	$p(\vcx)$.
+	$p(\vcx)$ or $p(\vcx)$ itself.
 \end{definition}
 
 For example, suppose we are interested in generating images that look like
@@ -85,8 +85,9 @@ $p(\vcx)$, so all we have to do is to train an unsupervised learning algorithm
 with many Picasso paintings to get a \emph{model}, that is $\hat{p}(\vcx)$.
 Assuming the estimation of the original distribution is good enough, new
 realistically looking paintings (with respect to original Picasso paintings) can
-be ``drawn'' by just sampling from $\hat{p}(\vcx)$. In the ML parlance, inputs
-are also called \emph{features, predictors or
+be ``drawn'' by just sampling from $\hat{p}(\vcx)$. In the ML parlance, this
+task is known as \emph{generative modeling}\index{Generative modeling} while
+inputs are also called \emph{features, predictors or
 descriptors}\index{Feature}\index{Descriptor}\index{Predictor}.
 
 \begin{definition}[name=Supervised learning]
@@ -340,7 +341,7 @@ loss as function of model parameters and optimize them with gradient descent.}
 involves the following steps:
 
 \begin{algorithm}[H]
-	Random initialization of $\vcth$\;
+	$\vcth \gets$ random initialization\;
 	\While{stopping criterion not met}{
 		$\vcth \gets \vcth - \eta \nabla_{\vcth}\ltrain(\vcth)$\; 
 	}
@@ -361,17 +362,18 @@ becomes clear if we look at the differential of $f(\vcx)$ in direction $\vc{u}$:
 Equation \ref{eq:differential} says that this differential is
 minimized\footnote{The right hand side of Equation \ref{eq:differential} is a
 dot product.} when $\delta \vc{u}$ is anti-parallel to $\nabla f(\vcx)$ and that
-is why we subtract the gradient in Algorithm \ref{algo:gd}. The fact that
-Equation \ref{eq:differential} holds only locally (magnitude of $\delta \vc{u}$
-must be small) explains why $\eta$ must be a small number. It should be added
-that gradient descent can be trapped to (potential) local minima of the training
-loss and therefore fail to solve Equation \ref{eq:problem}. As it will be
-discussed later, this is not a problem, because \emph{the ultimate purpose is to
-find a hypothesis that generalizes well, not necessarily the one that minimizes
-the training loss}\footnote{Remember we use the training loss (see Equation
+is why we subtract the gradient in Algorithm \ref{algo:gd}, i.e. move in
+direction anti-parallel to the gradient. The fact that Equation
+\ref{eq:differential} holds only locally (magnitude of $\delta \vc{u}$ must be
+small) explains why $\eta$ must be a small number. It should be added that
+gradient descent can be trapped to (potential) local minima of the training loss
+and therefore fail to solve Equation \ref{eq:problem}. As it will be discussed
+later, this is not a problem, because \emph{the ultimate purpose is to find a
+hypothesis that generalizes well, not necessarily the one that minimizes the
+training loss}\footnote{Remember we use the training loss (see Equation
 \ref{eq:training_loss}) as a proxy for the generalization loss (see Equation
 \ref{eq:generalization_loss}).}. Optimizers are discussed in further detail in
-the next section.
+the section \ref{subsec:nn_training}.
 
 Before moving on, it is worth to add that both the regularization and the
 optimizer can effect the ``true'' or \emph{\textbf{effective
@@ -388,6 +390,8 @@ shortened version of the original hypothesis space. In the rest of this chapter,
 by the term \emph{complexity\index{Complexity} or capacity\index{Capacity} of a
 learner, we mean its effective capacity, which is affected by all its three
 components}.
+
+\subsection{Complexity, experience and performance}
 
 %\begin{figure}
 %	\centering
@@ -485,140 +489,139 @@ components}.
 %	This is mhy proof.
 %\end{proof}
 %
-%\section{Deep Learning}
-%
-%\section{Training Neural Networks}
-%
-%\begin{algorithm}[H]
-%	\KwIn{
-%		$\dtrain$, loss function $\ell$,
-%		model parameters $\vcth$, learning rate
-%		$\eta$, batch size $\lvert\mcl{B}\rvert$
-%	}
-%	\KwOut{Estimated parameters $\hvcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\mcl{B} \gets$ sample $\lvert\mcl{B}\rvert$ datapoints from $\dtrain$\;
-%		$\gloss \gets \frac{1}{\lvert\mcl{B}\rvert} \sum_{i \in \mcl{B}}
-%		\nabla_{\vcth}\ell_i(\vcth)$\;
-%		$\vcth \gets \vcth - \eta\gloss$\;
-%	}
-%	$\hvcth \gets \vcth$\;
-%	\Return{$\hvcth$}
-%	\caption{Batch\index{Batch gradient descent}, mini-batch\index{Mini-batch
-%	gradient descent} and stochastic gradient descent\index{Stochastic gradient
-%	descent} algorithms}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$}
-%	\KwOut{Estimated parameters $\hvcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\vc{m} \gets \beta\vc{m} - \gloss$\;
-%		$\vcth \gets \vcth + \vc{m}$\;
-%	}
-%	$\hvcth \gets \vcth$\;
-%	\Return{$\hvcth$}
-%	\caption{Momentum\index{Momentum} algorithm, citation}
-%	\label{algo:momentum}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$}
-%	\KwOut{Estimated parameters $\hvcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\vc{m} \gets \beta\vc{m} -
-%		\eta\nabla_{\vcth}\loss(\vcth + \beta\vc{m})$\;
-%		$\vcth \gets \vcth + \vc{m}$\;
-%	}
-%	$\hvcth \gets \vcth$\;
-%	\Return{$\hvcth$}
-%	\caption{Nesterov momentum\index{Nesterov momentum} algorithm, citation}
-%	\label{algo:nesterov}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{
-%		Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$,
-%		smoothing term $\epsilon$
-%	}
-%	\KwOut{Estimated parameters $\hvcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\vc{s} \gets \vc{s} + \gloss \odot \gloss$\;
-%		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
-%	}
-%	$\hvcth \gets \vcth$\;
-%	\Return{$\hvcth$}
-%	\caption{AdaGrad\index{AdaGrad} algorithm, citation}
-%	\label{algo:adagrad}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{
-%		Model parameters $\vcth$, decay rate $\beta$, learning rate $\eta$,
-%		smoothing term $\epsilon$
-%	}
-%	\KwOut{Estimated parameters $\hvcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\vc{s} \gets \vc{s} + (1 - \beta) \gloss \odot \gloss$\;
-%		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
-%	}
-%	$\hvcth \gets \vcth$\;
-%	\Return{$\hvcth$}
-%	\caption{RMSProp\index{RMSProp} algorithm, citation}
-%	\label{algo:rmsprop}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{
-%		Model parameters $\vcth$,
-%		learning rate $\eta$, smoothing term $\epsilon$,
-%		momentum decay $\beta_1$, scaling decay $\beta_2$
-%	}
-%	\KwOut{Estimated parameters $\hvcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\vc{m} \gets \beta_1\vc{m} - (1 - \beta_1) \gloss$\;
-%		$\vc{s} \gets \beta_2\vc{s} + (1 - \beta_2) \gloss \odot \gloss$\;
-%		$\vc{\widehat{m}} \gets \frac{\vc{m}}{1 - \beta_1^t}$\;
-%		$\vc{\widehat{s}} \gets \frac{\vc{s}}{1 - \beta_2^t}$\;
-%		$\vcth \gets \vcth + \eta\widehat{\vc{m}}
-%		\oslash \sqrt{\vc{\widehat{s}} + \epsilon}$\;
-%	}
-%	$\hvcth \gets \vcth$\;
-%	\Return{$\hvcth$}
-%	\caption{Adam\index{Adam} algorithm, citation}
-%	\label{algo:adam}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{Computational graph $\mcl{G}$ where nodes $u_i$ follow a topological
-%	ordering\footnote{Any ordering such that parents come before children.}}
-%	\KwOut{Derivatives $\bar{u}_i$}
-%	\BlankLine
-%	\tcc{Forward pass}
-%	\For{$i=1$ \KwTo $N$}{
-%		Compute $u_i$ as a function of $\text{Pa}_\mcl{G}(u_i)$\;
-%	}
-%	$u_N = 1$\;
-%	\tcc{Backward pass}
-%	\For{$i=N-1$ \KwTo $1$}{
-%		$\bar{u}_i =
-%		\sum_{j \in \text{Ch}_\mcl{G}(u_i)} \bar{u}_j \pd{u_j}{u_i}$\;
-%	}
-%	\caption{Backpropagation\index{Backpropagation} algorithm, citation}
-%	\label{algo:backpropagation}
-%\end{algorithm}
+\section{Fundamentals of Deep Learning}
+
+\subsection{Convolutional neural networks}
+
+\subsection{Regularizing neural networks}
+
+\subsection{Training neural networks}
+\label{subsec:nn_training}
+
+\begin{algorithm}[H]
+	\KwIn{
+		$\dtrain$, loss function $\ell$,
+		model parameters $\vcth$, learning rate
+		$\eta$, batch size $\lvert\mcl{B}\rvert$
+	}
+	%\KwOut{Optimized parameters $\vcth$}
+	\BlankLine
+	$\vcth \gets$ random initialization\;
+	\While{stopping criterion not met}{
+		$\mcl{B} \gets$ sample $\lvert\mcl{B}\rvert$ datapoints from $\dtrain$\;
+		$\gloss \gets \frac{1}{\lvert\mcl{B}\rvert} \sum_{i \in \mcl{B}}
+		\nabla_{\vcth}\ell_i(\vcth)$\;
+		$\vcth \gets \vcth - \eta\gloss$\;
+	}
+	\Return{optimized parameters $\vcth$}
+	\caption{Batch\index{Batch gradient descent}, mini-batch\index{Mini-batch
+	gradient descent} and stochastic gradient descent\index{Stochastic gradient
+	descent} algorithms}
+\end{algorithm}
+
+\begin{algorithm}[H]
+	\KwIn{Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$}
+	%\KwOut{Optimized parameters $\vcth$}
+	\BlankLine
+	$\vcth \gets$ random initialization\;
+	\While{stopping criterion not met}{
+		$\vc{m} \gets \beta\vc{m} - \gloss$\;
+		$\vcth \gets \vcth + \vc{m}$\;
+	}
+	\Return{optimized parameters $\vcth$}
+	\caption{Momentum\index{Momentum} algorithm, citation}
+	\label{algo:momentum}
+\end{algorithm}
+
+\begin{algorithm}[H]
+	\KwIn{Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$}
+	%\KwOut{Optimized parameters $\vcth$}
+	\BlankLine
+	$\vcth \gets$ random initialization\;
+	\While{stopping criterion not met}{
+		$\vc{m} \gets \beta\vc{m} -
+		\eta\nabla_{\vcth}\loss(\vcth + \beta\vc{m})$\;
+		$\vcth \gets \vcth + \vc{m}$\;
+	}
+	\Return{optimized parameters $\vcth$}
+	\caption{Nesterov momentum\index{Nesterov momentum} algorithm, citation}
+	\label{algo:nesterov}
+\end{algorithm}
+
+\begin{algorithm}[H]
+	\KwIn{
+		Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$,
+		smoothing term $\epsilon$
+	}
+	%\KwOut{Optimized parameters $\vcth$}
+	\BlankLine
+	$\vcth \gets$ random initialization\;
+	\While{stopping criterion not met}{
+		$\vc{s} \gets \vc{s} + \gloss \odot \gloss$\;
+		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
+	}
+	\Return{optimized parameters $\vcth$}
+	\caption{AdaGrad\index{AdaGrad} algorithm, citation}
+	\label{algo:adagrad}
+\end{algorithm}
+
+\begin{algorithm}[H]
+	\KwIn{
+		Model parameters $\vcth$, decay rate $\beta$, learning rate $\eta$,
+		smoothing term $\epsilon$
+	}
+	%\KwOut{Optimized parameters $\vcth$}
+	\BlankLine
+	$\vcth \gets$ random initialization\;
+	\While{stopping criterion not met}{
+		$\vc{s} \gets \vc{s} + (1 - \beta) \gloss \odot \gloss$\;
+		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
+	}
+	\Return{optimized parameters $\vcth$}
+	\caption{RMSProp\index{RMSProp} algorithm, citation}
+	\label{algo:rmsprop}
+\end{algorithm}
+
+\begin{algorithm}[H]
+	\KwIn{
+		Model parameters $\vcth$,
+		learning rate $\eta$, smoothing term $\epsilon$,
+		momentum decay $\beta_1$, scaling decay $\beta_2$
+	}
+	%\KwOut{Optimized parameters $\vcth$}
+	\BlankLine
+	$\vcth \gets$ random initialization\;
+	\While{stopping criterion not met}{
+		$\vc{m} \gets \beta_1\vc{m} - (1 - \beta_1) \gloss$\;
+		$\vc{s} \gets \beta_2\vc{s} + (1 - \beta_2) \gloss \odot \gloss$\;
+		$\vc{\widehat{m}} \gets \frac{\vc{m}}{1 - \beta_1^t}$\;
+		$\vc{\widehat{s}} \gets \frac{\vc{s}}{1 - \beta_2^t}$\;
+		$\vcth \gets \vcth + \eta\widehat{\vc{m}}
+		\oslash \sqrt{\vc{\widehat{s}} + \epsilon}$\;
+	}
+	\Return{optimized parameters $\vcth$}
+	\caption{Adam\index{Adam} algorithm, citation}
+	\label{algo:adam}
+\end{algorithm}
+
+\begin{algorithm}[H]
+	\KwIn{Computational graph $\mcl{G}$ where nodes $u_i$ follow a topological
+	ordering\footnote{Any ordering such that parents come before children.}}
+	\KwOut{Derivatives $\bar{u}_i$}
+	\BlankLine
+	\tcc{Forward pass}
+	\For{$i=1$ \KwTo $N$}{
+		Compute $u_i$ as a function of $\text{Pa}_\mcl{G}(u_i)$\;
+	}
+	$u_N = 1$\;
+	\tcc{Backward pass}
+	\For{$i=N-1$ \KwTo $1$}{
+		$\bar{u}_i =
+		\sum_{j \in \text{Ch}_\mcl{G}(u_i)} \bar{u}_j \pd{u_j}{u_i}$\;
+	}
+	\caption{Backpropagation\index{Backpropagation} algorithm, citation}
+	\label{algo:backpropagation}
+\end{algorithm}
 %
 %\begin{figure}
 %	\centering

@@ -214,8 +214,8 @@
 \newcommand{\pool}[1]{MaxPool\num{#1}}
 
 \includeonly{
-	%assets/theory,
 	assets/introduction,
+	assets/theory,
 	assets/methodology,
 	assets/results,
 }
@@ -225,16 +225,20 @@
 %\maketitle
 \tableofcontents
 \listoffigures
+\listofalgorithms
+% Add list of algorithms to contents page
+\addcontentsline{toc}{chapter}{List of Algorithms}
+
 
 
 %\include{assets/abstract}
-%\include{assets/introduction}
-%\include{assets/theory}
-%\include{assets/methodology}
+\include{assets/introduction}
+\include{assets/theory}
+\include{assets/methodology}
 \include{assets/results}
 
 %\printbibliography
-\printindex
-\printacronyms
+%\printindex
+%\printacronyms
 
 \end{document}

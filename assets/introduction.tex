@@ -62,11 +62,11 @@ Tong2018}.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\textwidth]{fig/irmof-1.png}
-	\caption[Unit cell structure of IRMOF-1.]{Unit cell structure of MOF-5 or
-	IRMOF-1, one of the highest surface area\index{Surface area} to volume ratio
-	among \glspl{mof}, at \SI{2200}{\square\meter\cubic\centi\meter} and the
-	first \gls{mof} studied for hydrogen storage\index{Hydrogen storage.}
-	\parencite{Rosi2003}.}
+	\caption[Unit cell\index{Unit cell} structure of IRMOF-1.]{Unit cell
+	structure of MOF-5\index{MOF-5} or IRMOF-1\index{IRMOF-1}, one of the
+	highest surface area\index{Surface area} to volume ratio among \glspl{mof},
+	at \SI{2200}{\square\meter\cubic\centi\meter} and the first \gls{mof}
+	studied for hydrogen storage\index{Hydrogen storage.} \parencite{Rosi2003}.}
 	\label{fig:irmof-1}
 \end{figure}
 
@@ -153,7 +153,7 @@ quality.
 	space} of \glspl{mof}. Each point in this space corresponds to a unique
 	combination of organic linker and metal cluster, whereas the associated
 	color denotes the ``score'' of material for a given application. Finding the
-	best material (the pentagons) for a given application, amounts to sovling a
+	best material (the pentagons) for a given application, amounts to solving a
 	(probably) non-convex optimization problem.}
 	\label{fig:mofs_space}
 \end{figure}
@@ -172,8 +172,8 @@ materials\index{Material} or molecules\index{Molecule} we are interested in to p
 
 With regards to gas adsorption\index{Gas adsorption} in \glspl{mof}, one of the
 first and most commonly used descriptors, are the so called
-\emph{geometric}\index{Geometric descriptors} ones, which capture the pore
-environment of the framework. This type of descriptors includes textual
+\emph{geometric}\index{Geometric descriptors} ones, which aim to capture the
+pore environment of the framework. This type of descriptors includes textual
 characteristics of \glspl{mof} such as void fraction\index{Void fraction},
 gravimetric surface area\index{Gravimetric surface area} and pore limiting
 diameter\index{Pore limiting diameter}. Although \gls{ml} models build with
@@ -197,12 +197,12 @@ In one of the first works to fingerprint the energetic landscape of \glspl{mof}
 \parencite{bucior}, energy histograms\index{Energy histogram} derived from the
 interactions of guest molecules with the framework atoms were used to predict
 hydrogen and methane uptake with remarkable accuracy. Prior to calculating the
-energy histograms, a 3D grid is overlayed on the unit cell of the \gls{mof}.
-Next, at each point of the grid, the interaction between the guest molecule with
-the framework atoms is calculated, producing a 3D energy grid\index{Energy
-grid}. The latter is finally converted into a histogram, by partitioning the
-energy values of the grid into bins of specific energy width. By using solely
-these histograms as descriptors---without including any textual
+energy histograms, a 3D grid is overlayed on the unit cell\index{Unit cell} of
+the \gls{mof}. Next, at each point of the grid, the interaction between the
+guest molecule with the framework atoms is calculated, producing a 3D energy
+grid\index{Energy grid}. The latter is finally converted into a histogram, by
+partitioning the energy values of the grid into bins of specific energy width.
+By using solely these histograms as descriptors---without including any textual
 property---\textcite{bucior} trained Lasso regression
 models\index{Regression}\index{Lasso}, for predicting:
 \begin{enumerate*}[label=\roman*).]
@@ -228,16 +228,16 @@ proposed:
 		account for the electrostatic interactions
 \end{enumerate*}.
 Each of these fictitious probe particles is randomly inserted at different
-positions of the unit cell, and the interaction energy between the probe and the
-framework atoms is calculated. The interaction energies at the different
-positions are averaged out, producing an energetic fingerprint\index{Energetic
-fingerprint} of the material. These fingerprints in combination with six
-geometric descriptors formed the input for the \gls{rf}\index{Random forest}
-algorithm, which was trained to predict gas uptake\index{Gas uptake} for a
-plethora of guest molecules\index{Guest molecule} and thermodynamic
-conditions\index{Thermodynamic conditions}, on the \gls{core}\index{CoRE MOF
-database} \gls{mof} database \parencite{chong47}. The \gls{ml} models showed
-impressive performance, showing an $R^2$ value of:
+positions of the unit cell\index{Unit cell}, and the interaction energy between
+the probe and the framework atoms is calculated. The interaction energies at the
+different positions are averaged out, producing an energetic
+fingerprint\index{Energetic fingerprint} of the material. These fingerprints in
+combination with six geometric descriptors formed the input for the
+\gls{rf}\index{Random forest} algorithm, which was trained to predict gas
+uptake\index{Gas uptake} for a plethora of guest molecules\index{Guest molecule}
+and thermodynamic conditions\index{Thermodynamic conditions}, on the
+\gls{core}\index{CoRE MOF database} \gls{mof} database \parencite{chong47}. The
+\gls{ml} models showed impressive performance, showing an $R^2$ value of:
 \begin{enumerate*}[label=\roman*).]
 	\item \num{0.874} for \ch{H2} uptake at \SI{77}{\kelvin} and \SI{2}{\bar}
 	\item \num{0.889} for \ch{CH4} uptake at \SI{298}{\kelvin} and

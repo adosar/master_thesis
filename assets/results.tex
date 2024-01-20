@@ -115,6 +115,42 @@ longer fixed, but is an essential part of the training phase}.
 
 \section{Learning Curves}
 
+The learning curves\index{Learning curve} of the conventional models---built
+upon geometric descriptors---and the proposed ones--built upon energy
+voxels---are shown in Figure \ref{fig:learning_curves}. As it can be seen from
+Figure \ref{fig:learning_curves_mofs}, in the \gls{mof}-\ch{CO2} case, the
+\gls{cnn} model achieves an $R^2$ score of \num{0.859}, outperforming the
+conventional model, which shows an $R^2$ score of \num{0.690}. This amounts to
+around \SI{25}{\percent} increase in accuracy, even with such a coarse
+approximation of the \gls{pes}\footnote{In this work, all host-guest
+interactions were modeled with the \gls{lj} potential (see Section
+\ref{sec:voxelized_pes}), which neglects electrostatic interactions.}. Moreover,
+from the same figure, one can notice that the proposed model reaches the peak
+performance of the conventional one---that is, the performance when trained with
+the maximum training set size---by requiring two orders of magnitude less
+training data, around \num{300}.
+
+Analogous results are observed when examining the \gls{cof}-\ch{CH4} case. Again
+the \gls{cnn} model performs better, showing an $R^2$ score \num{0.969} compared
+to \num{0.941} for the conventional one. Similar to the previous case, a
+substantially smaller amount of training data are required---one order of
+magnitude less training, around \num{6900}---for the \gls{cnn} model to match
+the performance of the conventional model.
+
+The fact that in both cases, the learning curves of the proposed models lie
+above the corresponding ones of the conventional models, should be credited to
+the following factors:
+\begin{enumerate*}[label=\roman*).]
+	\item The increased informativeness of the voxelized the voxelized
+		\gls{pes}---in comparison to geometric descriptors.
+	\item The ability of \glspl{cnn} to handle images and image-like
+		data\index{Image-like data}, such as the voxelized \gls{pes}, which is
+		essentially a single channel 3D image.
+	\item The data augmentation\index{Data augmentation} technique, which was
+		applied during the \gls{cnn} training (see
+		\ref{subsec:data_augmentation}).
+\end{enumerate*}
+
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -136,7 +172,5 @@ longer fixed, but is an essential part of the training phase}.
 	``Voxels'' stands for energy voxels.}
 	\label{fig:learning_curves}
 \end{figure}
-
-For the performance boost, please see Section \ref{subsec:data_augmentation}
 
 \section{Discussion}
