@@ -147,7 +147,7 @@ the following factors:
 		data\index{Image-like data}, such as the voxelized \gls{pes}, which is
 		essentially a single channel 3D image.
 	\item The data augmentation\index{Data augmentation} technique, which was
-		applied during the \gls{cnn} training (see
+		applied during the \gls{cnn} training (see Section
 		\ref{subsec:data_augmentation}).
 \end{enumerate*}
 
@@ -174,3 +174,50 @@ the following factors:
 \end{figure}
 
 \section{Discussion}
+
+It is worth mentioning the increase in performance, approximately
+\SI{13}{\percent}, of the \gls{cnn} model in the \glspl{cof}-\ch{CH4} case
+($R^2=0.969$) compared to the \glspl{mof}-\ch{CO2} case ($R^2=0.859$). In
+contrast to \ch{CO2}, which exhibits strong electrostatic interactions with the
+framework atoms, \ch{CH4} lacks dipole\index{Dipole moment} or quadrupole
+moment\index{Quadrupole moment}. Given that the same resolution---i.e. the same
+grid size---was used in both cases and that the \gls{lj} potential doesn't
+account for electrostatic interactions, this performance gap should be
+attributed to the absence of the latter in the voxelized \gls{pes}. \emph{In
+other words, the extra ``contrast'' that such strong
+interactions\index{Electrostatic interactions} add to the energy image of the
+masterial, is missing from the voxelized \gls{pes}. As such, a straightforward
+approach to improve the performance of the proposed approach, especially for
+adsorbates like \ch{CO2}, \ch{H2} and \ch{H2S}, is to include this type of
+interactions into the voxelized \gls{pes}}. Of course, there is no free lunch,
+since these refinements require the assignment of partial charges\index{Partial
+charge} to each framework atom, which is a computationally expensive task.
+Luckily, \gls{ml}-based approaches have already been developed
+\parencite{Bleiziffer2018, Raza2020, Kancharlapalli2021}, which can assign
+partial charges rapidly and with high fidelity, enabling the efficient
+construction of a more accurate voxelized \gls{pes}.
+
+Improving the input, and as such, the performance of the suggested pipeline is a
+major concern, but not the only one. \emph{What about the data
+efficiency\index{Data efficiency} of the pipeline?} Imagine that we are asked to
+predict \ch{CH4} uptake at various thermodynamic conditions\index{Thermodynamic
+conditions}. A naive approach would be to collect training data\index{Training
+data} and retraining from scratch the \gls{cnn} for every thermodynamic
+condition, which is of course a laborious task. \emph{Can we do something
+smarter?} Well, the fact that the proposed framework uses a \gls{dl}
+algorithm\index{Deep learning algorithm} under the hood, opens the door for
+applying \emph{\textbf{transfer learning} techniques}\index{Transfer learning}.
+In a nutshell, transfer learning\parencite{Zhuang2019, Ma2020, Kang2023} is
+based on the following idea: \emph{a violist can learn to play piano faster than
+others, since both the piano and the violin are musical instruments, and may
+share some common knowledge.} Translating this to \glspl{nn}, a pre-trained
+\gls{nn} on an original task---known as the \emph{source task}\index{Source
+task}---may require less training data to perform well on a new task---known as
+the \emph{target task}\index{Target task}---if there is some \emph{similarity between
+the tasks}. Coming back to our ``imaginary'' scenario, all we have to do is to
+train the \gls{cnn} once in a specific thermodynamic
+condition\footnote{Preferably, the one where we have more labeled training
+data.} and then fine-tune\index{Fine-tune} this pre-trained
+model\index{Pre-trained model} on the other conditions.
+
+Throughout this work, the focus 
