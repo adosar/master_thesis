@@ -98,10 +98,9 @@ descriptors}\index{Feature}\index{Descriptor}\index{Predictor}.
 	X \to Y$.
 \end{definition}
 
-\textbf{ADD figure regression and classification}
-
 This paradigm comes mainly under two flavors: \emph{regression\index{Regression}
-and classification\index{Classification}.} In regression the interest is in
+and classification\index{Classification}}, which are schematically depicted in
+Figure \ref{fig:supervised_learning}. In regression the interest is in
 predicting a continuous value given an input, i.e.  $y \in \mathbb{R}$, such as
 a molecular property given a mathematical representation of a molecule. In
 classification, the interest is to predict in which of $k$ classes an input
@@ -122,6 +121,63 @@ generates images of a specific category or a \emph{model that designs
 molecules/materials with tailored properties} \parencite{Kim2018, Yao2021,
 Gebauer2022}. This is one approach of how \gls{ml} can tackle the \emph{inverse
 design problem}\index{Inverse design} in chemistry.
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\begin{tikzpicture}
+			\pgfmathsetseed{1}
+			\begin{axis}[
+					ticks=none, mark size=1.2pt,
+					xmin=0, xmax=1.1, ymin=0, ymax=1,
+					%legend style={fill opacity=0.8, draw opacity=1, text opacity=1},
+					xlabel=$x_1$, ylabel=$x_2$, title=Classification
+				]
+				\coordinate (start) at (0.62, 0);
+				\coordinate (stop) at (0.2, 1);
+				\coordinate (xmax-ymin) at (1.1, 0);
+				\coordinate (xmin-ymin) at (0, 0);
+				\coordinate (xmin-ymax) at (0, 1);
+				\coordinate (xmax-ymax) at (1.1, 1);
+				\addplot+ [
+					only marks, samples=20, variable=\t, domain=0:1,
+				] ({exp(-0.55*t^2) + 0.01*rnd}, {0.6*rnd});
+				\addplot+ [
+					only marks, samples=20, variable=\t, domain=0.4:1, mark=*,
+				] ({exp(-5*t^2) + 0.05*rnd}, {0.8*rnd});
+				% y = -2.381x + 1.476
+				\addplot [samples=2, black, dashed, ultra thick] {-2.381*x + 1.476};
+				% y = -3.381x + 1.476
+				\addplot [samples=2, black, ultra thick] {-5.581*x + 2.976};
+				\legend{,,Model, True $f$};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Regression.}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.49\textwidth}
+		\begin{tikzpicture}
+			\pgfmathsetseed{1}
+			\begin{axis}[
+					%legend style={fill opacity=0.8, draw opacity=1, text opacity=1},
+					xlabel=$x_{\phantom{1}}$, ylabel=$y$, title=Regression, domain=-2:2,
+					legend pos=north west, ticks=none,
+				]
+				\addplot [
+					only marks, samples=12,
+					mark options={fill=blue!20, mark size=2.5pt,}
+				] {x^2 + x^3 + 2*rnd};
+				\addplot [no marks, dashed, ultra thick, samples=20] {x^2 + 0.1*x^3 + 0.1*x};
+				% The true function
+				\addplot [no marks, ultra thick, samples=20] {x^2 + x^3 + 0.5};
+				\legend{,Model, True $f$};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Classification.}
+	\end{subfigure}
+	\caption{Main tasks of supervised learning.}
+	\label{fig:supervised_learning}
+\end{figure}
 
 \begin{definition}[Reinforcement learning]
 	The experience comes from the interaction of the learner, called
@@ -301,7 +357,7 @@ Lets apply a very strong regularization by setting $\lambda \to \infty$ (in
 practice we set $\lambda$ to a very large value) and observe what happens to the
 \emph{weights}\index{Weights} $\beta_i$. By setting $\lambda \to
 \infty$, the regularization term dominates the \gls{msl} and as such, the only
-way to minimize the training loss is by setting $\beta_i \to 0$. This leave us
+way to minimize the training loss is by setting $\beta_i = 0$. This leave us
 with a very simple model---only the \emph{bias}\index{Bias} $\beta_0$
 survives---which always predicts the mean value of $y$ in the training set.
 
@@ -529,7 +585,7 @@ affected by all its three components}.
 		$\vcth \gets \vcth + \vc{m}$\;
 	}
 	\Return{optimized parameters $\vcth$}
-	\caption{Momentum\index{Momentum} algorithm, citation}
+	\caption{Momentum\index{Momentum} algorithm, needs citation}
 	\label{algo:momentum}
 \end{algorithm}
 
@@ -544,7 +600,7 @@ affected by all its three components}.
 		$\vcth \gets \vcth + \vc{m}$\;
 	}
 	\Return{optimized parameters $\vcth$}
-	\caption{Nesterov momentum\index{Nesterov momentum} algorithm, citation}
+	\caption{Nesterov momentum\index{Nesterov momentum} algorithm, needs citation}
 	\label{algo:nesterov}
 \end{algorithm}
 
@@ -561,7 +617,7 @@ affected by all its three components}.
 		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
 	}
 	\Return{optimized parameters $\vcth$}
-	\caption{AdaGrad\index{AdaGrad} algorithm, citation}
+	\caption{AdaGrad\index{AdaGrad} algorithm, needs citation}
 	\label{algo:adagrad}
 \end{algorithm}
 
@@ -578,7 +634,7 @@ affected by all its three components}.
 		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
 	}
 	\Return{optimized parameters $\vcth$}
-	\caption{RMSProp\index{RMSProp} algorithm, citation}
+	\caption{RMSProp\index{RMSProp} algorithm, needs citation}
 	\label{algo:rmsprop}
 \end{algorithm}
 
@@ -600,14 +656,13 @@ affected by all its three components}.
 		\oslash \sqrt{\vc{\widehat{s}} + \epsilon}$\;
 	}
 	\Return{optimized parameters $\vcth$}
-	\caption{Adam\index{Adam} algorithm, citation}
+	\caption{Adam\index{Adam} algorithm, needs citation}
 	\label{algo:adam}
 \end{algorithm}
 
 \begin{algorithm}[H]
 	\KwIn{Computational graph $\mcl{G}$ where nodes $u_i$ follow a topological
 	ordering\footnote{Any ordering such that parents come before children.}}
-	\KwOut{Derivatives $\bar{u}_i$}
 	\BlankLine
 	\tcc{Forward pass}
 	\For{$i=1$ \KwTo $N$}{
@@ -619,7 +674,8 @@ affected by all its three components}.
 		$\bar{u}_i =
 		\sum_{j \in \text{Ch}_\mcl{G}(u_i)} \bar{u}_j \pd{u_j}{u_i}$\;
 	}
-	\caption{Backpropagation\index{Backpropagation} algorithm, citation}
+	\Return{derivatives $\bar{u}_i$}
+	\caption{Backpropagation\index{Backpropagation} algorithm, needs citation}
 	\label{algo:backpropagation}
 \end{algorithm}
 %
