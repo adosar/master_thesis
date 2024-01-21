@@ -220,4 +220,31 @@ condition\footnote{Preferably, the one where we have more labeled training
 data.} and then fine-tune\index{Fine-tune} this pre-trained
 model\index{Pre-trained model} on the other conditions.
 
-Throughout this work, the focus 
+\textbf{ADD citations}
+
+Throughout this work we focused on gas adsorption, but of course this doesn't
+mean we are not interested in predicting other properties of reticular
+materials\index{Reticular materials}. \emph{What if we are asked to predict
+properties such as band gap or bulk modulus?} In that case, quantities such as
+\emph{electron density}\index{Electron density} are more informative over
+host-guest interactions\index{Host-guest interactions} with regards to the
+aforementioned properties. This entails that the \emph{voxelized electron
+density}\index{Voxelized electron density} should substitute the voxelized
+\gls{pes}, as input to the 3D \gls{cnn}. Nevertheless, \emph{\textbf{wouldn't be
+great if all properties could be predicted from one and only one input?}} If our
+aim is to predict \emph{different properties for the same structure, shouldn't
+the structure itself be used as input?} Currently, the approaches to tackle this
+challenge are based on \emph{text representations}\index{Text representations}
+and \emph{crystal graphs}\index{Crystal graphs}. The main drawback of these
+approaches, is their inability to represent exactly the structure, that is the
+\emph{exact arrangement of the atoms in the 3D space}. \emph{\textbf{Point
+clouds}} are a natural way to solve this problem, since they are just \emph{a
+set of coordinates\index{Coordinates} and associated features}. In our context,
+the coordinates are the coordinates of the atoms, and the associated features
+are the types of the atoms. It should be emphasized, that \emph{a point cloud is
+not another mathematical representation\index{Representation} of a material---in
+the sense of a descriptor\index{Descriptor}---it is the material
+itself}\footnote{Same ideas apply for molecules and in general, for any chemical
+system\index{Chemical system}.}. Therefore, an answer to the original question
+is to \emph{couple point clouds with neural networks that can handle such kind
+of input}. At the end of the day, 
