@@ -21,7 +21,9 @@
 
 % Supervisor
 \date{
-	Supervised by Prof. George E. Froudakis
+	Supervised by
+	\\
+	\textsc{George E. Froudakis}%
 	\vspace{0.5cm}
 }
 
@@ -48,7 +50,7 @@
 	\rule{0.44\textwidth}{2pt}
 	\\
 	University of Crete
-	\pgfornament[width=\textwidth]{88}
+	\pgfornament[width=\textwidth]{88}%
 }
 
 % Titlehead
@@ -213,23 +215,24 @@
 \newcommand{\ltest}{\mcl{L}_\text{test}}
 \newcommand{\conv}[1]{Conv\num{#1}}
 \newcommand{\pool}[1]{MaxPool\num{#1}}
+\renewcommand{\exp}[1]{\mathbb{E}\left[#1\right]}
 
 \includeonly{
-	assets/abstract,
-	assets/introduction,
-	%assets/theory,
+	%assets/abstract,
+	%assets/introduction,
+	assets/theory,
 	%assets/methodology,
 	%assets/results,
 }
 
 \begin{document}
 
-\maketitle
-\tableofcontents
-\listoffigures
-\listofalgorithms
+%\maketitle
+%\tableofcontents
+%\listoffigures
+%\listofalgorithms
 % Add list of algorithms to contents page
-\addcontentsline{toc}{chapter}{List of Algorithms}
+%\addcontentsline{toc}{chapter}{List of Algorithms}
 
 
 

@@ -117,9 +117,9 @@ longer fixed, but is an essential part of the training phase}.
 
 The learning curves\index{Learning curve} of the conventional models---built
 upon geometric descriptors---and the proposed ones--built upon energy
-voxels---are shown in Figure \ref{fig:learning_curves}. As it can be seen from
-Figure \ref{fig:learning_curves_mofs}, in the \gls{mof}-\ch{CO2} case, the
-\gls{cnn} model achieves an $R^2$ score of \num{0.859}, outperforming the
+voxels---are shown in Figure \ref{fig:learning_curves_results}. As it can be
+seen from Figure \ref{fig:learning_curves_mofs}, in the \gls{mof}-\ch{CO2} case,
+the \gls{cnn} model achieves an $R^2$ score of \num{0.859}, outperforming the
 conventional model, which shows an $R^2$ score of \num{0.690}. This amounts to
 around \SI{25}{\percent} increase in accuracy, even with such a coarse
 approximation of the \gls{pes}\footnote{In this work, all host-guest
@@ -170,7 +170,7 @@ the following factors:
 	\gls{cnn} model reaches the performance of the conventional one, the
 	$y$-coordinate. ``Geometric'' stands for geometric descriptors, while
 	``Voxels'' stands for energy voxels.}
-	\label{fig:learning_curves}
+	\label{fig:learning_curves_results}
 \end{figure}
 
 \section{Discussion}
@@ -249,5 +249,5 @@ system}.}. Therefore, an answer to the original question is to \emph{couple
 point clouds with a neural network that can handle such kind of input}. Such an
 approach might has to overcome the current immaturity of \gls{dl} over point
 clouds---especially regarding materials and molecules---but from a chemical
-perspective, it is the only that truly respects the 3D nature of chemistry and
-of course, reticular chemistry.
+perspective, it is the only one that truly respects the 3D nature of chemistry
+and of course, reticular chemistry.

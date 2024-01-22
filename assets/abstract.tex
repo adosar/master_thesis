@@ -1,8 +1,24 @@
 \begin{abstract}
 	\lettrine[
-	nindent=0em, findent=0.5em, lines=5
-	]{M}{\bfseries\color{Blue}etal organic frameworks}, thanks to their ultra
-	high porosity and surface area, are deemed as prominent candidates for
-	applications involving gas adsorption. However, their intrinsic
-	combinatorial nature, 
+	nindent=0em, findent=0.5em, loversize=-0.12, lines=5
+	]{\initfamily{M}}{\bfseries\color{Blue}etal-organic frameworks}, or in short
+	\acrshortpl{mof}, thanks to their ultra high porosity and surface area, are
+	deemed as prominent candidates for applications involving gas adsorption.
+	However, their intrinsic combinatorial nature, translates to a practically
+	infinite material space, rendering the identification of novel materials
+	with traditional methods cumbersome. Over the last years, \acrlong{ml}
+	approaches based on predictive models have been developed, allowing
+	researchers to rapidly screen large databases of \acrshortpl{mof}. The
+	quality of these models highly depends on the mathematical representation of
+	a material, thus necessitating the use of informative inputs. In this
+	thesis, we propose a generalized framework for predicting gas adsorption
+	properties, using as one and only input the \acrlong{pes}. We treat the
+	latter as a 3D energy image and then pass it through 3D \acrlong{cnn}, known
+	for its ability to process image-like data. The proposed pipeline
+	is applied in \acrshortpl{mof} for predicting \ch{CO2} uptake. The resulting
+	model outperforms both in terms of performance and data efficiency a
+	conventional one built upon textual properties. Additionally, we demonstrate
+	the transferability of the approach to other host-guest systems, by
+	examining \ch{CH4} uptake in \acrlongpl{cof}. Finally, discussion for
+	improving and extending the suggested scheme is provided.
 \end{abstract}

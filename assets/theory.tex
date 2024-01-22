@@ -21,7 +21,7 @@ notice that ideas of \glspl{nn} trace back to 1943, but it was until recently
 that these ideas got materialized. The reason for this recent breakthrough of
 \gls{dl} (and \gls{ml}) is twofold. First, the availability of large
 datasets\index{Dataset}---the era of big data\index{Big data}---such as
-ImagNet\index{ImageNet}. Second, the increase in computational power, mainly of
+ImageNet\index{ImageNet}. Second, the increase in computational power, mainly of
 \acrshortpl{gpu} for \gls{dl}, accelerating the training of deep \glspl{nn} and
 traditional \gls{ml} algorithms.
 
@@ -62,9 +62,9 @@ gives \gls{ml} algorithms the ability to take advantage of the data.
 \label{subsec:paradigms}
 
 Depending on the type of experience they are allowed to have during their
-\emph{training phase} \parencite{deeplearning}, \gls{ml} approaches are divided
-into three main \emph{learning paradigms}\index{Learning paradigms}:
-\emph{\textbf{unsupervised learning}\index{Unsupervised learning},
+\emph{training phase}\index{Training phase} \parencite{deeplearning}, \gls{ml}
+approaches are divided into three main \emph{learning paradigms}\index{Learning
+paradigms}: \emph{\textbf{unsupervised learning}\index{Unsupervised learning},
 \textbf{supervised learning}\index{Supervised learning} and
 \textbf{reinforcement learning}\index{Reinforcement learning}}. The following
 definitions are not by any means formal, but merely serve as an intuitive
@@ -73,9 +73,9 @@ description of the different paradigms.
 \begin{definition}[name=Unsupervised learning]
 	The experience comes in the form $\dtrain = \{\vcx_i\}$, where $\vcx_i \sim
 	p(\vcx)$ is the input\index{Input} of the $i$-th training
-	instance\index{Training instance}. In this paradigm we are interested in
-	learning useful properties of the underlying structure captured by
-	$p(\vcx)$ or $p(\vcx)$ itself.
+	instance\index{Training instance} or sample\index{Training sample}. In this
+	paradigm we are interested in learning useful properties of the underlying
+	structure captured by $p(\vcx)$ or $p(\vcx)$ itself.
 \end{definition}
 
 For example, suppose we are interested in generating images that look like
@@ -107,11 +107,11 @@ classification, the interest is to predict in which of $k$ classes an input
 belongs to, i.e. $y \in \{1, \ldots, k\}$, such as predicting the breed of a dog
 image given the raw pixel values of the image. The term ``supervised'' is coined
 due to the ``human supervision'' the algorithm receives during its training
-phase, through the presence of the correct answer (the label) in the experience.
-In a sense, in this paradigm we ``teach'' the learning algorithm aka
-\emph{learner}. It should be emphasized that the label is not constrained to be
-single-valued, but can also be multi-valued. In this case, one talks about
-\emph{multi-label regression\index{Multi-label regression} or
+phase\index{Training phase}, through the presence of the correct answer (the
+label) in the experience.  In a sense, in this paradigm we ``teach'' the
+learning algorithm aka \emph{learner}. It should be emphasized that the label is
+not constrained to be single-valued, but can also be multi-valued. In this case,
+one talks about \emph{multi-label regression\index{Multi-label regression} or
 classification\index{Multi-label classification}} \parencite{Read_2009}.
 
 A more exotic form of supervised learning is \emph{conditional generative
@@ -125,13 +125,13 @@ design problem}\index{Inverse design} in chemistry.
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
+		\centering
 		\begin{tikzpicture}
 			\pgfmathsetseed{1}
 			\begin{axis}[
-					ticks=none, mark size=1.2pt,
+					thick, ticks=none, mark size=1.2pt,
 					xmin=0, xmax=1.1, ymin=0, ymax=1,
-					%legend style={fill opacity=0.8, draw opacity=1, text opacity=1},
-					xlabel=$x_1$, ylabel=$x_2$, title=Classification
+					xlabel=$x_1$, ylabel=$x_2$,
 				]
 				\coordinate (start) at (0.62, 0);
 				\coordinate (stop) at (0.2, 1);
@@ -152,15 +152,15 @@ design problem}\index{Inverse design} in chemistry.
 				\legend{,,Model, True $f$};
 			\end{axis}
 		\end{tikzpicture}
-		\caption{Regression.}
+		\caption{Classification.}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.49\textwidth}
 		\begin{tikzpicture}
+			\centering
 			\pgfmathsetseed{1}
 			\begin{axis}[
-					%legend style={fill opacity=0.8, draw opacity=1, text opacity=1},
-					xlabel=$x_{\phantom{1}}$, ylabel=$y$, title=Regression, domain=-2:2,
+					thick, xlabel=$x_{\phantom{1}}$, ylabel=$y$, domain=-2:2,
 					legend pos=north west, ticks=none,
 				]
 				\addplot [
@@ -173,7 +173,7 @@ design problem}\index{Inverse design} in chemistry.
 				\legend{,Model, True $f$};
 			\end{axis}
 		\end{tikzpicture}
-		\caption{Classification.}
+		\caption{Regression.}
 	\end{subfigure}
 	\caption{Main tasks of supervised learning.}
 	\label{fig:supervised_learning}
@@ -215,12 +215,12 @@ $\vcx$ and with zero mean. More formally, we have an input space $X$, an output
 space $Y$ and we are interested in learning a function $\hat{h} \colon X \to Y$,
 called the \emph{hypothesis}\index{Hypothesis}, which produces
 an output $\vcy \in Y$ given an input $\vcx \in X$. At our disposal we have a
-collection of input-output pairs $(\vcx_i, \vcy_i)$, forming the \emph{training
-set}\index{Training set} $\dtrain$, with the pairs drawn \acrshort{iid} from
-$p(\vcx, \vcy)$.
+collection of input-output pairs $(\vcx_i, \vcy_i)$, forming the
+\emph{\textbf{training set}}\index{Training set} $\dtrain$, with the pairs drawn
+\acrshort{iid} from $p(\vcx, \vcy)$.
 
 Ideally, we would like to learn a hypothesis that minimizes the
-\emph{generalization error or loss}\index{Generalization
+\emph{\textbf{generalization error or loss}}\index{Generalization
 error}\index{Generalization loss}:
 \begin{equation}
 	\label{eq:generalization_loss}
@@ -338,9 +338,9 @@ regularizer}\index{Regularizer}, denoted as $\mcl{R}$, in Equation
 The $\lambda$ factor controls the strength of regularization and it is an
 \emph{\textbf{hyperparameter}}\index{Hyperparameter}, i.e. a parameter that is
 not learned during training but \emph{whose value is used to control the
-training phase.} In order to see how $\lambda$ penalizes model complexity,
-assume we perform univariate polynomial regression\index{Polynomial regression}
-of degree $k$:
+training phase\index{Training phase}.} In order to see how $\lambda$ penalizes
+model complexity, assume we perform univariate polynomial
+regression\index{Polynomial regression} of degree $k$:
 \begin{equation}
 	\hat{y} = \beta_0 + \sum_{i=1}^k \beta_i x^i
 \end{equation}
@@ -409,8 +409,10 @@ involves the following steps:
 rate}\index{Learning rate}. Gradient descent is based on the idea that
 if a multivariate function is defined and differentiable at a point $\vcx$, then
 $f(\vcx)$ \emph{decreases fastest if one takes a small step from $\vcx$ in the
-direction of negative gradient at $\vcx$, $-\nabla f(\vcx)$}. The motivation
-becomes clear if we look at the differential of $f(\vcx)$ in direction $\vc{u}$:
+direction of negative gradient at $\vcx$, $-\nabla f(\vcx)$}.
+
+The motivation becomes clear if we look at the differential of $f(\vcx)$ in
+direction $\vc{u}$:
 \begin{equation}
 	\label{eq:differential}
 	f(\vcx + \delta \vc{u}) - f(\vcx) = \nabla f(\vcx) \cdot \delta \vc{u}
@@ -447,84 +449,161 @@ by the term \emph{\textbf{complexity}\index{Complexity} or
 capacity\index{Capacity} of a learner, we mean its effective capacity, which is
 affected by all its three components}.
 
-\subsection{Complexity, experience and performance}
+\subsection{Performance, complexity and experience}
 
-%\begin{figure}
-%	\centering
-%	\begin{tikzpicture}
-%		\begin{axis}[ width=0.8\textwidth, custom axis, domain=0:2,
-%		xlabel=Complexity | $\Omega$, ylabel=Error | $\mathcal{E}$, samples=50,
-%		ymin=0, ymax=2, grid=none, ticks=none ]
-%			\addplot+ [no markers] {1/(x+0.3)-0.2}; % Bias^2
-%			\addlegendentry{Bias$^2$};
-%			\addplot+ [no markers] {0.12*e^(1.40*x)}; % Variance
-%			\addlegendentry{Variance};
-%			\addplot+ [no markers] {3*(x-2)*x+3.8}; % Total error
-%			\addlegendentry{Total error};
-%			\draw[dotted, -Diamond] (1, 0) -- (1, 0.83) node[
-%				above, yshift=0.2cm
-%			] {$\argmin_{\Omega} \mathcal{E}$};
-%		\end{axis}
-%	\end{tikzpicture}
-%	\caption{The bias-variance tradeoff in \LaTeX.}
-%\end{figure}
-%
-%\begin{figure}
-%	\begin{subfigure}{0.5\textwidth}
-%		\centering
-%		\begin{tikzpicture}%[trim axis left, trim axis right]
-%			\begin{axis}[
-%					custom axis, no markers, ticks=none,
-%					xmin=0, xmax=3.5, domain=0:3.5, grid=none,
-%					ymin=0, ymax=1.2, clip mode=individual,
-%					xlabel=Number of training samples, ylabel=Accuracy,
-%					axis background/.style={
-%						shade,
-%						right color=gray,
-%						left color=white,
-%						middle color=Blue!90,
-%					}
-%				]
-%				%\shadedraw[
-%				%	left color=Peach!40,
-%				%	right color=Blue!50,
-%				%	middle color=Blue!20,
-%				%	black
-%				%] (0, 0) rectangle (3.5, 1.2);
-%				\addplot+[ultra thick] {divide(25*x, 2+25*x)*0.6};
-%				\addlegendentry{Test accuracy};
-%				\addplot+[ultra thick] {1 - 0.59*divide(25*x, 2+25*x)*0.6};
-%				\addlegendentry{Training accuracy};
-%				\addplot+ [black, dashed] {1};
-%				\node at (-0.29, 1) {100\%};
-%			\end{axis}
-%		\end{tikzpicture}
-%	\end{subfigure}
-%	\begin{subfigure}{0.5\textwidth}
-%		\centering
-%		\begin{tikzpicture}%[trim axis left, trim axis right]
-%			\begin{axis}[
-%					custom axis, no markers, ticks=none,
-%					xmin=0, xmax=3.5, domain=0:3.5,
-%					ymin=0, ymax=1.2, clip mode=individual,
-%					xlabel=Number of training samples, ylabel=Accuracy,
-%				]
-%				\shadedraw[
-%					left color=Peach!40,
-%					right color=Blue!50,
-%					middle color=Peach!20,
-%					black
-%				] (0, 0) rectangle (3.5, 1.2);
-%				\addplot+[ultra thick] {divide(25*x, 11+25*x)*0.97};
-%				\addlegendentry{Test accuracy};
-%				\addplot+[ultra thick] {1 - 0.1*divide(25*x, 11+25*x)*0.97};
-%				\addlegendentry{Training accuracy};
-%				\addplot+[black, dashed] {1};
-%				\node at (-0.29, 1) {100\%};
-%			\end{axis}
-%		\end{tikzpicture}
-%	\end{subfigure}
-%\end{figure}
+Suppose that we have trained our learner, and finally we get our model, as
+stated by Equation \ref{eq:learner}. \emph{How can we assess its
+performance\index{Performance}?} Remember, we can't calculate the generalization
+loss\index{Generalization loss}, since we are not given an infinite amount of
+data. First of all, \emph{we should not report the training loss\index{Training
+loss}, because it is optimistically biased\index{Optimistically biased}}, as it
+is evaluated on the same data that has been trained on\footnote{Intuitively,
+this is like assessing students' performance based on problems they have already
+seen before. They can easily achieve zero error, just by recalling their
+memory.}. What we should is to collect new input-output pairs, forming the
+\emph{\textbf{test set}}\index{Test set} $\dtest$, and then \emph{estimate the
+generalization loss} as following:
+\begin{equation}
+	\label{eq:test_loss}
+	\loss_\text{test} \coloneqq \frac{1}{\lvert \dtest \rvert} \sum_{i \in \dtest}
+	\ell(h(\vcx_i), \vcy_i)
+\end{equation}
+The \emph{test error or loss}\index{Test error}\index{Test loss} is evaluated on
+new---unseen to the learner during the training phase\index{Training
+phase}---samples and as such, it is an \emph{unbiased estimate}\index{Unbiased
+estimate} of the generalization loss. Usually, since many times is not even
+possible to collect new samples, \emph{we split the initial
+dataset\index{Dataset} into training and test sets}.
+
+The general recipe for building and evaluating the performance of a \gls{ml}
+model have already been presented. What is missing is how we can improve its
+performance, or to put it differently, the factors that affect the quality of
+the returned model. There are two main factors that determine the performance of
+the model: \emph{complexity\index{Complexity} and experience\index{Experience}}.
+In general, the larger the experience---the training set---\index{Training set}
+the better the performance, just like we humans perform improve on a task by
+keep practicing. With regards to the complexity, \emph{learners of low
+complexity\index{Low complexity} might fail to capture the patterns in the
+data}, meaning that the resulting model will fail to generalize. In contrast,
+\emph{learners of higher complexity would be able to capture these patterns},
+and as such return models of higher quality. However, \emph{as the complexity of
+the learner keeps increasing, the latter is more sensitive to noise, i.e. there
+is a higher chance that the learner will simply memorize its experience} and as
+such, fail to generalize.
+
+In other words, there is a trade-off between the complexity of the learner and
+its performance. The learner should be not too simple but also not too complex,
+in order to generalize well. This in turn implies that we need to find a way to
+``tune'' the complexity. A common way to achieve that is by using
+another set of instances, called \emph{\textbf{validation set}\index{Validation
+set}}
+
+\begin{figure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\begin{tikzpicture}%[trim axis left, trim axis right]
+			\begin{axis}[
+					custom axis, no markers, ticks=none,
+					xmin=0, xmax=3.5, domain=0:3.5, grid=none,
+					ymin=0, ymax=1.2, clip mode=individual,
+					xlabel=Number of training samples, ylabel=Accuracy,
+				]
+				\addplot {divide(25*x, 2+25*x)*0.6};
+				\addlegendentry{Test accuracy};
+				\addplot {1 - 0.59*divide(25*x, 2+25*x)*0.6};
+				\addlegendentry{Training accuracy};
+				\addplot+ [black, dashed] {1};
+				\node at (-0.29, 1) {100\%};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Learning curve of learner with low complexity.}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+					custom axis, domain=0:2,
+					grid=none, ticks=none, samples=50, ymin=0, ymax=1.8,
+					xlabel=Complexity, ylabel=Error
+				]
+				\addplot+ [no markers] {1/(x+0.3)-0.2}; % Bias^2
+				\addlegendentry{Bias$^2$};
+				\addplot+ [no markers] {0.12*e^(1.40*x)}; % Variance
+				\addlegendentry{Variance};
+				\addplot+ [green, no markers] {3*(x-2)*x+3.8}; % Total error
+				\addlegendentry{Total error};
+				\draw[dotted, -Diamond] (1, 0) -- (1, 0.83) node[
+					above, yshift=0.2cm
+				] {}; %{$\argmin_{\Omega} \mcl{E}$};
+			\end{axis}
+		\end{tikzpicture}
+		%\begin{tikzpicture}%[trim axis left, trim axis right]
+		%	\begin{axis}[
+		%			custom axis, no markers, ticks=none,
+		%			xmin=0, xmax=3.5, domain=0:3.5, grid=none,
+		%			ymin=0, ymax=1.2, clip mode=individual,
+		%			xlabel=Number of training samples, ylabel=Accuracy,
+		%		]
+		%		\addplot {divide(25*x, 11+25*x)*0.97};
+		%		\addlegendentry{Test accuracy};
+		%		\addplot {1 - 0.1*divide(25*x, 11+25*x)*0.97};
+		%		\addlegendentry{Training accuracy};
+		%		\addplot+[black, dashed] {1};
+		%		\node at (-0.29, 1) {100\%};
+		%	\end{axis}
+		%\end{tikzpicture}
+		\caption{Learning curve of learner with high complexity.}
+	\end{subfigure}
+	\caption{Relation between performance\index{Performance} and
+	experience\index{Experience}.}
+	\label{fig:learning_curves_theory}
+\end{figure}
+
+\begin{theorem}[Bias-variance decomposition]
+	From Equation \ref{eq:supervised} and assuming $\epsilon \sim \mcl{N}(0, 1)$,
+	the expected squared loss\index{Squared loss}\index{Expected square loss} at
+	$\vcx^*$, can be decomposed as following:
+	\begin{equation}
+		\label{eq:bias_variance}
+		\exp{\left(y^* - \hat{f}(\vcx^*)\right)^2}
+		=
+		\color{blue}\left(f(\vcx^*) - \exp{\hat{f}(\vcx^*)}\right)^2
+		\color{black}
+		+
+		\color{red}\exp{\left(\hat{f}(\vcx^*) - \exp{\hat{f}(\vcx^*)}\right)^2}
+		\color{black}
+		+
+		\sigma_{\epsilon}^{2}
+	\end{equation}
+	The expected squared loss refers to the average squared loss we would obtain
+	by repeatedly estimating $f$ using different training sets, each tested at
+	$\vcx^*$. The overall expected squared loss can be computed by averaging the
+	left hand side of Equation \ref{eq:bias_variance} over all possible values
+	$\vcx^*$ in the test set.
+\end{theorem}
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+				width=0.8\textwidth, custom axis, domain=0:2,
+				grid=none, ticks=none, samples=50, ymin=0, ymax=1.8,
+				xlabel=Complexity | $\Omega$, ylabel=Error | $\mcl{E}$,
+			]
+			\addplot+ [no markers] {1/(x+0.3)-0.2}; % Bias^2
+			\addlegendentry{Bias$^2$};
+			\addplot+ [no markers] {0.12*e^(1.40*x)}; % Variance
+			\addlegendentry{Variance};
+			\addplot+ [green, no markers] {3*(x-2)*x+3.8}; % Total error
+			\addlegendentry{Total error};
+			\draw[dotted, -Diamond] (1, 0) -- (1, 0.83) node[
+				above, yshift=0.2cm
+			] {$\argmin_{\Omega} \mcl{E}$};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{The bias-variance trade-off\index{Bias-variance trade-off}.}
+	\label{fig:bias_variance}
+\end{figure}
 
 %\begin{definition}[Overfitting]
 %	Add some text!
