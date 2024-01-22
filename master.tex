@@ -43,27 +43,30 @@
 	Department of Chemistry
 	\vspace{0.1cm}
 	\\
-	\rule{0.44\textwidth}{2pt}
+	\rule{0.44\textwidth}{1pt}
 	\hfill%
 	\raisebox{-0.5\height}{\includegraphics[scale=0.9]{fig/uoclogo_blue.pdf}}
 	\hfill%
-	\rule{0.44\textwidth}{2pt}
+	\rule{0.44\textwidth}{1pt}
 	\\
 	University of Crete
-	\pgfornament[width=\textwidth]{88}%
+	\\
+	\rule{\textwidth}{1pt}
+	%\pgfornament[width=\textwidth]{88}%
 }
 
 % Titlehead
 \titlehead{
 	\centering
-	\pgfornament[width=\textwidth]{88}
+	%\pgfornament[width=\textwidth]{88}
+	\rule{\textwidth}{1pt}
 	\scshape\bfseries\Large
 	\\
 	\vspace{0.4cm}
 	\pgfornament[ydelta=-0.1cm]{97}%
 	Master Thesis
 	\pgfornament[ydelta=-0.1cm]{98}
-	\rule{\textwidth}{2pt}
+	\rule{\textwidth}{1pt}
 }
 
 % Koma Script
@@ -218,21 +221,21 @@
 \renewcommand{\exp}[1]{\mathbb{E}\left[#1\right]}
 
 \includeonly{
-	%assets/abstract,
-	%assets/introduction,
+	assets/abstract,
+	assets/introduction,
 	assets/theory,
-	%assets/methodology,
-	%assets/results,
+	assets/methodology,
+	assets/results,
 }
 
 \begin{document}
 
-%\maketitle
-%\tableofcontents
-%\listoffigures
-%\listofalgorithms
+\maketitle
+\tableofcontents
+\listoffigures
+\listofalgorithms
 % Add list of algorithms to contents page
-%\addcontentsline{toc}{chapter}{List of Algorithms}
+\addcontentsline{toc}{chapter}{List of Algorithms}
 
 
 
@@ -243,7 +246,7 @@
 \include{assets/results}
 
 %\printbibliography
-%\printindex
-%\printacronyms
+\printindex
+\printacronyms
 
 \end{document}

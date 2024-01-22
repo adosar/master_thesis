@@ -202,23 +202,23 @@ major concern, but not the only one. \emph{What about the data
 efficiency\index{Data efficiency} of the pipeline?} Imagine that we are asked to
 predict \ch{CH4} uptake at various thermodynamic conditions\index{Thermodynamic
 conditions}. A naive approach would be to collect training data\index{Training
-data} and retraining from scratch the \gls{cnn} for every thermodynamic
-condition, which is of course a laborious task. \emph{Can we do something
-smarter?} Well, the fact that the proposed framework uses a \gls{dl}
-algorithm\index{Deep learning algorithm} under the hood, opens the door for
-applying \emph{\textbf{transfer learning} techniques}\index{Transfer learning}.
-In a nutshell, transfer learning\parencite{Zhuang2019, Ma2020, Kang2023} is
-based on the following idea: \emph{a violist can learn to play piano faster than
-others, since both the piano and the violin are musical instruments, and may
-share some common knowledge.} Translating this to \glspl{nn}, a pre-trained
-\gls{nn} on an original task---known as the \emph{source task}\index{Source
-task}---may require less training data to perform well on a new task---known as
-the \emph{target task}\index{Target task}---if there is some \emph{similarity between
-the tasks}. Coming back to our ``imaginary'' scenario, all we have to do is to
-train the \gls{cnn} once in a specific thermodynamic
-condition\footnote{Preferably, the one where we have more labeled training
-data.} and then fine-tune\index{Fine-tune} this pre-trained
-model\index{Pre-trained model} on the other conditions.
+data} and retrain from scratch the \gls{cnn} for every thermodynamic condition,
+which is of course a laborious task. \emph{Can we do something smarter?} Well,
+the fact that the proposed framework uses a \gls{dl} algorithm\index{Deep
+learning algorithm} under the hood, opens the door for applying
+\emph{\textbf{transfer learning} techniques}\index{Transfer learning}.  In a
+nutshell, transfer learning\parencite{Zhuang2019, Ma2020, Kang2023} is based on
+the following idea: \emph{a violist can learn to play piano faster than others,
+since both the piano and the violin are musical instruments, and may share some
+common knowledge.} Translating this to \glspl{nn}, a pre-trained \gls{nn} on an
+original task---known as the \emph{source task}\index{Source task}---may require
+less training data to perform well on a new task---known as the \emph{target
+task}\index{Target task}---if there is some \emph{similarity between the tasks}.
+Coming back to our ``imaginary'' scenario, all we have to do is to train the
+\gls{cnn} once in a specific thermodynamic condition\footnote{Preferably, the
+one where we have more labeled training data.} and then
+fine-tune\index{Fine-tune} this pre-trained model\index{Pre-trained model} on
+the other conditions.
 
 Throughout this work we focused on gas adsorption, but of course this doesn't
 mean we are not interested in predicting other properties of reticular
