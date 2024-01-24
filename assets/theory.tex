@@ -201,6 +201,7 @@ thesis only supervised learning techniques were employed, the remaining of this
 chapter is devoted to this learning paradigm.
 
 \subsection{Formulating the problem of supervised learning}
+\label{subsec:supervised_learning}
 
 The general setting of supervised learning is as follows: we assume that there
 is some relationship between $\vcx$ and $\vcy$:
@@ -249,7 +250,7 @@ solve the following optimization problem:
 	\label{eq:problem}
 	\hat{h} \gets \argmin_{h \in \mcl{H}} \ltrain
 \end{equation}
-which is achieved, by just feeding the training data into the learning
+which is achieved by just feeding the training data into the learning
 algorithm $\mcl{A}$\index{Learning algorithm}:
 \begin{equation}
 	\label{eq:learner}
@@ -290,7 +291,7 @@ The more expressive the hypothesis space, the larger the
 \emph{\textbf{representational capacity}}\index{Representational capacity} of
 the learning algorithm. For a formal definition of representational capacity,
 the interested reader can look at \emph{Vapnik-Chervonenkis
-Dimension}\index{Vapnik-Chervonenkis dimension} \parencite{statlearn}.
+Dimension}\index{Vapnik-Chervonenkis dimension} \parencite{Hastie2009}.
 
 \begin{definition}[Loss function]
 	A function that maps a prediction into a real number, which intuitively
@@ -365,10 +366,10 @@ Applying a regularizer\index{Regularizer}, is also useful when we need to select
 between two (or more) competing hypotheses that are equally good. For example,
 assuming two hypotheses achieve the same (unregularized) training loss, the
 inclusion of a regularization term help us decide between the two, \emph{by
-favoring the simplest one}. This is reminiscent of the \emph{Occam's razor aka
-principle of parsimony}\index{Occam's razor}\index{Principle of parsimony},
-which advocates that between two competing theories with equal explanatory
-power, one should prefer the one with the fewest assumptions.
+favoring the simplest one}. This is reminiscent of the \emph{\textbf{Occam's
+razor} aka \textbf{principle of parsimony}}\index{Occam's razor}\index{Principle
+of parsimony}, which advocates that between two competing theories with equal
+explanatory power, one should prefer the one with the fewest assumptions.
 
 \begin{definition}[Optimizer]
 	An algorithm that searches through $\mcl{H}$ for the solution of Equation
@@ -412,29 +413,25 @@ $f(\vcx)$ \emph{decreases fastest if one takes a small step from $\vcx$ in the
 direction of negative gradient at $\vcx$, $-\nabla f(\vcx)$}.
 
 The motivation becomes clear if we look at the differential of $f(\vcx)$ in
-direction $\vc{u}$:
-\begin{equation}
-	\label{eq:differential}
-	f(\vcx + \delta \vc{u}) - f(\vcx) = \nabla f(\vcx) \cdot \delta \vc{u}
-\end{equation}
-Equation \ref{eq:differential} says that this differential is
-minimized\footnote{The right hand side of Equation \ref{eq:differential} is a
-dot product.} when $\delta \vc{u}$ is anti-parallel to $\nabla f(\vcx)$ and that
-is why we subtract the gradient in Algorithm \ref{algo:gd}, i.e. move in
-direction anti-parallel to the gradient. The fact that Equation
-\ref{eq:differential} holds only locally (magnitude of $\delta \vc{u}$ must be
-small) explains why $\eta$ must be a small number. It should be added that
-gradient descent can be trapped to (potential) local minima of the training loss
-and therefore fail to solve Equation \ref{eq:problem}. As it will be discussed
-later, this is not a problem, because \emph{the ultimate purpose is to find a
-hypothesis that generalizes well, not necessarily the one that minimizes the
-training loss}\footnote{Remember we use the training loss (see Equation
-\ref{eq:training_loss}) as a proxy for the generalization loss (see Equation
-\ref{eq:generalization_loss}).}. Optimizers are discussed in further detail in
-the section \ref{subsec:nn_training}.
+direction $\vc{u}$: \begin{equation} \label{eq:differential} f(\vcx + \delta
+\vc{u}) - f(\vcx) = \nabla f(\vcx) \cdot \delta \vc{u} \end{equation} Equation
+\ref{eq:differential} says that this differential is minimized\footnote{The
+right hand side of Equation \ref{eq:differential} is a dot product.} when
+$\delta \vc{u}$ is anti-parallel to $\nabla f(\vcx)$ and that is why we subtract
+the gradient in Algorithm \ref{algo:gd}, i.e. move in direction anti-parallel to
+the gradient. The fact that Equation \ref{eq:differential} holds only locally
+(magnitude of $\delta \vc{u}$ must be small) explains why $\eta$ must be a small
+number. It should be added that gradient descent can be trapped to (potential)
+local minima of the training loss and therefore fail to solve Equation
+\ref{eq:problem}. As it will be discussed later, this is not a problem, because
+\emph{the ultimate purpose is to find a hypothesis that generalizes well, not
+necessarily the one that minimizes the training loss}\footnote{Remember we use
+the training loss (see Equation \ref{eq:training_loss}) as a proxy for the
+generalization loss (see Equation \ref{eq:generalization_loss}).}. Optimizers
+are discussed in further detail in Section \ref{subsec:nn_training}.
 
 Before moving on, it is worth to add that both the regularization and the
-optimizer can effect the ``true'' or \emph{\textbf{effective
+optimizer have an effect on the ``true'' or \emph{\textbf{effective
 capacity}}\index{Effective capacity} \parencite{deeplearning} of the learner,
 \emph{which might be less than the representational
 capacity\index{Representational capacity} of the hypothesis space}. For example
@@ -476,7 +473,7 @@ possible to collect new samples, \emph{we split the initial
 dataset\index{Dataset} into training and test sets}.
 
 The general recipe for building and evaluating the performance of a \gls{ml}
-model have already been presented. What is missing is how we can improve its
+model has already been presented. What is missing is how we can improve its
 performance, or to put it differently, the factors that affect the quality of
 the returned model. There are two main factors that determine the performance of
 the model: \emph{complexity\index{Complexity} and experience\index{Experience}}.
@@ -494,72 +491,20 @@ such, fail to generalize.
 In other words, there is a trade-off between the complexity of the learner and
 its performance. The learner should be not too simple but also not too complex,
 in order to generalize well. This in turn implies that we need to find a way to
-``tune'' the complexity. A common way to achieve that is by using
-another set of instances, called \emph{\textbf{validation set}\index{Validation
-set}}
+``tune'' the complexity. A common way to achieve that is by using another set of
+instances, known as the \emph{\textbf{validation set}\index{Validation set}}. We
+train learners of different complexity on the training set\index{Training set},
+evaluate their performance on the validation set, and then choose the learner
+that performs best on the validation set. The reason we use the validation set
+instead of the test set for tuning complexity, is to ensure that the performance
+estimation is unbiased. \emph{The test set\index{Test set} should not influence
+our decisions in any way}. After we have tune the complexity, we can estimate
+the performance of the resulting model in the test set. Finally, it is a good
+practice to retrain the learner on the whole dataset---including validation and
+test sets---since more data result in models of higher quality.
 
-\begin{figure}
-	\begin{subfigure}{0.5\textwidth}
-		\centering
-		\begin{tikzpicture}%[trim axis left, trim axis right]
-			\begin{axis}[
-					custom axis, no markers, ticks=none,
-					xmin=0, xmax=3.5, domain=0:3.5, grid=none,
-					ymin=0, ymax=1.2, clip mode=individual,
-					xlabel=Number of training samples, ylabel=Accuracy,
-				]
-				\addplot {divide(25*x, 2+25*x)*0.6};
-				\addlegendentry{Test accuracy};
-				\addplot {1 - 0.59*divide(25*x, 2+25*x)*0.6};
-				\addlegendentry{Training accuracy};
-				\addplot+ [black, dashed] {1};
-				\node at (-0.29, 1) {100\%};
-			\end{axis}
-		\end{tikzpicture}
-		\caption{Learning curve of learner with low complexity.}
-	\end{subfigure}
-	\begin{subfigure}{0.5\textwidth}
-		\centering
-		\begin{tikzpicture}
-			\begin{axis}[
-					custom axis, domain=0:2,
-					grid=none, ticks=none, samples=50, ymin=0, ymax=1.8,
-					xlabel=Complexity, ylabel=Error
-				]
-				\addplot+ [no markers] {1/(x+0.3)-0.2}; % Bias^2
-				\addlegendentry{Bias$^2$};
-				\addplot+ [no markers] {0.12*e^(1.40*x)}; % Variance
-				\addlegendentry{Variance};
-				\addplot+ [green, no markers] {3*(x-2)*x+3.8}; % Total error
-				\addlegendentry{Total error};
-				\draw[dotted, -Diamond] (1, 0) -- (1, 0.83) node[
-					above, yshift=0.2cm
-				] {}; %{$\argmin_{\Omega} \mcl{E}$};
-			\end{axis}
-		\end{tikzpicture}
-		%\begin{tikzpicture}%[trim axis left, trim axis right]
-		%	\begin{axis}[
-		%			custom axis, no markers, ticks=none,
-		%			xmin=0, xmax=3.5, domain=0:3.5, grid=none,
-		%			ymin=0, ymax=1.2, clip mode=individual,
-		%			xlabel=Number of training samples, ylabel=Accuracy,
-		%		]
-		%		\addplot {divide(25*x, 11+25*x)*0.97};
-		%		\addlegendentry{Test accuracy};
-		%		\addplot {1 - 0.1*divide(25*x, 11+25*x)*0.97};
-		%		\addlegendentry{Training accuracy};
-		%		\addplot+[black, dashed] {1};
-		%		\node at (-0.29, 1) {100\%};
-		%	\end{axis}
-		%\end{tikzpicture}
-		\caption{Learning curve of learner with high complexity.}
-	\end{subfigure}
-	\caption{Relation between performance\index{Performance} and
-	experience\index{Experience}.}
-	\label{fig:learning_curves_theory}
-\end{figure}
-
-\begin{theorem}[Bias-variance decomposition]
+\begin{theorem}[Bias-variance decomposition\index{Bias-variance decomposition}]
+	\label{thrm:bias_variance}
 	From Equation \ref{eq:supervised} and assuming $\epsilon \sim \mcl{N}(0, 1)$,
 	the expected squared loss\index{Squared loss}\index{Expected square loss} at
 	$\vcx^*$, can be decomposed as following:
@@ -582,13 +527,55 @@ set}}
 	$\vcx^*$ in the test set.
 \end{theorem}
 
+The trade-off between the complexity\index{Complexity} of the learner and its
+performance\index{Performance}, is mathematically described in Theorem
+\ref{thrm:bias_variance}. Equation \ref{eq:bias_variance} states that the error
+of the learner can be decomposed into three terms:
+\emph{\textbf{bias}\index{Bias}, \textbf{variance}\index{Variance} and
+\textbf{irreducible error}\index{Irreducible error}}. The bias\index{Bias}
+(squared)---first term of Equation \ref{eq:bias_variance}---refers to the error
+introduced by \emph{approximating a real-world problem, which can be highly
+complicated, by a much simpler model} \parencite{introstat, Hastie2009}. For
+instance, if the input-output relationship is highly non-linear, using linear
+regression to approximate $f$, will undoubtedly introduce some bias in the
+estimate of $f$. In contrast, if the input-output relationship is very close to
+linear, linear regression should be able to produce an accurate estimate of $f$.
+In general, more flexible learners, result in less bias
+\parencite{introstat, Hastie2009}.
+
+The variance\index{Variance}---second term of Equation
+\ref{eq:bias_variance}---refers to the \emph{degree by which $\hat{f}$ would
+change if it was estimated by different training sets\index{Training set}}.
+Since the training data\index{Training data} are used to fit the learning
+algorithm, different training sets will result in a different estimate of $f$.
+Ideally, $\hat{f}$ should not exhibit too much variation between different
+training sets, since otherwise small changes in the training can result in large
+changes in $\hat{f}$. In that case, the learner essentially memorizes the
+training data. Generally, more flexible learners, result in higher
+variance\index{Variance} \parencite{introstat, Hastie2009}.
+
+Lastly, the irreducible error---third term of Equation
+\ref{eq:bias_variance}---refers to the \emph{error caused by stochastic label
+noise}, as can be seen from Equation \ref{eq:supervised}. A possible source for
+this noise, might be ommited features\index{Feature} which are useful in
+predicting the output. It is called irreducible, because no matter how well we
+estimate $f$, even if we predict $\hat{y} = f(\vcx)$, we can't reduce the error
+associated to the variability of $\epsilon$. As stated in Section
+\ref{subsec:supervised_learning}, this random error term is indepedent of
+$\vcx$, and as such, we have no control over it. The \emph{bias-variance
+trade-off}\index{Bias-variance trade-off} is schematically depicted in Figure
+\ref{fig:bias_variance}. Interested readers might also appreciate reading about
+\emph{double descent}\index{Double descent} \parencite{Nakkiran2019}, a
+phenomenon where increasing further the complexity of the learner, results in a
+new minimum (hence, the name).
+
 \begin{figure}
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[
-				width=0.8\textwidth, custom axis, domain=0:2,
+				width=0.5\textwidth, custom axis, domain=0:2,
 				grid=none, ticks=none, samples=50, ymin=0, ymax=1.8,
-				xlabel=Complexity | $\Omega$, ylabel=Error | $\mcl{E}$,
+				xlabel=Complexity, ylabel=Error,
 			]
 			\addplot+ [no markers] {1/(x+0.3)-0.2}; % Bias^2
 			\addlegendentry{Bias$^2$};
@@ -598,12 +585,101 @@ set}}
 			\addlegendentry{Total error};
 			\draw[dotted, -Diamond] (1, 0) -- (1, 0.83) node[
 				above, yshift=0.2cm
-			] {$\argmin_{\Omega} \mcl{E}$};
+			] {}; %{$\argmin_{\Omega} \mcl{E}$};
 		\end{axis}
 	\end{tikzpicture}
-	\caption{The bias-variance trade-off\index{Bias-variance trade-off}.}
+	\caption[The bias-variance trade-off.]{The bias-variance
+	trade-off\index{Bias-variance trade-off}. For a given task\index{Task},
+	there is a ``sweetspot'' of complexity, that minimizes the total error.
+	$\text{Bias}^2$ and variance correspond to the first and second term of
+	Equation \ref{eq:bias_variance}, respectively.}
 	\label{fig:bias_variance}
 \end{figure}
+
+Figure \ref{fig:learning_curves_theory}, shows the \emph{learning
+curves}\index{Learning curve} for learners of different complexity. A learning
+curve is a plot of the training and test performance\index{Training
+performance}\index{Test performance}\footnote{Usually, only the test performance
+is plotted.} of the learner\index{Learner} as function of its experience.
+First, lets look at the learning curve of the low complexity learner. The
+accuracy\footnote{By accuracy we mean any performance metric\index{performance
+metric} where higher values are better, not necessarily the classification
+accuracy\index{Classification accuracy}.} starts out high on the training
+set\index{Training set}, since with a small number of samples, the learner can
+fit them perfectly. However, by adding more training data, learner's training
+accuracy\index{Training accuracy} quickly drops due to learners inflexibility
+and inexpressivity. That is, it can't fit the patterns in the training data. On
+the other hand, test accuracy\index{Test accuracy} starts out very low, since
+with very few training data, it is unlikely that the training set is a good
+representation of the underlying distribution\index{Distribution} $p(\vcx,
+\vcy)$. In other words, it is unlikely that the learner will experience patterns
+in the training data, that will help it to generalize well. By increasing the
+training data, test accuracy increases but it never reaches a high value. This
+happens due to the learners inability to detect and exploit the patterns in the
+training data.  In other words, the learner fails to generalize well not because
+its experience is low, but because it is biased. That is, it oversimplifies the
+problem and make strong assumptions that do not capture the complexity of the
+data.
+
+Now lets consider the learning curve of the high complexity\index{High
+complexity} learner. Again, , the training accuracy starts out high with a small
+amount of training data.  However, in contrast to the previous case, as the
+number of training samples increase, the training accuracy remains high since
+the learner is flexible enough to learn the patterns in the training set,
+irrespective of its size. At some point, the training data becomes large enough
+that is a good representation of the underlying distribution\index{Distribution}
+$p(\vcx, \vcy)$ and since the learner is very flexible, it can capture the true
+patterns in $p(\vcx, \vcy)$, increasing the test accuracy. It is worth pointing
+out that the learning and complexity curves\index{Complexity curve} (see Figure
+\ref{fig:bias_variance}), are just two slices of the same 3D plot: the plot of
+learner's performance as function of experience and complexity.
+
+\begin{figure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\begin{tikzpicture}%[trim axis left, trim axis right]
+			\begin{axis}[
+					custom axis, no markers, ticks=none,
+					xmin=0, xmax=3.5, domain=0:3.5, grid=none,
+					ymin=0, ymax=1.2, clip mode=individual,
+					xlabel=Number of training samples, ylabel=Accuracy,
+				]
+				\addplot {divide(25*x, 2+25*x)*0.6};
+				\addlegendentry{Test accuracy};
+				\addplot {1 - 0.59*divide(25*x, 2+25*x)*0.6};
+				\addlegendentry{Training accuracy};
+				\addplot+ [black, dashed] {1};
+				\node at (-0.29, 1) {100\%};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Learning curve of learner with low complexity\index{Low
+		complexity}.}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\begin{tikzpicture}%[trim axis left, trim axis right]
+			\begin{axis}[
+					custom axis, no markers, ticks=none,
+					xmin=0, xmax=3.5, domain=0:3.5, grid=none,
+					ymin=0, ymax=1.2, clip mode=individual,
+					xlabel=Number of training samples, ylabel=Accuracy,
+				]
+				\addplot {divide(25*x, 11+25*x)*0.97};
+				\addlegendentry{Test accuracy};
+				\addplot {1 - 0.1*divide(25*x, 11+25*x)*0.97};
+				\addlegendentry{Training accuracy};
+				\addplot+[black, dashed] {1};
+				\node at (-0.29, 1) {100\%};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{Learning curve of learner with high complexity\index{High
+		complexity}.}
+	\end{subfigure}
+	\caption{Relation between performance\index{Performance} and
+	experience\index{Experience}.}
+	\label{fig:learning_curves_theory}
+\end{figure}
+
 
 %\begin{definition}[Overfitting]
 %	Add some text!
@@ -649,9 +725,10 @@ set}}
 		$\vcth \gets \vcth - \eta\gloss$\;
 	}
 	\Return{optimized parameters $\vcth$}
-	\caption{Batch\index{Batch gradient descent}, mini-batch\index{Mini-batch
+	\caption[Batch, mini-batch and stochastic gradient
+	descent]{Batch\index{Batch gradient descent}, mini-batch\index{Mini-batch
 	gradient descent} and stochastic gradient descent\index{Stochastic gradient
-	descent} algorithms}
+	descent} \parencite{Bottou1998}}
 \end{algorithm}
 
 \begin{algorithm}[H]
@@ -664,7 +741,7 @@ set}}
 		$\vcth \gets \vcth + \vc{m}$\;
 	}
 	\Return{optimized parameters $\vcth$}
-	\caption{Momentum\index{Momentum} algorithm, needs citation}
+	\caption[Momentum]{Momentum\index{Momentum} \parencite{Polyak1964}}
 	\label{algo:momentum}
 \end{algorithm}
 
@@ -679,7 +756,8 @@ set}}
 		$\vcth \gets \vcth + \vc{m}$\;
 	}
 	\Return{optimized parameters $\vcth$}
-	\caption{Nesterov momentum\index{Nesterov momentum} algorithm, needs citation}
+	\caption[Nesterov momentum]{Nesterov momentum\index{Nesterov momentum}
+	\parencite{Sutskever2013}}
 	\label{algo:nesterov}
 \end{algorithm}
 
@@ -696,7 +774,7 @@ set}}
 		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
 	}
 	\Return{optimized parameters $\vcth$}
-	\caption{AdaGrad\index{AdaGrad} algorithm, needs citation}
+	\caption[AdaGrad]{AdaGrad\index{AdaGrad} \parencite{Duchi2011}}
 	\label{algo:adagrad}
 \end{algorithm}
 
@@ -713,7 +791,7 @@ set}}
 		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
 	}
 	\Return{optimized parameters $\vcth$}
-	\caption{RMSProp\index{RMSProp} algorithm, needs citation}
+	\caption[RMSProp]{RMSProp\index{RMSProp} \parencite{Tieleman2012}}
 	\label{algo:rmsprop}
 \end{algorithm}
 
@@ -735,7 +813,7 @@ set}}
 		\oslash \sqrt{\vc{\widehat{s}} + \epsilon}$\;
 	}
 	\Return{optimized parameters $\vcth$}
-	\caption{Adam\index{Adam} algorithm, needs citation}
+	\caption[Adam]{Adam\index{Adam} \parencite{Kingma2017}}
 	\label{algo:adam}
 \end{algorithm}
 
@@ -754,7 +832,8 @@ set}}
 		\sum_{j \in \text{Ch}_\mcl{G}(u_i)} \bar{u}_j \pd{u_j}{u_i}$\;
 	}
 	\Return{derivatives $\bar{u}_i$}
-	\caption{Backpropagation\index{Backpropagation} algorithm, needs citation}
+	\caption[Backpropagation]{Backpropagation\index{Backpropagation}
+	\parencite{Rumelhart1986}}
 	\label{algo:backpropagation}
 \end{algorithm}
 %

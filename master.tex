@@ -1,4 +1,4 @@
-\documentclass[listof=totoc, chapterprefix=true]{scrreport}
+\documentclass[listof=totoc, bibliography=totoc, chapterprefix=true]{scrreport}
 
 % Author information
 \author{
@@ -110,6 +110,7 @@
 
 % Units
 \usepackage{siunitx}
+\sisetup{mode=text}
 
 % Maths
 \usepackage{amsmath, amssymb, amsthm, thmtools, mathtools}
@@ -228,6 +229,8 @@
 	assets/results,
 }
 
+%\DeclareUnicodeCharacter{2212}{\textcolor{red}{BAD}}
+
 \begin{document}
 
 \maketitle
@@ -245,7 +248,7 @@
 \include{assets/methodology}
 \include{assets/results}
 
-%\printbibliography
+\printbibliography
 \printindex
 \printacronyms
 
