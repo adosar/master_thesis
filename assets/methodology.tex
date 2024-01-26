@@ -88,7 +88,7 @@ information content, but again, extra computational burden is required.
 the voxels are filled with energy values derived from ab-initio
 calculations\index{Ab-initio calculations}.}
 
-In this work we strived for minimal computational cost, setting $n=25$ and
+In this work we strived for minimal computational cost, setting $n=\num{25}$ and
 modeling all interactions with the \gls{lj} potential\index{Lennard-Jones
 potential}, using a spherical probe molecule\index{Probe molecule} as guest.
 The interaction energy $\mcl{V}(\vc{r}_i)$ between the spherical probe and the
@@ -195,15 +195,15 @@ enters the CNN as following:
 \end{equation}
 
 Regarding \gls{cnn} training\index{CNN training}, \gls{msl} is used as loss
-function and weights\index{Weights} are initialized according to the He
-scheme \parencite{He2015}. The Adam optimizer \parencite{Kingma2017} is
-employed, with $\lvert\mcl{B}\rvert = 64$, $\eta = 0.001$, $\beta_1 = 0.9$,
-$\beta_2 = 0.999$ and $\epsilon = \SI{1e-8}{}$. The \gls{cnn} training lasts for
+function and weights\index{Weights} are initialized according to the He scheme
+\parencite{He2015}. The Adam optimizer \parencite{Kingma2017} is employed, with
+$\lvert\mcl{B}\rvert = \num{64}$, $\eta = \num{0.001}$, $\beta_1 = \num{0.9}$,
+$\beta_2 = \num{0.999}$ and $\epsilon = \num{1e-8}$. The \gls{cnn} training lasts for
 \num{50} epochs with the learning rate being decaybed by \num{0.5} every
-\num{10} epochs\index{Epoch}. RetNet was trained in the \glspl{mof} dataset
-with the largest training set size (\num{32432} training samples), for a
-different number of epochs, namely \num{10}, \num{20} and \num{50}. The latter
-value was selected, since it showed the greatest performance in the validation
+\num{10} epochs\index{Epoch}. RetNet was trained in the \glspl{mof} dataset with
+the largest training set size (\num{32432} training samples), for a different
+number of epochs, namely \num{10}, \num{20} and \num{50}. The latter value was
+selected, since it showed the greatest performance in the validation
 set\index{Validation set}.
 
 \subsection{Data augmentation\index{Data augmentation}}

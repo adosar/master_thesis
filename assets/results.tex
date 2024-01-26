@@ -31,12 +31,12 @@ which just downsample\index{Downsample} the feature maps from the previous
 layers.
 
 For example, each feature map of the \conv{2} layer takes into account all
-the twelve feature maps of \conv{1} layer. In contrast, the feature maps of the
+the 12 feature maps of \conv{1} layer. In contrast, the feature maps of the
 \pool{1} layer, are just downsampled versions of the corresponding feature maps
 in \conv{2} layer. Although feature maps of \glspl{cnn} are not meant to be
 interpreted by humans---especially the ones found deeper in the network---it is
 worth noticing that early Conv layers\index{Conv layer} (i.e. \conv{1} and
-\conv{2}) emphasize the texture of the structure. For instance, the third
+\conv{2}) emphasize the texture of the structure. For instance, the 3rd
 feature map of \conv{1} layer delineates the skeleton of the framework.
 
 Moving towards the output layer, the alternation of MaxPool and Conv layers
@@ -70,10 +70,10 @@ layer\index{Linear layer}, all that RetNet does is the following:
 	\caption[RetNet architecture.]{Forward pass\index{Forward pass} of
 	IRMOF-1\index{IRMOF-1} through RetNet\index{RetNet}. For the sake of
 	visualization, only slices (feature maps\index{Feature map} are 3D matrices)
-	of eight feature maps from the first five layers are visualized. For
-	\conv{1} layer, the fifth slice is presented, while for the remaining
-	layers, the first slice is presented. The IRMOF-1 structure was visualized
-	with the iRASPA software \parencite{Dubbeldam2018}.}
+	of 8 feature maps from the first 5 layers are visualized. For \conv{1}
+	layer, the 5-th slice is presented, while for the remaining layers, the 1-st
+	slice is presented. The IRMOF-1 structure was visualized with the iRASPA
+	software \parencite{Dubbeldam2018}.}
 	\label{fig:retnet}
 \end{figure}
 
@@ -177,22 +177,22 @@ the following factors:
 
 It is worth mentioning the increase in performance, approximately
 \SI{13}{\percent}, of the \gls{cnn} model in the \glspl{cof}-\ch{CH4} case
-($R^2=0.969$) compared to the \glspl{mof}-\ch{CO2} case ($R^2=0.859$). In
-contrast to \ch{CO2}, which exhibits strong electrostatic interactions with the
-framework atoms, \ch{CH4} lacks dipole\index{Dipole moment} or quadrupole
-moment\index{Quadrupole moment}. Given that the same resolution---i.e. the same
-grid size---was used in both cases and that the \gls{lj} potential doesn't
-account for electrostatic interactions, this performance gap should be
-attributed to the absence of the latter in the voxelized \gls{pes}. \emph{In
-other words, the extra ``contrast'' that such strong
-interactions\index{Electrostatic interactions} add to the energy image of the
-masterial, is missing from the voxelized \gls{pes}. As such, a straightforward
-approach to improve the performance of the proposed approach, especially for
-adsorbates like \ch{CO2}, \ch{H2} and \ch{H2S}, is to include this type of
-interactions into the voxelized \gls{pes}}. Of course, there is no free lunch,
-since these refinements require the assignment of partial charges\index{Partial
-charge} to each framework atom, which is a computationally expensive task.
-Luckily, \gls{ml}-based approaches have already been developed
+($R^2=\num{0.969}$) compared to the \glspl{mof}-\ch{CO2} case
+($R^2=0.\num{859}$). In contrast to \ch{CO2}, which exhibits strong
+electrostatic interactions with the framework atoms, \ch{CH4} lacks
+dipole\index{Dipole moment} or quadrupole moment\index{Quadrupole moment}. Given
+that the same resolution---i.e. the same grid size---was used in both cases and
+that the \gls{lj} potential doesn't account for electrostatic interactions, this
+performance gap should be attributed to the absence of the latter in the
+voxelized \gls{pes}. \emph{In other words, the extra ``contrast'' that such
+strong interactions\index{Electrostatic interactions} add to the energy image of
+the masterial, is missing from the voxelized \gls{pes}. As such, a
+straightforward approach to improve the performance of the proposed approach,
+especially for adsorbates like \ch{CO2}, \ch{H2} and \ch{H2S}, is to include
+this type of interactions into the voxelized \gls{pes}}. Of course, there is no
+free lunch, since these refinements require the assignment of partial
+charges\index{Partial charge} to each framework atom, which is a computationally
+expensive task.  Luckily, \gls{ml}-based approaches have already been developed
 \parencite{Bleiziffer2018, Raza2020, Kancharlapalli2021}, which can assign
 partial charges rapidly and with high fidelity, enabling the efficient
 construction of a more accurate voxelized \gls{pes}.
@@ -233,7 +233,7 @@ great if all properties could be predicted from one and only one input?}} If our
 aim is to predict \emph{different properties for the same structure, shouldn't
 the structure itself be used as input?} Currently, the approaches to tackle this
 challenge are based on \emph{text representations}\index{Text representations}
-\parencite{Cao2023, Bucior2019} and \emph{crystal graphs}\index{Crystal graphs}
+\parencite{Cao2023, Bucior2019} \emph{and crystal graphs}\index{Crystal graphs}
 \parencite{Chen2019, Xie2018}. The main drawback of these approaches, is their
 inability to represent exactly the structure, that is the \emph{exact
 arrangement of the atoms in the 3D space}. \emph{\textbf{Point clouds}}
@@ -246,8 +246,9 @@ representation\index{Representation} of a material---in the sense of a
 descriptor\index{Descriptor}---it is the material itself}\footnote{Same ideas
 apply for molecules and in general, for any chemical system\index{Chemical
 system}.}. Therefore, an answer to the original question is to \emph{couple
-point clouds with a neural network that can handle such kind of input}. Such an
-approach might has to overcome the current immaturity of \gls{dl} over point
+point clouds with a neural network that can handle such kind of input}. This
+approach might have to overcome the current immaturity of \gls{dl} over point
 clouds---especially regarding materials and molecules---but from a chemical
-perspective, it is the only one that truly respects the 3D nature of chemistry
-and of course, reticular chemistry.
+perspective, it is the only one that truly respects the 3D nature of
+chemistry\index{Chemistry} and of course, reticular chemistry\index{Reticular
+chemistry}.
