@@ -152,7 +152,7 @@
 \usepackage{pgfornament} % No need to load tikz
 \usetikzlibrary{
 	arrows, arrows.meta, decorations.pathmorphing,
-	shadows, graphs, positioning, intersections
+	shadows, graphs, shapes.multipart, positioning, intersections
 }
 \tikzset{
 	custom node/.style = {
@@ -233,23 +233,23 @@
 
 \begin{document}
 
-\maketitle
-\tableofcontents
-\listoffigures
-\listofalgorithms
+%\maketitle
+%\tableofcontents
+%\listoffigures
+%\listofalgorithms
 % Add list of algorithms to contents page
-\addcontentsline{toc}{chapter}{List of Algorithms}
+%\addcontentsline{toc}{chapter}{List of Algorithms}
 
 
 
-\include{assets/abstract}
-\include{assets/introduction}
+%\include{assets/abstract}
+%\include{assets/introduction}
 \include{assets/theory}
-\include{assets/methodology}
-\include{assets/results}
+%\include{assets/methodology}
+%\include{assets/results}
 
-\printbibliography
-\printindex
-\printacronyms
+%\printbibliography
+%\printindex
+%\printacronyms
 
 \end{document}
