@@ -73,7 +73,7 @@ description of the different paradigms.
 \begin{definition}[name=Unsupervised learning]
 	The experience comes in the form $\dtrain = \{\vcx_i\}$, where $\vcx_i \sim
 	p(\vcx)$ is the input\index{Input} of the $i$-th training
-	instance\index{Training instance} or sample\index{Training sample}. In this
+	instance\index{Training instance} aka sample\index{Training sample}. In this
 	paradigm we are interested in learning useful properties of the underlying
 	structure captured by $p(\vcx)$ or $p(\vcx)$ itself.
 \end{definition}
@@ -120,7 +120,7 @@ estimating $p(\vcx \mid \vcy)$. For example, one may want to build a model that
 generates images of a specific category or a \emph{model that designs
 molecules/materials with tailored properties} \parencite{Kim2018, Yao2021,
 Gebauer2022}. This is one approach of how \gls{ml} can tackle the \emph{inverse
-design problem}\index{Inverse design} in chemistry.
+design problem}\index{Inverse design} in chemistry\index{Chemistry}.
 
 \begin{figure}
 	\centering
@@ -261,9 +261,9 @@ algorithm $\mcl{A}$\index{Learning algorithm}:
 
 By breaking down Equation \ref{eq:problem}, i.e. the optimization problem the
 learner needs to solve, the components of a learner can be revealed. The latter
-is comprised of the following three ``orthogonal'' components: a
-\emph{\textbf{hypothesis space}}\index{Hypothesis space}, a \emph{\textbf{loss
-function}} and an \emph{\textbf{optimizer}}. We now look into each of them
+is comprised of the following three ``orthogonal'' components: \emph{a
+\textbf{hypothesis space}\index{Hypothesis space}, a \textbf{loss
+function} and an \textbf{optimizer}}. We now look into each of them
 individually and describe the contribution of each one to the solution of the
 optimization problem. For the ease of notation and clarity, in the remaining of
 this chapter we will stick to examples from simple (single-valued) regression
@@ -498,7 +498,7 @@ evaluate their performance on the validation set, and then choose the learner
 that performs best on the validation set. The reason we use the validation set
 instead of the test set for tuning complexity, is to ensure that the performance
 estimation is unbiased. \emph{The test set\index{Test set} should not influence
-our decisions in any way}. After we have tune the complexity, we can estimate
+our decisions in any way}. After we have tuned the complexity, we can estimate
 the performance of the resulting model in the test set. Finally, it is a good
 practice to retrain the learner on the whole dataset---including validation and
 test sets---since more data result in models of higher quality.
@@ -632,7 +632,7 @@ $p(\vcx, \vcy)$ and since the learner is very flexible, it can capture the true
 patterns in $p(\vcx, \vcy)$, increasing the test accuracy. It is worth pointing
 out that the learning and complexity curves\index{Complexity curve} (see Figure
 \ref{fig:bias_variance}), are just two slices of the same 3D plot: the plot of
-learner's performance as function of experience and complexity.
+performance as function of experience and complexity.
 
 \begin{figure}
 	\begin{subfigure}{0.5\textwidth}

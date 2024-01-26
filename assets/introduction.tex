@@ -152,9 +152,10 @@ quality.
 	\caption[Material space of \acrshortpl{mof}.]{Material space\index{Material
 	space} of \glspl{mof}. Each point in this space corresponds to a unique
 	combination of organic linker and metal cluster, whereas the associated
-	color denotes the ``score'' of material for a given application. Finding the
-	best material (the pentagons) for a given application, amounts to solving a
-	(probably) non-convex optimization problem.}
+	color denotes the ``score'' of material (point) for a given application.
+	Finding the best material (the pentagons) for a given application, amounts
+	to solving a (probably) non-convex optimization problem\index{Optimization
+	problem}\index{Non-convex optimization problem}.}
 	\label{fig:mofs_space}
 \end{figure}
 
@@ -200,8 +201,8 @@ hydrogen and methane uptake with remarkable accuracy. Prior to calculating the
 energy histograms, a 3D grid is overlayed on the unit cell\index{Unit cell} of
 the \gls{mof}. Next, at each point of the grid, the interaction between the
 guest molecule with the framework atoms is calculated, producing a 3D energy
-grid\index{Energy grid}. The latter is finally converted into a histogram, by
-partitioning the energy values of the grid into bins of specific energy width.
+grid\index{Energy grid}. \emph{The latter is finally converted into a histogram, by
+partitioning the energy values of the grid into bins of specific energy width}.
 By using solely these histograms as descriptors---without including any textual
 property---\textcite{bucior} trained Lasso regression
 models\index{Regression}\index{Lasso}, for predicting:
@@ -229,9 +230,9 @@ proposed:
 \end{enumerate*}.
 Each of these fictitious probe particles is randomly inserted at different
 positions of the unit cell\index{Unit cell}, and the interaction energy between
-the probe and the framework atoms is calculated. The interaction energies at the
+the probe and the framework atoms is calculated. \emph{The interaction energies at the
 different positions are averaged out, producing an energetic
-fingerprint\index{Energetic fingerprint} of the material. These fingerprints in
+fingerprint\index{Energetic fingerprint} of the material}. These fingerprints in
 combination with six geometric descriptors formed the input for the
 \gls{rf}\index{Random forest} algorithm, which was trained to predict gas
 uptake\index{Gas uptake} for a plethora of guest molecules\index{Guest molecule}
