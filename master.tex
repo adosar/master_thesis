@@ -52,13 +52,11 @@
 	University of Crete
 	\\
 	\rule{\textwidth}{1pt}
-	%\pgfornament[width=\textwidth]{88}%
 }
 
 % Titlehead
 \titlehead{
 	\centering
-	%\pgfornament[width=\textwidth]{88}
 	\rule{\textwidth}{1pt}
 	\scshape\bfseries\Large
 	\\
@@ -116,6 +114,9 @@
 \usepackage{amsmath, amssymb, amsthm, thmtools, mathtools}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\relu}{ReLU}
+\DeclareMathOperator*{\lrelu}{LeakyReLU}
+\DeclareMathOperator*{\step}{step}
 \declaretheoremstyle[
 	headfont=\color{Blue}\bfseries\scshape,
 	notefont=\color{black}\normalfont,
@@ -124,6 +125,8 @@
 ]{custom}
 \declaretheorem[parent=chapter, style=custom]{definition}
 \declaretheorem[style=custom]{theorem}
+\newtagform{colored}[]{\color{Blue}(}{)}
+\usetagform{colored}
 
 % Index and acronyms
 \usepackage{imakeidx}
@@ -134,6 +137,7 @@
 
 % Algorithms
 \usepackage[linesnumbered, lined, ruled]{algorithm2e}
+\SetAlCapFnt{\color{Blue}\scshape}
 
 % Lettrine
 \usepackage{lettrine}
@@ -152,7 +156,8 @@
 \usepackage{pgfornament} % No need to load tikz
 \usetikzlibrary{
 	arrows, arrows.meta, decorations.pathmorphing,
-	shadows, graphs, shapes.multipart, positioning, intersections
+	shadows, graphs, shapes.multipart, positioning, intersections,
+	backgrounds, fit,
 }
 \tikzset{
 	custom node/.style = {
@@ -178,10 +183,15 @@
 
 % Acronyms
 \newacronym{ml}{ML}{machine learning}
+\newacronym{svm}{SVM}{support vector machine}
 \newacronym{dl}{DL}{deep learning}
 \newacronym{nn}{NN}{neural network}
+\newacronym{relu}{$\relu$}{rectified linear unit}
+\newacronym{lrelu}{$\lrelu$}{leaky rectified linear unit}
 \newacronym{fcnn}{FCNN}{fully connected neural network}
+\newacronym{rnn}{RNN}{recurrent neural network}
 \newacronym{mlp}{MLP}{multilayer perceptron}
+\newacronym{dag}{DAG}{directed acyclic graph}
 \newacronym{cnn}{CNN}{convolutional neural network}
 \newacronym{ilsvrc}{ILSVRC}{Large Scale Visual Recognition Challenge}
 \newacronym{gpu}{GPU}{graphics processing unit}
@@ -220,13 +230,18 @@
 \newcommand{\conv}[1]{Conv\num{#1}}
 \newcommand{\pool}[1]{MaxPool\num{#1}}
 \renewcommand{\exp}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\Equation}{\textsc{Equation}}
+\newcommand{\Figure}{\textsc{Figure}}
+\newcommand{\Theorem}{\textsc{Theorem}}
+\newcommand{\Algorithm}{\textsc{Algorithm}}
+\newcommand{\Section}{\textsc{Section}}
 
 \includeonly{
-	assets/abstract,
-	assets/introduction,
+	%assets/abstract,
+	%assets/introduction,
 	assets/theory,
-	assets/methodology,
-	assets/results,
+	%assets/methodology,
+	%assets/results,
 }
 
 %\DeclareUnicodeCharacter{2212}{\textcolor{red}{BAD}}
@@ -242,14 +257,14 @@
 
 
 
-%\include{assets/abstract}
-%\include{assets/introduction}
+\include{assets/abstract}
+\include{assets/introduction}
 \include{assets/theory}
-%\include{assets/methodology}
-%\include{assets/results}
+\include{assets/methodology}
+\include{assets/results}
 
 %\printbibliography
-%\printindex
+\printindex
 %\printacronyms
 
 \end{document}

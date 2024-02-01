@@ -20,10 +20,10 @@ uptake.
 
 \section{Visualizing RetNet}
 
-Figure \ref{fig:retnet} illustrates the processing a voxelized PES undergoes, as
+\Figure{} \ref{fig:retnet} illustrates the processing a voxelized PES undergoes, as
 it is passing through RetNet. For the purpose of this visualization, we use the
 model trained on the \glspl{mof} dataset with the largest training set size (see
-Section \ref{sec:datasets}). Moreover, for the ease of visualization, only some
+\Section{} \ref{sec:datasets}). Moreover, for the ease of visualization, only some
 feature maps of RetNet are visualized. Please note, that each feature
 map\index{Feature map} of a given layer, combines all the feature maps of the
 precedent layer. The only exception are the pooling layers\index{Pooling layer},
@@ -77,19 +77,19 @@ layer\index{Linear layer}, all that RetNet does is the following:
 	\label{fig:retnet}
 \end{figure}
 
-Equation \ref{eq:retnet} says that RetNet, \emph{starting from the PES,
+\Equation{} \ref{eq:retnet} says that RetNet, \emph{starting from the PES,
 extracts a fingerprint\index{Energetic fingerprint}---that is, a high level
 representation\index{High level representation} of the \gls{pes}---and then
 predicts the gas uptake by using a linear model on top of this fingerprint}. All
 intermediate layers between Input\index{Input layer} and Output layer
 participate in this feature extraction step, with the Dense\num{2} layer
 determining the size of the fingerprint, which is a vector of size \num{20},
-i.e. $\phi(\vcx) \in \mathbb{R}^{20}$ (see Figure \ref{fig:fingerprints}). The
+i.e. $\phi(\vcx) \in \mathbb{R}^{20}$ (see \Figure{} \ref{fig:fingerprints}). The
 fact that \emph{this fingerprint extraction\index{Fingerprint extraction} step
 is learnable}---the parameters $\vcth$ of $\phi$ are learned during the training
 phase\index{Training phase}---\emph{is what fundamentally distinguishes the
 proposed approach from methods that use hand-crafted
-fingerprints\index{Hand-crafted fingerprints}} (see Section
+fingerprints\index{Hand-crafted fingerprints}} (see \Section{}
 \ref{sec:literature}). \emph{In these methods the fingerprint or
 extraction\index{Feature extraction} step is fixed}, and based on some
 heuristic, such as energy histograms \parencite{bucior} or average interactions
@@ -117,13 +117,13 @@ longer fixed, but is an essential part of the training phase}.
 
 The learning curves\index{Learning curve} of the conventional models---built
 upon geometric descriptors---and the proposed ones--built upon energy
-voxels---are shown in Figure \ref{fig:learning_curves_results}. As it can be
-seen from Figure \ref{fig:learning_curves_mofs}, in the \gls{mof}-\ch{CO2} case,
+voxels---are shown in \Figure{} \ref{fig:learning_curves_results}. As it can be
+seen from \Figure{} \ref{fig:learning_curves_mofs}, in the \gls{mof}-\ch{CO2} case,
 the \gls{cnn} model achieves an $R^2$ score of \num{0.859}, outperforming the
 conventional model, which shows an $R^2$ score of \num{0.690}. This amounts to
 around \SI{25}{\percent} increase in accuracy, even with such a coarse
 approximation of the \gls{pes}\footnote{In this work, all host-guest
-interactions were modeled with the \gls{lj} potential (see Section
+interactions were modeled with the \gls{lj} potential (see \Section{}
 \ref{sec:voxelized_pes}), which neglects electrostatic interactions.}. Moreover,
 from the same figure, one can notice that the proposed model reaches the peak
 performance of the conventional one---that is, the performance when trained with
@@ -147,7 +147,7 @@ the following factors:
 		data\index{Image-like data}, such as the voxelized \gls{pes}, which is
 		essentially a single channel 3D image.
 	\item The data augmentation\index{Data augmentation} technique, which was
-		applied during the \gls{cnn} training (see Section
+		applied during the \gls{cnn} training (see \Section{}
 		\ref{subsec:data_augmentation}).
 \end{enumerate*}
 

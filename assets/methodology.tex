@@ -27,14 +27,14 @@ The \gls{uo} database is composed of \num{324426} hypothetical
 \glspl{mof}\index{Hypothetical MOFs}. Randomly selected subsets of size
 \num{32432}, \num{5000} and \num{27438}, served as the training\index{Training
 set}, validation\index{Validation set}\footnote{The validation set was used to
-select the number of epochs, see Section \ref{subsec:preprocessing}.} and test
+select the number of epochs, see \Section{} \ref{subsec:preprocessing}.} and test
 sets\index{Test set}, respectively. The absolute \ch{CO2} uptake at
 \SI{298}{\kelvin} and \SI{0.15}{\bar} was examined and the following eight
 textual properties\index{Textual properties} were used as input for the
 conventional models: unit cell's mass and volume, gravimetric surface area, void
 fraction, void volume, largest free sphere diameter, largest included sphere
 along free sphere path diameter and largest included sphere diameter. For
-producing the learning curves\index{Learning curve} shown in Figure
+producing the learning curves\index{Learning curve} shown in \Figure{}
 \ref{fig:learning_curves_mofs}, the training set size was varied and the following
 training set sizes were considered:
 \begin{equation}
@@ -57,7 +57,7 @@ conditions\index{Thermodynamic conditions}. A randomly selected subset of
 \SI{298}{\kelvin} and \SI{5.8}{\bar} was examined. The following five textual properties
 were used to build the conventional models: density, gravimetric surface area,
 void fraction, pore limiting diameter and largest cavity diameter.
-For producing the learning curves\index{Learning curve} shown in Figure
+For producing the learning curves\index{Learning curve} shown in \Figure{}
 \ref{fig:learning_curves_cofs}, the training set size was varied and the following
 training set sizes were considered:
 \begin{equation}
@@ -75,7 +75,7 @@ n\times n$ is overlayed over the unit cell of the material. Second, at each
 voxel centered at grid point $\vc{r}_i$, the interaction of the guest molecule
 with the framework atoms $\mcl{V}(\vc{r}_i)$ is calculated, and this energy
 value ``colorizes'' the corresponding voxel. The workflow to construct the
-voxelized PES is schematically depicted in Figure \ref{fig:voxelized_pes}. The
+voxelized PES is schematically depicted in \Figure{} \ref{fig:voxelized_pes}. The
 grid size $n$ and the type of the potential control the ``trade-off'' between
 information content\index{Information content} and computational
 cost\index{Computational cost}. The greater the grid size $n$, the greater the
@@ -169,7 +169,7 @@ calculated using the percentile bootstrap method \parencite{Efron_1994}, with
 
 \subsection{CNN architecture}
 
-The architecture of the 3D \gls{cnn} is presented in Figure \ref{fig:retnet},
+The architecture of the 3D \gls{cnn} is presented in \Figure{} \ref{fig:retnet},
 whereas a PyTorch implementation is publicly available in:
 \href{https://github.com/frudakis-research-group/retnet}{RetNet}\index{RetNet}.
 Kernel size\index{Kernel size} is set to \num{3} for \conv{1}, \conv{2} and
@@ -227,7 +227,7 @@ voxelized \gls{pes}---and focus on the underlying patterns.
 \end{figure}
 
 In this work, four types of geometric transformations are applied (including the
-identity one), as shown in Figure \ref{fig:transformations}. At each training
+identity one), as shown in \Figure{} \ref{fig:transformations}. At each training
 iteration, the samples in the batch undergo one of these transformations, with
 all transformations having the same probability to be applied. For instance, at
 one training iteration, the voxelized \gls{pes} can be rotated
@@ -238,7 +238,7 @@ can also be viewed as a stack of 2D slices. In this view,
 reflection\index{Reflection} corresponds to transposing each slice, whereas flip
 reversed the order of the slices. Reflection takes place along one of the $xy$,
 $xz$, $yz$ planes, whereas flip is performed along one of the three axes.
-Figure \ref{fig:data_augmentation} illustrates the performance difference when
+\Figure{} \ref{fig:data_augmentation} illustrates the performance difference when
 the CNN is trained on the MOFs dataset with and without data augmentation, for
 training set sizes:
 \begin{equation}

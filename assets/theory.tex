@@ -95,12 +95,12 @@ descriptors}\index{Feature}\index{Descriptor}\index{Predictor}.
 	$(\vcx_i, \vcy_i) \sim p(\vcx, \vcy)$ and $\vcy_i$ is the
 	output\index{Output} aka label\index{Label} of the $i$-th training instance.
 	In this paradigm we are usually interested in learning a function $f \colon
-	X \to Y$.
+	\mcl{X} \to \mcl{Y}$.
 \end{definition}
 
 This paradigm comes mainly under two flavors: \emph{regression\index{Regression}
 and classification\index{Classification}}, which are schematically depicted in
-Figure \ref{fig:supervised_learning}. In regression the interest is in
+\Figure{} \ref{fig:supervised_learning}. In regression the interest is in
 predicting a continuous value given an input, i.e.  $y \in \mathbb{R}$, such as
 a molecular property given a mathematical representation of a molecule. In
 classification, the interest is to predict in which of $k$ classes an input
@@ -153,6 +153,7 @@ design problem}\index{Inverse design} in chemistry\index{Chemistry}.
 			\end{axis}
 		\end{tikzpicture}
 		\caption{Classification.}
+		\label{fig:classification}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.49\textwidth}
@@ -213,9 +214,9 @@ and we want to estimate $f$ from the data. The function $f$ represents the
 \emph{systematic information} that $\vcx$ gives about $\vcy$ while
 $\vc{\epsilon}$ is a random \emph{error term}\index{Error term} independent of
 $\vcx$ and with zero mean. More formally, we have an input space $X$, an output
-space $Y$ and we are interested in learning a function $\hat{h} \colon X \to Y$,
-called the \emph{hypothesis}\index{Hypothesis}, which produces
-an output $\vcy \in Y$ given an input $\vcx \in X$. At our disposal we have a
+space $Y$ and we are interested in learning a function $\hat{h} \colon \mcl{X}
+\to \mcl{Y}$, called the \emph{hypothesis}\index{Hypothesis}, which produces an
+output $\vcy \in \mcl{Y}$ given an input $\vcx \in \mcl{X}$. At our disposal we have a
 collection of input-output pairs $(\vcx_i, \vcy_i)$, forming the
 \emph{\textbf{training set}}\index{Training set} $\dtrain$, with the pairs drawn
 \acrshort{iid} from $p(\vcx, \vcy)$.
@@ -225,13 +226,14 @@ Ideally, we would like to learn a hypothesis that minimizes the
 error}\index{Generalization loss}:
 \begin{equation}
 	\label{eq:generalization_loss}
-	\loss \coloneqq \int_{X \times Y} \ell(h(\vcx), \vcy) p(\vcx, \vcy) d\vcx d\vcy
+	\loss \coloneqq
+	\int_{\mcl{X} \times \mcl{Y}} \ell(h(\vcx), \vcy) p(\vcx, \vcy) d\vcx d\vcy
 \end{equation}
 that is, the expected value of some \emph{loss function}\index{Loss function}
 $\ell$ over all possible input-output pairs. A loss function just measures the
 discrepancy of the prediction $h(\vcx) = \hat{\vcy}$ from the true value $\vcy$
 and as such, the best hypothesis is the one that minimizes this integral.
-Obviously, it is impossible to evaluate the integral in Equation
+Obviously, it is impossible to evaluate the integral in \Equation{}
 \ref{eq:generalization_loss}, since we don't have access to infinite data.
 
 The idea is to use the \emph{training error or loss}\index{Training
@@ -259,7 +261,7 @@ algorithm $\mcl{A}$\index{Learning algorithm}:
 
 \subsection{Components of a learning algorithm}
 
-By breaking down Equation \ref{eq:problem}, i.e. the optimization problem the
+By breaking down \Equation{} \ref{eq:problem}, i.e. the optimization problem the
 learner needs to solve, the components of a learner can be revealed. The latter
 is comprised of the following three ``orthogonal'' components: \emph{a
 \textbf{hypothesis space}\index{Hypothesis space}, a \textbf{loss
@@ -271,7 +273,7 @@ and binary classification.
 
 \begin{definition}[Hypothesis space]
 	The set of hypotheses (functions), denoted as $\mcl{H}$, from which the
-	learner is allowed to pick the solution of Equation \ref{eq:problem}.
+	learner is allowed to pick the solution of \Equation{} \ref{eq:problem}.
 \end{definition}
 
 A simple example of a hypothesis space, is the one used in univariate
@@ -281,7 +283,7 @@ A simple example of a hypothesis space, is the one used in univariate
 	\hat{y} = \beta_0 + \beta x
 \end{equation}
 where $\mcl{H}$ contains all lines (or hyperplanes in the multivariate case)
-defined by Equation \ref{eq:linear}. Of course, one can get \emph{a
+defined by \Equation{} \ref{eq:linear}. Of course, one can get \emph{a
 more expressive} hypothesis space, by including polynomial terms, e.g.:
 \begin{equation}
 	\label{eq:polynomial}
@@ -327,7 +329,7 @@ loss, is called \textbf{regularization}}\index{Regularization} \parencite{deeple
 
 A common---but not the only---way to achieve that, is by including another
 penalty term called \emph{regularization term or
-regularizer}\index{Regularizer}, denoted as $\mcl{R}$, in Equation
+regularizer}\index{Regularizer}, denoted as $\mcl{R}$, in \Equation{}
 \ref{eq:training_loss}:
 \begin{equation}
 	\label{eq:regularization}
@@ -372,7 +374,7 @@ of parsimony}, which advocates that between two competing theories with equal
 explanatory power, one should prefer the one with the fewest assumptions.
 
 \begin{definition}[Optimizer]
-	An algorithm that searches through $\mcl{H}$ for the solution of Equation
+	An algorithm that searches through $\mcl{H}$ for the solution of \Equation{}
 	\ref{eq:problem}.
 \end{definition}
 
@@ -384,9 +386,9 @@ hypotheses in $\mcl{H}$ and then pick the one that achieves the lowest training
 loss. This approach can work if $\mcl{H}$ is finite, but obviously doesn't scale
 in the general case where $\mcl{H}$ is infinite\footnote{It is not
 uncommon for $\mcl{H}$ to be infinite. Even for simple learners like linear
-regression $\mcl{H}$ is infinite, since there infinite lines defined by Equation
+regression $\mcl{H}$ is infinite, since there infinite lines defined by \Equation{}
 \ref{eq:linear}.}. More efficient approaches are needed if we are aiming to solve
-Equation \ref{eq:problem} in finite time.
+\Equation{} \ref{eq:problem} in finite time.
 
 One optimizer that is frequently used in \gls{ml} and is the precursor of more
 refined ones, is \emph{\textbf{gradient descent}}\index{Gradient descent}. With
@@ -414,21 +416,21 @@ direction of negative gradient at $\vcx$, $-\nabla f(\vcx)$}.
 
 The motivation becomes clear if we look at the differential of $f(\vcx)$ in
 direction $\vc{u}$: \begin{equation} \label{eq:differential} f(\vcx + \delta
-\vc{u}) - f(\vcx) = \nabla f(\vcx) \cdot \delta \vc{u} \end{equation} Equation
+\vc{u}) - f(\vcx) = \nabla f(\vcx) \cdot \delta \vc{u} \end{equation} \Equation{}
 \ref{eq:differential} says that this differential is minimized\footnote{The
-right hand side of Equation \ref{eq:differential} is a dot product.} when
+right hand side of \Equation{} \ref{eq:differential} is a dot product.} when
 $\delta \vc{u}$ is anti-parallel to $\nabla f(\vcx)$ and that is why we subtract
-the gradient in Algorithm \ref{algo:gd}, i.e. move in direction anti-parallel to
-the gradient. The fact that Equation \ref{eq:differential} holds only locally
+the gradient in \Algorithm{} \ref{algo:gd}, i.e. move in direction anti-parallel to
+the gradient. The fact that \Equation{} \ref{eq:differential} holds only locally
 (magnitude of $\delta \vc{u}$ must be small) explains why $\eta$ must be a small
 number. It should be added that gradient descent can be trapped to (potential)
-local minima of the training loss and therefore fail to solve Equation
+local minima of the training loss and therefore fail to solve \Equation{}
 \ref{eq:problem}. As it will be discussed later, this is not a problem, because
 \emph{the ultimate purpose is to find a hypothesis that generalizes well, not
 necessarily the one that minimizes the training loss}\footnote{Remember we use
-the training loss (see Equation \ref{eq:training_loss}) as a proxy for the
-generalization loss (see Equation \ref{eq:generalization_loss}).}. Optimizers
-are discussed in further detail in Section \ref{subsec:nn_training}.
+the training loss (see \Equation{} \ref{eq:training_loss}) as a proxy for the
+generalization loss (see \Equation{} \ref{eq:generalization_loss}).}. Optimizers
+are discussed in further detail in \Section{} \ref{subsec:nn_training}.
 
 Before moving on, it is worth to add that both the regularization and the
 optimizer have an effect on the ``true'' or \emph{\textbf{effective
@@ -438,7 +440,7 @@ capacity\index{Representational capacity} of the hypothesis space}. For example
 a regularizer penalizes the complexity of an hypothesis, effectively
 ``shrinking'' the representational capacity of the hypothesis space. The effect
 of the optimizer can be understood by looking on its contribution to the
-solution of Equation \ref{eq:problem}. As described previously, the optimizer
+solution of \Equation{} \ref{eq:problem}. As described previously, the optimizer
 searches through the hypothesis space. If this ``journey'' is not long enough,
 then this ``journey'' is practically equivalent to a long ``journey'' in a
 shortened version of the original hypothesis space. In the rest of this chapter,
@@ -449,7 +451,7 @@ affected by all its three components}.
 \subsection{Performance, complexity and experience}
 
 Suppose that we have trained our learner, and finally we get our model, as
-stated by Equation \ref{eq:learner}. \emph{How can we assess its
+stated by \Equation{} \ref{eq:learner}. \emph{How can we assess its
 performance\index{Performance}?} Remember, we can't calculate the generalization
 loss\index{Generalization loss}, since we are not given an infinite amount of
 data. First of all, \emph{we should not report the training loss\index{Training
@@ -503,11 +505,15 @@ the performance of the resulting model in the test set. Finally, it is a good
 practice to retrain the learner on the whole dataset---including validation and
 test sets---since more data result in models of higher quality.
 
-\begin{theorem}[Bias-variance decomposition\index{Bias-variance decomposition}]
+\begin{theorem}[%
+		Bias-variance decomposition\index{Bias-variance decomposition},
+		\cite{Bishop2006}%
+	]
 	\label{thrm:bias_variance}
-	From Equation \ref{eq:supervised} and assuming $\epsilon \sim \mcl{N}(0, 1)$,
-	the expected squared loss\index{Squared loss}\index{Expected square loss} at
-	$\vcx^*$, can be decomposed as following:
+	From \Equation{} \ref{eq:supervised} and under the assumption that $\epsilon
+	\sim \mcl{N}(0, 1)$, the expected squared loss\index{Squared
+	loss}\index{Expected square loss} at $\vcx^*$ can be decomposed as
+	following:
 	\begin{equation}
 		\label{eq:bias_variance}
 		\exp{\left(y^* - \hat{f}(\vcx^*)\right)^2}
@@ -523,27 +529,27 @@ test sets---since more data result in models of higher quality.
 	The expected squared loss refers to the average squared loss we would obtain
 	by repeatedly estimating $f$ using different training sets, each tested at
 	$\vcx^*$. The overall expected squared loss can be computed by averaging the
-	left hand side of Equation \ref{eq:bias_variance} over all possible values
+	left hand side of \Equation{} \ref{eq:bias_variance} over all possible values
 	$\vcx^*$ in the test set.
 \end{theorem}
 
 The trade-off between the complexity\index{Complexity} of the learner and its
-performance\index{Performance}, is mathematically described in Theorem
-\ref{thrm:bias_variance}. Equation \ref{eq:bias_variance} states that the error
+performance\index{Performance}, is mathematically described in \Theorem{}
+\ref{thrm:bias_variance}. \Equation{} \ref{eq:bias_variance} states that the error
 of the learner can be decomposed into three terms:
 \emph{\textbf{bias}\index{Bias}, \textbf{variance}\index{Variance} and
 \textbf{irreducible error}\index{Irreducible error}}. The bias\index{Bias}
-(squared)---first term of Equation \ref{eq:bias_variance}---refers to the error
+(squared)---first term of \Equation{} \ref{eq:bias_variance}---refers to the error
 introduced by \emph{approximating a real-world problem, which can be highly
 complicated, by a much simpler model} \parencite{introstat, Hastie2009}. For
-instance, if the input-output relationship is highly non-linear, using linear
+instance, if the input-output relationship is highly nonlinearity, using linear
 regression to approximate $f$, will undoubtedly introduce some bias in the
 estimate of $f$. In contrast, if the input-output relationship is very close to
 linear, linear regression should be able to produce an accurate estimate of $f$.
 In general, more flexible learners, result in less bias
 \parencite{introstat, Hastie2009}.
 
-The variance\index{Variance}---second term of Equation
+The variance\index{Variance}---second term of \Equation{}
 \ref{eq:bias_variance}---refers to the \emph{degree by which $\hat{f}$ would
 change if it was estimated by different training sets\index{Training set}}.
 Since the training data\index{Training data} are used to fit the learning
@@ -554,16 +560,16 @@ changes in $\hat{f}$. In that case, the learner essentially memorizes the
 training data. Generally, more flexible learners, result in higher
 variance\index{Variance} \parencite{introstat, Hastie2009}.
 
-Lastly, the irreducible error---third term of Equation
+Lastly, the irreducible error---third term of \Equation{}
 \ref{eq:bias_variance}---refers to the \emph{error caused by stochastic label
-noise}, as can be seen from Equation \ref{eq:supervised}. A possible source for
+noise}, as can be seen from \Equation{} \ref{eq:supervised}. A possible source for
 this noise, might be ommited features\index{Feature} which are useful in
 predicting the output. It is called irreducible, because no matter how well we
 estimate $f$, even if we predict $\hat{y} = f(\vcx)$, we can't reduce the error
-associated to the variability of $\epsilon$. As stated in Section
+associated to the variability of $\epsilon$. As stated in \Section{}
 \ref{subsec:supervised_learning}, this random error term is indepedent of
 $\vcx$, and as such, we have no control over it. The \emph{bias-variance
-trade-off}\index{Bias-variance trade-off} is schematically depicted in Figure
+trade-off}\index{Bias-variance trade-off} is schematically depicted in \Figure{}
 \ref{fig:bias_variance}. Interested readers might also appreciate reading about
 \emph{double descent}\index{Double descent} \parencite{Nakkiran2019}, a
 phenomenon where increasing further the complexity of the learner, results in a
@@ -592,11 +598,11 @@ new minimum (hence, the name).
 	trade-off\index{Bias-variance trade-off}. For a given task\index{Task},
 	there is a ``sweetspot'' of complexity, that minimizes the total error.
 	$\text{Bias}^2$ and variance correspond to the first and second term of
-	Equation \ref{eq:bias_variance}, respectively.}
+	\Equation{} \ref{eq:bias_variance}, respectively.}
 	\label{fig:bias_variance}
 \end{figure}
 
-Figure \ref{fig:learning_curves_theory}, shows the \emph{learning
+\Figure{} \ref{fig:learning_curves_theory}, shows the \emph{learning
 curves}\index{Learning curve} for learners of different complexity. A learning
 curve is a plot of the training and test performance\index{Training
 performance}\index{Test performance}\footnote{Usually, only the test performance
@@ -624,13 +630,13 @@ data.
 Now lets consider the learning curve of the high complexity\index{High
 complexity} learner. Again, the training accuracy starts out high with a small
 amount of training data.  However, in contrast to the previous case, as the
-number of training samples increase, the training accuracy remains high since
+number of training samples increases, the training accuracy remains high since
 the learner is flexible enough to learn the patterns in the training set,
 irrespective of its size. At some point, the training data becomes large enough
 that is a good representation of the underlying distribution\index{Distribution}
 $p(\vcx, \vcy)$ and since the learner is very flexible, it can capture the true
 patterns in $p(\vcx, \vcy)$, increasing the test accuracy. It is worth pointing
-out that the learning and complexity curves\index{Complexity curve} (see Figure
+out that the learning and complexity curves\index{Complexity curve} (see \Figure{}
 \ref{fig:bias_variance}), are just two slices of the same 3D plot: the plot of
 performance as function of experience and complexity.
 
@@ -696,23 +702,51 @@ performance as function of experience and complexity.
 \section{Fundamentals of Deep Learning}
 
 Having covered the basic jargon and concepts of \gls{ml}, we are now in a
-position to dive into \gls{dl}. One might expect that \gls{dl} is a very
-complex subfield of \gls{ml}, given its astonishing results in complex tasks,
-but quite the opposite holds. Before exploring \glspl{nn}, the backbone of
-\gls{dl}, we first need to understand how the basic building block of \glspl{nn}
-, known as the \emph{\textbf{neuron}}\index{Neuron}, works.
+position to dive into \gls{dl}. One might expect that \gls{dl}\index{Deep
+learning} is a very complex subfield of \gls{ml}, given its astonishing results
+in complex tasks, but quite the opposite holds. Notably, \gls{dl} shares similar
+ideas with reticular chemistry: \emph{combining simple computational units,
+known as \textbf{neurons}\index{Neuron}, to achieve intelligent
+behavior\index{Intelligent behavior}}. And just like we can tune the properties
+of \glspl{mof} by judiciously selecting and combining their building blocks, we
+can design problem-specific \emph{{neural
+\textbf{architectures}}}\index{Architecture} by reasonably arranging and
+connecting the neurons. In other words, both \gls{dl} and reticular
+chemistry\index{Reticular chemistry} can be viewed as building with Legos.
 
-\emph{A neuron is nothing more than a device---a simple computational
-unit---that makes decisions by weighing up evidence} \parencite{Nielsen2018}.
-This sounds very similar to the way humans make decisions. For instance,
-suppose the weekend is coming up and your favorite singer has scheduled a
-concert near your city. In order to decided whether you should go to the
-concert or not, you might weigh up different factors, such as weather
+Since the term ``neuron'' is admittedly a neuroscience\index{Neuroscience} term,
+one might wondering what is the relation between \gls{dl}\index{Deep learning}
+and the human brain. The neural perspective on \gls{dl} is mainly motivated by
+the following idea: \emph{the brain is a proof by example that intelligent
+behavior\index{Intelligent behavior} is possible and as such, a straightforward
+approach to build an intelligent system\index{Intelligent system} is by reverse
+engineering the computational principles behind the brain and duplicating its
+functionality}. However, the term ``deep learning'' is not limited to this
+neuroscientific perspective. It appeals to a more general principle of learning
+\emph{multiple levels of abstraction}, which is applicable in \gls{ml}
+frameworks that are not necessary neurally inspired \parencite{deeplearning}.
+
+\begin{definition}[Deep learning]
+	Class of machine learning algorithms inspired by brain organization, based
+	on learning multiple levels of representation and abstraction. They achieve
+	great power by learning to represent the world\footnote{Hierarchy is deeply
+	rooted in our world. Just think the hierarchy from subatomic
+	particles\index{Subatomic particles} to macroscopic
+	objects\index{Macroscopic objects}.} as a nested hierarchy of concepts.
+\end{definition}
+
+Before exploring \glspl{nn} we first need to understand how the neuron, the
+basic building block of \glspl{nn}, works.  \emph{A neuron is nothing more than
+a device---\textbf{a simple computational unit}---that makes decisions by weighing up
+evidence} \parencite{Nielsen2018}. This sounds very similar to the way humans
+make decisions. For instance, suppose the weekend is coming up and your favorite
+singer has scheduled a concert near your city. In order to decide whether you
+should go to the concert or not, you weigh up different factors, such as weather
 conditions, ease of transportation (you don't own a car) and whether your
 boyfriend or girlfriend is willing to accompany you. This kind of
 decision-making can be described mathematically as following:
 \begin{equation}
-	\label{eq:neuron}
+	\label{eq:perceptron}
 	\text{decision}
 	=
 	\begin{cases}
@@ -724,75 +758,369 @@ decision-making can be described mathematically as following:
 	\quad
 	\vc{b}^\top\vcx \coloneqq \sum_i \beta_i x_i
 \end{equation}
-If this weighted sum\index{Weighted sum} plus the bias\index{bias}---your
-willing to go to the festival irrespective of the evidence---is greater than
-zero, then your decision is positive, otherwise negative.
+If this weighted sum\index{Weighted sum} plus the bias\index{Bias}\footnote{If
+you prefer the neuroscientific analogy, you can think of bias as how easy is for
+a neuron\index{Neuron} to ``fire''.}---your willing to to go to the festival
+irrespective of the evidence---is greater than zero, then your decision is
+positive, otherwise negative.
 
-\begin{itemize}
-	\item Start with the neuron. Describes what the neuron does.
-	\item Move to neural networks.
-	\item Describe what the the neural does (feature extraction) with an example
-		(image classification)
-	\item Universal approximation theorem and no free-lunch theorem
-	\item Define what we meen by deep learning (composition of functions)
-\end{itemize}
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[
+			on grid, node distance=1.4cm and 1.8cm, thick,
+		]
+		\node[custom node] (x) {$\vc{x}$};
+		\node[custom node, above right=of x] (w) {$\vc{\beta}$};
+		\node[custom node, right=of x] (dot) {\Huge$\cdot$}
+			edge[<-] (x) edge[<-] (w);
+		\node[custom node, below right=of x] (b) {$\beta_0$};
+		\node[
+			custom node, right=of dot, circle split,
+			rotate=90, inner sep=2pt,
+			pin={[pin edge={->, black, thick}]below:$y$},
+		] (y) {
+				$+$
+				\nodepart{lower}
+				\rotatebox{-90}{$\rfloor\hspace{-4.4pt}\lceil$}
+			} edge[<-] (dot) edge[<-] (b);
+	\end{tikzpicture}
+	\caption{The perceptron.}
+	\label{fig:perceptron}
+\end{figure}
+
+The simple decision-making rule specified by \Equation{} \ref{eq:perceptron}, which
+is known as the \emph{\textbf{perceptron}}\index{Perceptron}
+\parencite{Rosenblatt1957}, is schematically depicted in \Figure{}
+\ref{fig:perceptron}. Essentially, the perceptron is a linear binary
+classifier\index{Binary classifier}\index{Linear binary classifier} (see also
+\Figure{} \ref{fig:classification}). If we pay a little more attention to \Equation{}
+\ref{eq:perceptron}, we can see that that the decision is basically an
+\emph{application of a linear function\index{Linear function}}\footnote{Formally
+speaking it is an affine function\index{Function}. We can turn it into a linear
+by ``absorbing'' the bias term into the weights and adding $1$ to the input
+vector, a procedure known as the \emph{bias trick}\index{Bias trick}.}
+\emph{followed by a nonlinearityity\index{Non-linearity}}. As such, we can rewrite
+\Equation{} \ref{eq:perceptron} as following:
+\begin{equation}
+	\label{eq:neuron}
+	y = \phi\left(\vc{\beta}^\top \vcx + \beta_0\right)
+\end{equation}
+where $\phi(\cdot)$ is the nonlinear function aka \emph{\textbf{activation
+function}}\index{Activation function}.
+
+In the perceptron, the activation function is the Heavyside step
+function\index{Heavyside step function} but in modern \glspl{nn} it has
+substituted by functions such as the sigmoid\index{Sigmoid}, hyperbolic
+tangent\index{Hyperbolic tangent} and currently the \gls{relu}\index{\gls{relu}}
+and its variants. Some activation functions are graphically shown in \Figure{}
+\ref{fig:activation_functions}. The reason that the step function isn't used
+anymore is that its derivative\index{Derivative} vanishes everywhere, which is
+problematic for gradient-based optimization methods \index{Gradient-based
+optimization} that power the training of modern \glspl{nn}. The \gls{relu}
+function is defined as:
+\begin{equation}
+	\relu(x) \coloneqq
+	\max(0, x) =
+	\begin{cases}
+		x \quad x > 0 \\
+		0 \quad \text{otherwise}
+	\end{cases}
+\end{equation}
+A common variant of \gls{relu} is the \gls{lrelu}\index{\gls{lrelu}}
+function which is defined as:
+\begin{align}
+	\lrelu(x) \coloneqq
+	\max(0, x) + a\min(0, x)=
+	\begin{cases}
+		x \quad & x > 0 \\
+		ax \quad & \text{otherwise} \\
+	\end{cases}
+\end{align}
+where $a$ is a small positive constant usually set to \num{0.01}. It is worth to
+notice how simple the nonlinearities used in \gls{nn} are. For instance,
+\gls{relu}, the most commonly used activation function these days, is just a
+piecewise linear function\index{Piecewise linear function}. This again
+highlights the fundamental idea behind \gls{dl}: \emph{building something
+complex by combining simple elements}.
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+				no marks, domain=-4:4, trim axis left, trim axis right,
+				ymin=0, ymax=1, thick, legend columns=-1, enlargelimits=true,
+				legend style={at={(0.5, 1)}, anchor=south},
+				width=0.5\textwidth
+			]
+			\addplot coordinates {(-4, 0) (0, 0) (0, 1) (4, 1)};
+			\addlegendentry{$\step(\cdot)$};
+			\addplot {divide(1, 1 + exp(-x))};
+			\addlegendentry{$\sigma(\cdot)$};
+			\addplot+[green] {max(0, x)};
+			\addlegendentry{$\relu(\cdot)$};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Examples of activation functions.}
+	\label{fig:activation_functions}
+\end{figure}
+
+\subsection{Neural networks}
+
+\Acrlongpl{nn} can be thought as \emph{\textbf{collection of neurons} organized
+in layers} and can be represented as \emph{computational
+graphs.}\index{Computational graph}\index{Graph}.
+
+\begin{definition}[Graph]
+	A set of objects in which some pairs of objects are in some sense
+	``related''. See \Figure{} \ref{fig:graphs} for some types of graphs.
+\end{definition}
+
+\begin{definition}[Computational graph]
+	A \gls{dag} where nodes correspond to operations or variables and edges show
+	the data flow between the nodes.
+\end{definition}
+
+\noindent A typical architecture known as \gls{mlp}\index{Multilayer
+perceptron}\footnote{The term \gls{mlp} is kind of a misnomer, since the step
+function used originally in the perceptron is no longer used in modern
+\glspl{nn}.} or \gls{fcnn}\index{Fully connected neural network} is presented in
+\Figure{} \ref{fig:mlp}. In general, the architecture\index{Architecture} of a
+\gls{nn} can be broken down into the following three layers: \emph{\textbf{input
+layer}\index{Input layer}, \textbf{hidden layer}\index{Hidden layer} and
+\textbf{output layer}\index{Output layer}}. Information flow starts from the
+input layer, passes through the hidden layer(s) and finally ends at the output
+layer. \Acrlongpl{nn} with more than one hidden layer are classified as deep, and
+shallow otherwise. It should be emphasized that all the neurons in the hidden
+layers aka \emph{hidden units}\index{Hidden unit} perform exactly the same
+operation as that of the perceptron, described in \Equation{} \ref{eq:neuron}. As
+such all the \emph{hidden units at a given layer make decisions based on the
+decisions of the previous layer}. Unsurprisingly, the kind of decisions made by
+the neurons depends solely on the problem and the data
+distribution\index{Distribution} at hand.
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[
+			input/.style={
+				circular drop shadow, circle, fill=blue!20, draw=blue, thick
+			},
+			hidden/.style={
+				circular drop shadow, circle, fill=orange!20, draw=orange, thick
+			},
+			output/.style={
+				circular drop shadow, circle, fill=green!20, draw=green, thick
+			},
+			new set=hid1, new set=hid2, new set=hid3, new set=hid4,
+		]
+		\foreach \l in {1, 2, 3, 4}
+			\foreach \n in {1, 2, 3, 4} {
+				\node[hidden, set=hid\l] at (\l, \n) {};
+			}
+		\node at (2.5, 4.5) {Hidden layer};
+		\node at (2.5, 0.5) {Feature extraction};
+		\node[
+			input, label=left:\shortstack{Input \\ layer}
+		] at (0, 2.5) (inp) {$\vcx$};
+		\node[
+			output, label=right:\shortstack{Output \\ layer}
+		] at (5, 2.5) (out) {$\vcy$};
+		\graph[
+			grow right sep=1cm,
+		] {
+			(inp) -> (hid1)
+			-> [complete bipartite] (hid2)
+			-> [complete bipartite] (hid3)
+			-> [complete bipartite] (hid4)
+			-> (out)
+		};
+	\end{tikzpicture}
+	\caption[The multilayer perceptron.]{The multilayer perceptron. A typical
+	example of a \acrlong{nn}.}
+	\label{fig:mlp}
+\end{figure}
+
+\begin{figure}
+	\begin{subfigure}[t]{0.245\textwidth}
+		\centering
+		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
+			\node[custom node] (1) {1};
+			\node[custom node, right of=1] (2) {2};
+			\node[custom node, above of=1] (3) {3}
+				edge (1);
+			\node[custom node, above of=2] (4) {4}
+				edge (2) edge (3);
+			\node[custom node, above of=3, xshift=0.75cm] {5}
+				edge (3) edge (4);
+		\end{tikzpicture}
+		\caption{Undirected graph.}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.245\textwidth}
+		\centering
+		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
+			\node[custom node] (1) {1};
+			\node[custom node, right of=1] (2) {2};
+			\node[custom node, above of=1] (3) {3}
+				edge [<-] (1);
+			\node[custom node, above of=2] (4) {4}
+				edge [<-] (2) edge [red, <-] (3);
+			\node[custom node, above of=3, xshift=0.75cm] {5}
+				edge [red, ->] (3) edge [red, <-] (4);
+		\end{tikzpicture}
+		\caption{Directed cyclic graph.}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.245\textwidth}
+		\centering
+		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
+			\node[custom node] (1) {1};
+			\node[custom node, right of=1] (2) {2};
+			\node[custom node, above of=1] (3) {3}
+				edge [<-] (1);
+			\node[custom node, above of=2] (4) {4}
+				edge [<-] (2) edge [blue, <-] (3);
+			\node[custom node, above of=3, xshift=0.75cm] {5}
+				edge [blue, <-] (3) edge [blue, <-] (4);
+		\end{tikzpicture}
+		\caption{\Acrlong{dag}.}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.245\textwidth}
+		\centering
+		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
+			\node[custom node] (x1) {$a$};
+			\node[custom node, right of=x1] (x2) {$b$};
+			\node[custom node, above of=x1] (h1) {$*$}
+				edge[<-] (x1) edge[<-] (x2);
+			\node[custom node, above of=x2] (h2) {$-$}
+				edge [<-] (x1) edge[<-] (x2);
+			\node[custom node, above of=h1, xshift=0.75cm] {$+$}
+				edge [<-] (h1) edge [<-] (h2);
+		\end{tikzpicture}
+		\caption{Computational graph.}
+	\end{subfigure}
+	\caption{Examples of graphs. In a directed graph\index{Directed graph} the
+	edges have direction. If they contain at least one loop are called cyclic,
+	otherwise acyclic.}
+	\label{fig:graphs}
+\end{figure}
+
+To understand better the purpose of the hidden layers and the functionality of a
+\gls{nn} as a whole, lets consider the problem of image
+classification\index{Image classification}. This is by no means a trivial task,
+since we need to learn a mapping from a set of pixels to an object identity.
+Imagine for a moment you are blindfolded and you need to classify an image. The
+valid classes are: ``person'', ``car'' and ``ship''. Furthermore, assume that
+the correct class is ``person''. \emph{Would you prefer to know the
+sequence of pixels values or whether the image contains a face?} In other words,
+it is a lot easier to classify the content of an image if we know some
+\emph{high-level features}\index{High-level feature}. \emph{\Acrlongpl{nn}
+extract such high level features by exploiting the hierarchical structure of an
+image}. A complex object like a ``face'' is defined in term of simpler ones,
+such as ``eyes and ``nose'', which in turn are defined in terms of simpler ones
+and so on. This hierarchy allows the \gls{nn} to solve the complex task of image
+classification by breaking it down into smaller sub-problems. The first layer
+learns to detect edges. The second layer combines the decisions of the first
+layer to detect corners. Subsequently, the third layer combines the decisions of
+the second layer to identify shapes like circles and squares and so on, until we
+reach the final layer which is able to detect high level features such as
+objects or object parts. The deeper we are into the network---i.e. the closer to
+the output layer\index{Output layer}---the more abstract and task-specific the
+detected features become.
+
+In a \gls{fcnn} with $n$ hidden layers, each hidden layer performs the following
+operation:
+\begin{equation}
+	\vc{h}^{t} =
+	\vc{\phi}\left({W^t\vc{h}^{t-1} + \vc{\beta}_0}\right)
+	\quad
+	\text{where}
+	\quad
+	1 \leq t \leq n
+	\quad
+	\text{and}
+	\quad
+	\vc{h}^0 \coloneqq \vcx
+\end{equation}
+which is just a matrix version of \Equation{} \ref{eq:neuron} with the matrix $W^t$
+playing the role of the ``synapses''\index{Synapses} between the
+neurons\index{Neuron} of the layers $t-1$ and $t$. Since the ``stacking'' of
+many hidden layers is equivalent to a huge composite function\index{Composite
+function}\begin{equation}
+	\vc{\tau}(\vcx) \coloneqq
+	\left(\vc{h}^t \circ \vc{h}^{t-1}
+	\cdots
+	\circ \vc{h}^{1}\right)(\vcx)
+\end{equation}
+and the output layer is just a linear function of the last hidden
+layer, the output\index{Output} of the \gls{fcnn} can be written as:
+\begin{equation}
+	\hat{y} =
+	\vc{\beta}^\top \vc{\tau}(\vcx) + \beta_0
+\end{equation}
+or in the general case of multi-valued output\index{Multi-valued output}:
+\begin{equation}
+	\label{eq:mlp}
+	\hat{\vc{y}} =
+	W\vc{\tau}(\vcx) + \vc{\beta}_0
+\end{equation}
+In other words, \emph{a linear model\index{Linear model} on top of the extracted
+features\index{Extracted features}}. Moreover, the use of activation function
+now becomes more clear: \emph{the composition of many linear functions is
+just another linear function, which implies nonlinearities must be inserted
+between them, if we aim to learn a nonlinear relationship}. \Equation{}
+\ref{eq:mlp} can also be understood in the following way: \emph{a problem that
+is nonlinear---i.e. complex---in the original space, can become linear---i.e.
+simple---in a transformed space}. \Figure{} \ref{fig:xor} shows such an example,
+known as the XOR problem\index{XOR problem}. The solution essentially boils down
+to finding the right transformation funciton $\vc{\tau}(\vcx)$. Traditional
+\gls{ml} algorithms like \glspl{svm} tackle while \gls{dl} takes a compl
 
 \begin{figure}
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
-		\begin{tikzpicture}[
-				on grid, node distance=1.4cm and 1.8cm, thick,
-			]
-			\node[custom node] (x) {$\vc{x}$};
-			\node[custom node, above right=of x] (w) {$\vc{\beta}$};
-			\node[custom node, right=of x] (dot) {\Huge$\cdot$}
-				edge[<-] (x) edge[<-] (w);
-			\node[custom node, below right=of x] (b) {$\beta_0$};
-			\node[
-				custom node, right=of dot, circle split,
-				rotate=90, inner sep=2pt,
-				pin={[pin edge={->, black, thick}]below:$y$},
-			] (y) {
-					$+$
-					\nodepart{lower}
-					\rotatebox{-90}{$\rfloor\hspace{-4.4pt}\lceil$}
-				} edge[<-] (dot) edge[<-] (b);
+		\begin{tikzpicture}
+			\begin{axis}[
+					width=\textwidth, xtick={0, 1}, ytick={0, 1},
+					xlabel=$x_1 \phantom{h_1}$, ylabel=$x_2$,
+					title=Original space, only marks,
+				]
+				\addplot+[mark=text, text mark=$\mathbf{0}$]coordinates {(0, 0) (1, 1)};
+				\addplot+[mark=text, text mark=$\mathbf{1}$] coordinates {(0, 1) (1, 0)};
+			\end{axis}
 		\end{tikzpicture}
-		\caption{The perceptron.}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.49\textwidth}
 		\begin{tikzpicture}
 			\begin{axis}[
-					no marks, domain=-4:4, trim axis left, trim axis right,
-					ymin=0, ymax=1, thick, legend columns=-1, enlargelimits=true,
-					legend style={at={(0.5, 1)}, anchor=south},
+					width=\textwidth, xlabel=$h_1$, ylabel=$h_2$,
+					title=Transformed space, only marks,
+					xtick={0, 1, 2}, ytick={0, 1, 2}
 				]
-				\addplot coordinates {(-4, 0) (0, 0) (0, 1) (4, 1)};
-				\addlegendentry{step};
-				\addplot {divide(1, 1 + exp(-x))};
-				\addlegendentry{$\sigma(x)$};
-				\addplot+[green] {max(0, x)};
-				\addlegendentry{ReLU};
+				\addplot+[mark=text, text mark=$\mathbf{0}$] coordinates {(0, 0) (2, 1)};
+				\addplot+[mark=text, text mark=$\mathbf{1}$] coordinates {(1, 0)};
 			\end{axis}
 		\end{tikzpicture}
-		\caption{Some non-linearities.}
 	\end{subfigure}
-	\caption{The perceptron and non-linearities.}
-	\label{fig:perceptron}
+	\caption[Solving the \texttt{XOR} problem.]{Solving the \texttt{XOR}
+	problem. A linear classifier in the original space can't perfectly seperate
+	the ``ones'' and ``zeros''. In contrast, if the points are projected into a
+	new space, then they become linearly separable\index{Linearly separable}.}
+	\label{fig:xor}
 \end{figure}
 
-\begin{theorem}[Universal approximation theorem]
-\end{theorem}
 
-\begin{theorem}[No free lunch theorem]
-\end{theorem}
+%\begin{theorem}[Universal approximation theorem]
+%	Fill the content of the theorem.
+%\end{theorem}
+%
+%\begin{theorem}[No free lunch theorem]
+%	Fill the content of the theorem.
+%\end{theorem}
 
-\subsection{Convolutional neural networks}
-
-\subsection{Regularizing neural networks}
-
-\subsection{Training neural networks}
-\label{subsec:nn_training}
+%\subsection{Convolutional neural networks}
+%
+%\subsection{Regularizing neural networks}
+%
+%\subsection{Training neural networks}
+%\label{subsec:nn_training}
 
 %\begin{algorithm}[H]
 %	\KwIn{
@@ -932,29 +1260,6 @@ zero, then your decision is positive, otherwise negative.
 %	\includegraphics[width=\textwidth]{nesterov.pdf}
 %\end{figure}
 
-
-%\begin{figure}
-%	\begin{subfigure}{0.49\textwidth}
-%		\begin{tikzpicture}
-%			\begin{axis}[custom axis, no markers, title=Foo]
-%				\addplot {tanh(x)};
-%				\addlegendentry {$\tanh(x)$};
-%			\end{axis}
-%		\end{tikzpicture}
-%	\end{subfigure}
-%	\hfill
-%	\begin{subfigure}{0.49\textwidth}
-%		\begin{tikzpicture}
-%			\begin{axis}[custom axis, no markers, title=Foo bar]
-%				\addplot {max(0, x)};
-%			\end{axis}
-%		\end{tikzpicture}
-%	\end{subfigure}
-%	\caption{Plots of some common activation functions.}
-%\end{figure}
-%
-%\lipsum
-%
 %\begin{figure}
 %	\centering
 %	\begin{tikzpicture}
@@ -982,65 +1287,7 @@ zero, then your decision is positive, otherwise negative.
 %	\end{tikzpicture}
 %	\caption{Explaining why SGD works.}
 %\end{figure}
-%
-%\lipsum
-%
-%
-%\lipsum
-%
-%\begin{figure}
-%	\begin{subfigure}{0.24\textwidth}
-%		\centering
-%		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
-%			\node[custom node] (1) {1};
-%			\node[custom node, right of=1] (2) {2};
-%			\node[custom node, above of=1] (3) {3}
-%				edge (1);
-%			\node[custom node, above of=2] (4) {4}
-%				edge (2) edge (3);
-%			\node[custom node, above of=3, xshift=0.75cm] {5}
-%				edge (3) edge (4);
-%		\end{tikzpicture}
-%	\end{subfigure}
-%	\begin{subfigure}{0.24\textwidth}
-%		\centering
-%		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
-%			\node[custom node] (1) {1};
-%			\node[custom node, right of=1] (2) {2};
-%			\node[custom node, above of=1] (3) {3}
-%				edge [<-] (1);
-%			\node[custom node, above of=2] (4) {4}
-%				edge [<-] (2) edge [blue, <-] (3);
-%			\node[custom node, above of=3, xshift=0.75cm] {5}
-%				edge [blue, ->] (3) edge [blue, <-] (4);
-%		\end{tikzpicture}
-%	\end{subfigure}
-%	\begin{subfigure}{0.24\textwidth}
-%		\centering
-%		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
-%			\node[custom node] (1) {1};
-%			\node[custom node, right of=1] (2) {2};
-%			\node[custom node, above of=1] (3) {3}
-%				edge [<-] (1);
-%			\node[custom node, above of=2] (4) {4}
-%				edge [<-] (2) edge [blue, <-] (3);
-%			\node[custom node, above of=3, xshift=0.75cm] {5}
-%				edge [blue, <-] (3) edge [blue, <-] (4);
-%		\end{tikzpicture}
-%	\end{subfigure}
-%	\begin{subfigure}{0.24\textwidth}
-%		\centering
-%		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
-%			\node[custom node] (x1) {$x_1$};
-%			\node[custom node, right of=x1] (x2) {$x_2$};
-%			\node[custom node, above of=x1] (h1) {$h_1$}
-%				edge[<-] (x1) edge[<-] (x2);
-%			\node[custom node, above of=x2] (h2) {$h_2$}
-%				edge [<-] (x1) edge[<-] (x2);
-%			\node[custom node, above of=h1, xshift=0.75cm] {$y$}
-%				edge [<-] (h1) edge [<-] (h2);
-%		\end{tikzpicture}
-%	\end{subfigure}
-%\end{figure}
-%
-%\lipsum
+
+%\begin{itemize}
+%	\item Universal approximation theorem and no free-lunch theorem
+%\end{itemize}
