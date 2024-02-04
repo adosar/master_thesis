@@ -334,7 +334,7 @@ regularizer}\index{Regularizer}, denoted as $\mcl{R}$, in \Equation{}
 \begin{equation}
 	\label{eq:regularization}
 	\loss_\text{train} \coloneqq \frac{1}{\lvert \dtrain \rvert} \sum_{i \in \dtrain}
-	\ell(h(\vcx_i), \vcy_i)
+	\ell(\hat{\vcy}_i, \vcy_i)
 	+
 	\lambda \mcl{R}
 \end{equation}
@@ -530,7 +530,7 @@ test sets---since more data result in models of higher quality.
 	by repeatedly estimating $f$ using different training sets, each tested at
 	$\vcx^*$. The overall expected squared loss can be computed by averaging the
 	left hand side of \Equation{} \ref{eq:bias_variance} over all possible values
-	$\vcx^*$ in the test set.
+	$\vcx^*$.
 \end{theorem}
 
 The trade-off between the complexity\index{Complexity} of the learner and its
@@ -750,8 +750,8 @@ decision-making can be described mathematically as following:
 	\text{decision}
 	=
 	\begin{cases}
-		1 \quad \vc{b}^\top \vcx + \beta_0 > 0 \\
-		0 \quad \vc{b}^\top \vcx + \beta_0 \leq 0 \\
+		1 \quad \text{if}\; \vc{b}^\top \vcx + \beta_0 > 0 \\
+		0 \quad \text{otherwise}
 	\end{cases}
 	\quad
 	\text{where}
@@ -822,7 +822,7 @@ function is defined as:
 	\relu(x) \coloneqq
 	\max(0, x) =
 	\begin{cases}
-		x \quad x > 0 \\
+		x \quad \text{if}\; x > 0 \\
 		0 \quad \text{otherwise}
 	\end{cases}
 \end{equation}
@@ -832,12 +832,12 @@ function which is defined as:
 	\lrelu(x) \coloneqq
 	\max(0, x) + a\min(0, x)=
 	\begin{cases}
-		x \quad & x > 0 \\
+		x \quad & \text{if}\; x > 0 \\
 		ax \quad & \text{otherwise} \\
 	\end{cases}
 \end{align}
 where $a$ is a small positive constant usually set to \num{0.01}. It is worth to
-notice how simple the nonlinearities used in \gls{nn} are. For instance,
+notice how simple the nonlinearities used in \glspl{nn} are. For instance,
 \gls{relu}, the most commonly used activation function these days, is just a
 piecewise linear function\index{Piecewise linear function}. This again
 highlights the fundamental idea behind \gls{dl}: \emph{building something
@@ -868,7 +868,7 @@ complex by combining simple elements}.
 
 \Acrlongpl{nn} can be thought as \emph{\textbf{collection of neurons} organized
 in layers} and can be represented as \emph{computational
-graphs.}\index{Computational graph}\index{Graph}.
+graphs}\index{Computational graph}\index{Graph}.
 
 \begin{definition}[Graph]
 	A set of objects in which some pairs of objects are in some sense
@@ -880,22 +880,22 @@ graphs.}\index{Computational graph}\index{Graph}.
 	the data flow between the nodes.
 \end{definition}
 
-\noindent A typical architecture known as \gls{mlp}\index{Multilayer
-perceptron}\footnote{The term \gls{mlp} is kind of a misnomer, since the step
-function used originally in the perceptron is no longer used in modern
-\glspl{nn}.} or \gls{fcnn}\index{Fully connected neural network} is presented in
-\Figure{} \ref{fig:mlp}. In general, the architecture\index{Architecture} of a
+\noindent In general, the architecture\index{Architecture} of a
 \gls{nn} can be broken down into the following three layers: \emph{\textbf{input
 layer}\index{Input layer}, \textbf{hidden layer}\index{Hidden layer} and
 \textbf{output layer}\index{Output layer}}. Information flow starts from the
 input layer, passes through the hidden layer(s) and finally ends at the output
 layer. \Acrlongpl{nn} with more than one hidden layer are classified as deep, and
-shallow otherwise. It should be emphasized that all the neurons in the hidden
-layers aka \emph{hidden units}\index{Hidden unit} perform exactly the same
-operation as that of the perceptron, described in \Equation{} \ref{eq:neuron}. As
-such all the \emph{hidden units at a given layer make decisions based on the
-decisions of the previous layer}. Unsurprisingly, the kind of decisions made by
-the neurons depends solely on the problem and the data
+shallow otherwise. A typical architecture known as \gls{mlp}\index{Multilayer
+perceptron}\footnote{The term \gls{mlp} is kind of a misnomer, since the step
+function used originally in the perceptron is no longer used in modern
+\glspl{nn}.} or \gls{fcnn}\index{Fully connected neural network} is presented in
+\Figure{} \ref{fig:mlp}. In should be emphasized that all the neurons in the hidden
+layers aka \emph{hidden units}\index{Hidden unit} of the network perform exactly
+the same operation as that of the perceptron, described in \Equation{}
+\ref{eq:neuron}. As such all the \emph{hidden units at a given layer make
+decisions based on the decisions of the previous layer}. Unsurprisingly, the
+kind of decisions made by the neurons depends solely on the problem and the data
 distribution\index{Distribution} at hand.
 
 \begin{figure}
@@ -985,20 +985,20 @@ distribution\index{Distribution} at hand.
 	\begin{subfigure}[t]{0.245\textwidth}
 		\centering
 		\begin{tikzpicture}[node distance=1.5cm, on grid, semithick]
-			\node[custom node] (x1) {$a$};
-			\node[custom node, right of=x1] (x2) {$b$};
-			\node[custom node, above of=x1] (h1) {$*$}
+			\node[custom node, draw=blue] (x1) {$a$};
+			\node[custom node, draw=blue, right of=x1] (x2) {$b$};
+			\node[custom node, fill=orange!20, draw=orange, above of=x1] (h1) {$\times$}
 				edge[<-] (x1) edge[<-] (x2);
-			\node[custom node, above of=x2] (h2) {$-$}
+			\node[custom node, fill=orange!20, draw=orange, above of=x2] (h2) {$-$}
 				edge [<-] (x1) edge[<-] (x2);
-			\node[custom node, above of=h1, xshift=0.75cm] {$+$}
+			\node[custom node, fill=green!20, draw=green, above of=h1, xshift=0.75cm] {$+$}
 				edge [<-] (h1) edge [<-] (h2);
 		\end{tikzpicture}
 		\caption{Computational graph.}
 	\end{subfigure}
-	\caption{Examples of graphs. In a directed graph\index{Directed graph} the
-	edges have direction. If they contain at least one loop are called cyclic,
-	otherwise acyclic.}
+	\caption[Examples of graphs]{Examples of graphs. In a directed
+	graph\index{Directed graph} the edges have direction. If at
+	least one loop is present, they are called cyclic, otherwise acyclic.}
 	\label{fig:graphs}
 \end{figure}
 
@@ -1011,19 +1011,20 @@ valid classes are: ``person'', ``car'' and ``ship''. Furthermore, assume that
 the correct class is ``person''. \emph{Would you prefer to know the
 sequence of pixels values or whether the image contains a face?} In other words,
 it is a lot easier to classify the content of an image if we know some
-\emph{high-level features}\index{High-level feature}. \emph{\Acrlongpl{nn}
-extract such high level features by exploiting the hierarchical structure of an
-image}. A complex object like a ``face'' is defined in term of simpler ones,
-such as ``eyes and ``nose'', which in turn are defined in terms of simpler ones
-and so on. This hierarchy allows the \gls{nn} to solve the complex task of image
-classification by breaking it down into smaller sub-problems. The first layer
-learns to detect edges. The second layer combines the decisions of the first
-layer to detect corners. Subsequently, the third layer combines the decisions of
-the second layer to identify shapes like circles and squares and so on, until we
-reach the final layer which is able to detect high level features such as
-objects or object parts. The deeper we are into the network---i.e. the closer to
-the output layer\index{Output layer}---the more abstract and task-specific the
-detected features become.
+\emph{high-level features, i.e. a high-level description of the
+image}\index{High-level feature}. \emph{\Acrlongpl{nn} extract such high-level
+features by exploiting the hierarchical structure of an image}. A complex object
+like a ``face'' is defined in term of simpler ones, such as ``eye'' and
+``nose'', which in turn are defined in terms of simpler ones and so on. This
+hierarchy allows the \gls{nn} to solve the complex task of image classification
+by breaking it down into smaller sub-problems. The first layer learns to detect
+edges. The second layer combines the decisions of the first layer to detect
+corners. Subsequently, the third layer combines the decisions of the second
+layer to identify shapes like circles and squares and so on, until we reach the
+final layer which is able to detect high-level features such as objects or
+object parts. The deeper we are into the network---i.e. the closer to the output
+layer\index{Output layer}---the more abstract and task-specific the detected
+features become.
 
 In a \gls{fcnn} with $n$ hidden layers, each hidden layer performs the following
 operation:
@@ -1043,7 +1044,8 @@ which is just a matrix version of \Equation{} \ref{eq:neuron} with the matrix $W
 playing the role of the ``synapses''\index{Synapses} between the
 neurons\index{Neuron} of the layers $t-1$ and $t$. Since the ``stacking'' of
 many hidden layers is equivalent to a huge composite function\index{Composite
-function}\begin{equation}
+function}:
+\begin{equation}
 	\vc{\tau}(\vcx) \coloneqq
 	\left(\vc{h}^t \circ \vc{h}^{t-1}
 	\cdots
@@ -1062,16 +1064,24 @@ or in the general case of multi-valued output\index{Multi-valued output}:
 	W\vc{\tau}(\vcx) + \vc{\beta}_0
 \end{equation}
 In other words, \emph{a linear model\index{Linear model} on top of the extracted
-features\index{Extracted features}}. Moreover, the use of activation function
+features\index{Extracted features}}. It should be emphasided that \Equation{}
+\ref{fig:mlp} is not specific to \glspl{fcnn}, but describes every type of
+\gls{nn} used for classification\index{Classification} and
+regression\index{Regression}. Moreover, the use of activation function
 now becomes more clear: \emph{the composition of many linear functions is
 just another linear function, which implies nonlinearities must be inserted
 between them, if we aim to learn a nonlinear relationship}. \Equation{}
 \ref{eq:mlp} can also be understood in the following way: \emph{a problem that
 is nonlinear---i.e. complex---in the original space, can become linear---i.e.
 simple---in a transformed space}. \Figure{} \ref{fig:xor} shows such an example,
-known as the XOR problem\index{XOR problem}. The solution essentially boils down
-to finding the right transformation funciton $\vc{\tau}(\vcx)$. Traditional
-\gls{ml} algorithms like \glspl{svm} tackle while \gls{dl} takes a compl
+known as the XOR problem\index{XOR problem}. The solution of \Equation{}
+\ref{eq:mlp} essentially boils down to finding the right transformation funciton
+$\vc{\tau}(\vcx)$. Please note that traditional \gls{ml} algorithms like
+\glspl{svm}, also map the original space to a transformed space. However, they
+use a \emph{fixed---i.e. not learnable during the training phase\index{Index
+phase}---mapping\index{Mapping}. \Acrlong{dl} algorithms on the other hand
+learn this mapping during their training phase, considering both the problem and
+the data at hand}.
 
 \begin{figure}
 	\centering
@@ -1099,26 +1109,104 @@ to finding the right transformation funciton $\vc{\tau}(\vcx)$. Traditional
 			\end{axis}
 		\end{tikzpicture}
 	\end{subfigure}
-	\caption[Solving the \texttt{XOR} problem.]{Solving the \texttt{XOR}
-	problem. A linear classifier in the original space can't perfectly seperate
-	the ``ones'' and ``zeros''. In contrast, if the points are projected into a
-	new space, then they become linearly separable\index{Linearly separable}.}
+	\caption[Solving the XOR problem.]{Solving the XOR problem. A linear
+	classifier in the original space can't perfectly seperate the ``ones'' and
+	``zeros''. In contrast, if the points are projected into a new space, then
+	they become linearly separable\index{Linearly separable}.}
 	\label{fig:xor}
 \end{figure}
 
+\begin{theorem}[Universal approximation theorem\index{Universal approximation
+	theorem}, \cite{Hornik1989}%
+	]
+	\label{thrm:universal}
+	A feedforward \footnote{In feedforward newtworks information flows from
+	input to output. In contrast, feedback aka recurrent networks allow the
+	information to travel in both directions by introducing loops. Computations
+	derived from earlier input are fed back into the network, which gives them a
+	kind of memory. This kind of \glspl{nn} find application in \gls{nlp}
+	tasks\index{Natural language processing}, such as text generation or
+	classification. Note that although they contain loops, and as such they are
+	not \glspl{dag}, we can convert them to \glspl{dag} by ``unrolling'' their
+	computational graph \parencite{LeCun2015}.} network\index{Feedforward
+	network} with a single hidden layer containing a finite number of neurons
+	can approximate any continuous function.
+\end{theorem}
 
-%\begin{theorem}[Universal approximation theorem]
-%	Fill the content of the theorem.
-%\end{theorem}
-%
-%\begin{theorem}[No free lunch theorem]
-%	Fill the content of the theorem.
-%\end{theorem}
+One interesting fact about \gls{nn} is summarized in \Theorem{}
+\ref{thrm:universal}. An informal proof goes like this. The value of a function
+$f$ at point $x$ can be viewed as a ``spike'' or a ``bump'' at point $x$ with
+height $f(x)$. If we put a ``bump'' at every point $x$ we have essentially recovered
+the function $f$. The question now boils down to wheter a \gls{nn} can create
+``bumps''. The answer is affirmative, and a
+\href{http://neuralnetworksanddeeplearning.com/chap4.html}{visual proof} of the
+``bump'' construction and \Theorem{} \ref{thrm:universal} is provided by
+\cite{Nielsen2018}.
 
-%\subsection{Convolutional neural networks}
-%
+The universal approximation theorem implies that irrespective
+of the function we are trying to learn, a network with just one hidden layer and
+sufficient number of hidden units can represent this function. However, the
+theorem does not tell us two important things. First, the number of neurons
+required for the problem we are aiming to solve. Second, \emph{whether we can
+learn the function at all} \parencite{deeplearning}. Learning the true function
+can fail since the optimizer is not guaranteed to pick the solution that
+minimizes the generalization loss\index{Generalization loss}. Remember it
+optimizes the training loss\index{Training loss} as a proxy for the
+generalization loss.
+
+\begin{theorem}[No free lunch theorem, \cite{nfl}]
+	\label{thrm:nfl}
+	Averaged over all possible data generating distributions, every
+	learner\index{Learner} has the same error rate when predicting previously
+	unobserved points.
+\end{theorem}
+
+Finally, we close this section with \Theorem{} \ref{thrm:nfl}. In essence, it
+states that \emph{no learner\index{Learner} is universally better than any
+other}. Please note that by ``learner'' we mean even ``dummy'' learners, such as
+random guessing\index{Random guessing}. In other words, the more sophisticated
+learning algorithm we can conceive has the same average performance (over all
+tasks) as random guessing. While \Theorem{} \ref{thrm:nfl} seems unintuitive at
+first glance, it may be easier to understand it with an example. Suppose we see
+one sheep, and then expect to see another one.  We could devise the following
+strategies (learning algorithms) for predicting the color of the second sheep:
+\begin{equation}
+	\label{eq:nfl}
+	\text{strategies} = 
+	\begin{cases}
+		\text{Same color as the first} \\
+		\text{Different color than the first} \\
+		\text{Always black} \\
+		\text{Always white} \\
+	\end{cases}
+	\quad
+	\begin{rcases}
+		\text{(white, white)} \\
+		\text{(black, black)} \\
+		\text{(white, black)} \\
+		\text{(black, black)} \\
+	\end{rcases}
+	= \text{possible worlds}
+\end{equation}
+Assuming that all possible worlds (data generating distributions) \emph{are all
+equally likely}, then each strategy has the same expected error: 50\%.
+Fortunately, \emph{in real-world this assumption breaks down}. For example,
+animals tend to be the same color, so the worlds where the first and the second
+sheep have different colors are unlikely. In this scenario, guessing the same
+color as the first is more likely to be correct. Every learning algorithm is
+equipped with an \emph{\textbf{inductive bias}\index{Inductive
+bias}, that is a set of assumptions about the
+underlying data distribution}\footnote{For example, the \emph{composition of
+layers} in \glspl{nn} provides a type of relational inductive bias:
+\emph{hierarchical processing}. Another example of inductive bias is the linear
+relationship assumed in linear regression\index{Linear regression}.}. Whether
+algorithm $\mcl{A}_1$ will outperform $\mcl{A}_2$ on problem $\mcl{P}$, is just
+a matter of whose assumptions match better the structure of $\mcl{P}$.
+
+\subsection{Convolutional neural networks}
+
 %\subsection{Regularizing neural networks}
-%
+
 %\subsection{Training neural networks}
 %\label{subsec:nn_training}
 
