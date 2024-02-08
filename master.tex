@@ -108,7 +108,11 @@
 
 % Units
 \usepackage{siunitx}
-\sisetup{mode=text}
+\sisetup{
+	mode=text,
+	range-phrase=--,
+	range-units=single,
+}
 
 % Maths
 \usepackage{amsmath, amssymb, amsthm, thmtools, mathtools}
@@ -183,6 +187,9 @@
 
 % Acronyms
 \newacronym{ml}{ML}{machine learning}
+\newacronym{bgd}{BGD}{batch gradient descent}
+\newacronym{mbgd}{MBGD}{mini-batch gradient descent}
+\newacronym{sgd}{SGD}{stochastic gradient descent}
 \newacronym{nlp}{NLP}{natural language processing}
 \newacronym{svm}{SVM}{support vector machine}
 \newacronym{dl}{DL}{deep learning}
@@ -238,18 +245,18 @@
 \newcommand{\Section}{\textsc{Section}}
 
 \includeonly{
-	%assets/abstract,
-	%assets/introduction,
+	assets/abstract,
+	assets/introduction,
 	assets/theory,
-	%assets/methodology,
-	%assets/results,
+	assets/methodology,
+	assets/results,
 }
 
 %\DeclareUnicodeCharacter{2212}{\textcolor{red}{BAD}}
 
 \begin{document}
 
-%\maketitle
+\maketitle
 %\tableofcontents
 %\listoffigures
 %\listofalgorithms

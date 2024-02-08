@@ -110,7 +110,7 @@ databases is considered suboptimal, given the size of the latter.
 \Gls{ml}\index{Machine learning} aka \emph{data-driven\index{Data-driven}
 techniques} come to the rescue when dealing with \emph{big data}\index{Big data}
 and over the last years have picked up the torch from molecular simulations
-regarding material characterization. Given a collection of
+regarding the screening of large databases. Given a collection of
 \emph{input-output}\index{Input}\index{Output} pairs, i.e. a mathematical
 representation of a material and a corresponding property, a \gls{ml}
 algorithm\index{Machine learning algorithm}\footnote{Note that \gls{ml}
@@ -154,8 +154,8 @@ quality.
 	combination of organic linker and metal cluster, whereas the associated
 	color denotes the ``score'' of material (point) for a given application.
 	Finding the best material (the pentagons) for a given application, amounts
-	to solving a (probably) non-convex optimization problem\index{Optimization
-	problem}\index{Non-convex optimization problem}.}
+	to solving a (probably) non-convex optimization\index{Optimization}
+	problem\index{Optimization problem}\index{Non-convex optimization}.}
 	\label{fig:mofs_space}
 \end{figure}
 
@@ -238,7 +238,8 @@ combination with six geometric descriptors formed the input for the
 uptake\index{Gas uptake} for a plethora of guest molecules\index{Guest molecule}
 and thermodynamic conditions\index{Thermodynamic conditions}, on the
 \gls{core}\index{CoRE MOF database} \gls{mof} database \parencite{chong47}. The
-\gls{ml} models achieved impressive performance, showing an $R^2$ value of:
+\gls{ml} models achieved impressive performance, showing an $R^2$ (see
+\Section{} \ref{sec:ml_details} for a definition) value of:
 \begin{enumerate*}[label=\roman*).]
 	\item \num{0.874} for \ch{H2} uptake at \SI{77}{\kelvin} and \SI{2}{\bar}
 	\item \num{0.889} for \ch{CH4} uptake at \SI{298}{\kelvin} and

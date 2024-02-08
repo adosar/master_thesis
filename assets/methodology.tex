@@ -28,15 +28,15 @@ The \gls{uo} database is composed of \num{324426} hypothetical
 \num{32432}, \num{5000} and \num{27438}, served as the training\index{Training
 set}, validation\index{Validation set}\footnote{The validation set was used to
 select the number of epochs, see \Section{} \ref{subsec:preprocessing}.} and test
-sets\index{Test set}, respectively. The absolute \ch{CO2} uptake at
-\SI{298}{\kelvin} and \SI{0.15}{\bar} was examined and the following eight
-textual properties\index{Textual properties} were used as input for the
-conventional models: unit cell's mass and volume, gravimetric surface area, void
-fraction, void volume, largest free sphere diameter, largest included sphere
-along free sphere path diameter and largest included sphere diameter. For
-producing the learning curves\index{Learning curve} shown in \Figure{}
-\ref{fig:learning_curves_mofs}, the training set size was varied and the following
-training set sizes were considered:
+sets\index{Test set} (see \Section{} \ref{subsec:per_com_exp}), respectively. The
+absolute \ch{CO2} uptake at \SI{298}{\kelvin} and \SI{0.15}{\bar} was examined
+and the following eight textual properties\index{Textual properties} were used
+as input for the conventional models: unit cell's mass and volume, gravimetric
+surface area, void fraction, void volume, largest free sphere diameter, largest
+included sphere along free sphere path diameter and largest included sphere
+diameter. For producing the learning curves\index{Learning curve} shown in
+\Figure{} \ref{fig:learning_curves_mofs}, the training set size was varied and
+the following training set sizes were considered:
 \begin{equation}
 	\{
 		\num{100}, \num{500}, \num{1000},
@@ -88,6 +88,17 @@ information content, but again, extra computational burden is required.
 the voxels are filled with energy values derived from ab-initio
 calculations\index{Ab-initio calculations}.}
 
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{fig/voxelized_pes.pdf}
+	\caption[Workflow to construct the voxelized PES.]{Workflow to construct the
+	voxelized PES. The grid size and the type of the potential control the
+	``trade-off'' between information content and computational cost. The
+	IRMOF-1 structure was visualized with the iRASPA software
+	\parencite{Dubbeldam2018}.}
+	\label{fig:voxelized_pes}
+\end{figure}
+
 In this work we strived for minimal computational cost, setting $n=\num{25}$ and
 modeling all interactions with the \gls{lj} potential\index{Lennard-Jones
 potential}, using a spherical probe molecule\index{Probe molecule} as guest.
@@ -126,22 +137,13 @@ constant\index{Boltzmann constant} and $T$ is the
 temperature\index{Temperature}, which was set at \SI{298}{\kelvin}. The Python
 package
 \href{https://github.com/frudakis-research-group/moxel}{MOX$\epsilon\lambda$}
-was introduced to facilitate the calculation of energy voxels. In the remaining
-of this thesis, the terms ``voxelized PES'' and ``energy voxels''\index{Energy
-voxels}, are used interchangeably.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{fig/voxelized_pes.pdf}
-	\caption[Workflow to construct the voxelized PES.]{Workflow to construct the
-	voxelized PES. The grid size and the type of the potential control the
-	``trade-off'' between information content and computational cost. The
-	IRMOF-1 structure was visualized with the iRASPA software
-	\parencite{Dubbeldam2018}.}
-	\label{fig:voxelized_pes}
-\end{figure}
+was introduced to facilitate and speed through
+parallelization\index{Parallelization} the calculation of energy voxels. In the
+remaining of this thesis, the terms ``voxelized PES'' and ``energy
+voxels''\index{Energy voxels}, are used interchangeably.
 
 \section{Machine Learning Details}
+\label{sec:ml_details}
 
 For the conventional \gls{ml} models, the \gls{rf} algorithm as implement in the
 scikit-learn\index{Scikit-learn} \parencite{sklearn} package (version
@@ -211,12 +213,12 @@ set\index{Validation set}.
 
 With this technique, the training set\index{Training set} is artifically
 increased, by applying transformations\index{Geometric transformations} on the
-input that leave the label\index{Label} unchanged. With regards to gas
-adsorption, this amounts to applying geometric transformations on the voxelized
-PES, that leave the gas uptake value of the material unchanged. Data
-augmentation, helps the \gls{cnn} to combat
-overfitting\index{Overfitting}---e.g. memorizing specific orientations of the
-voxelized \gls{pes}---and focus on the underlying patterns.
+input that leave the label\index{Label} unchanged (see also \Section{}
+\ref{subsec:regularization_nn}). With regards to gas adsorption, this amounts to
+applying geometric transformations on the voxelized PES, that leave the gas
+uptake value of the material unchanged. Data augmentation, helps the \gls{cnn}
+to combat overfitting\index{Overfitting}---e.g. memorizing specific orientations
+of the voxelized \gls{pes}---and focus on the underlying patterns.
 
 \begin{figure}
 	\centering
