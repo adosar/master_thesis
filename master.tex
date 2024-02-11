@@ -151,6 +151,8 @@
 
 % Others
 \usepackage[inline]{enumitem}
+\setlist[enumerate, 1]{label=\roman*).}
+
 \usepackage[dvipsnames]{xcolor}
 \usepackage[colorlinks]{hyperref}
 \usepackage{lipsum}
@@ -161,7 +163,7 @@
 \usetikzlibrary{
 	arrows, arrows.meta, decorations.pathmorphing,
 	shadows, graphs, shapes.multipart, positioning, intersections,
-	backgrounds, fit,
+	backgrounds, fit, math
 }
 \tikzset{
 	custom node/.style = {
@@ -203,6 +205,7 @@
 \newacronym{cnn}{CNN}{convolutional neural network}
 \newacronym{ilsvrc}{ILSVRC}{Large Scale Visual Recognition Challenge}
 \newacronym{gpu}{GPU}{graphics processing unit}
+\newacronym{nan}{NaN}{Not a Number}
 \newacronym{iid}{i.i.d}{independent and identically distributed}
 \newacronym{mof}{MOF}{metal-organic framework}
 \newacronym{cof}{COF}{covalent organic framework}
@@ -224,15 +227,15 @@
 % User-defined commands
 \newcommand{\mcl}{\mathcal}
 \newcommand{\vc}{\boldsymbol}
-\newcommand{\vcx}{\boldsymbol{x}}
-\newcommand{\vcy}{\boldsymbol{y}}
-\newcommand{\vcth}{\boldsymbol{\theta}}
-\newcommand{\hvcth}{{\boldsymbol{\hat{\theta}}}}
+\newcommand{\vcx}{\vc{x}}
+\newcommand{\vcy}{\vc{y}}
+\newcommand{\vcth}{\vc{\theta}}
+\newcommand{\hvcth}{{\vc{\hat{\theta}}}}
 \newcommand{\loss}{\mathcal{L}}
-\newcommand{\gloss}{\nabla_{\vcth}\mathcal{L}(\vcth)}
+\newcommand{\gloss}{\nabla_{\vcth}\loss}
+\newcommand{\gltrain}{\nabla_{\vcth}\ltrain}
 \newcommand{\dtrain}{\mathcal{D}_\text{train}}
 \newcommand{\dtest}{\mathcal{D}_\text{test}}
-\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\ltrain}{\mcl{L}_\text{train}}
 \newcommand{\ltest}{\mcl{L}_\text{test}}
 \newcommand{\conv}[1]{Conv\num{#1}}
@@ -243,20 +246,28 @@
 \newcommand{\Theorem}{\textsc{Theorem}}
 \newcommand{\Algorithm}{\textsc{Algorithm}}
 \newcommand{\Section}{\textsc{Section}}
+\newcommand{\pd}[2]{\partial_{#1}#2}
+\newcommand{\pdf}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\bst}[1]{\vc{\theta}_#1}
+\newcommand{\pdhh}[2]{\pdf{\vc{h}_#2}{\vc{h}_#1}}
+\newcommand{\pdph}[2]{\pdf{\vc{h}_#2}{\vcth_{#1}}}
+\newcommand{\pdpl}[1]{\pdf{\loss}{\vcth_{#1}}}
+\newcommand{\pdyl}{\pdf{\loss}{\vc{y}}}
+\newcommand{\pdhy}{\pdf{\vc{y}}{\vc{h}_3}}
 
 \includeonly{
-	assets/abstract,
-	assets/introduction,
+	%assets/abstract,
+	%assets/introduction,
 	assets/theory,
-	assets/methodology,
-	assets/results,
+	%assets/methodology,
+	%assets/results,
 }
 
 %\DeclareUnicodeCharacter{2212}{\textcolor{red}{BAD}}
 
 \begin{document}
 
-\maketitle
+%\maketitle
 %\tableofcontents
 %\listoffigures
 %\listofalgorithms

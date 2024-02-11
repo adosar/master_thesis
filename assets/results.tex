@@ -2,9 +2,9 @@
 
 \lettrine[
 	nindent=0em, findent=0.5em, loversize=-0.12, lines=5
-]{\initfamily{T}}{\bfseries\color{Blue}he proposed framework} is tested on the
-\gls{uo} database, for predicting \ch{CO2} uptake in \glspl{mof}, the
-gas\index{Gas} that mainly ``triggered'' the development of energy-based
+]{\initfamily{T}}{\bfseries\color{Blue}he proposed framework} is initially
+tested on the \gls{uo} database, for predicting \ch{CO2} uptake in \glspl{mof},
+the gas\index{Gas} that mainly ``triggered'' the development of energy-based
 descriptors\index{Energy-based descriptors}. In order to evaluate the
 transferability of the approach, a different host-guest system is also examined.
 We apply the suggested approach in the database created by
@@ -24,31 +24,31 @@ uptake.
 it is passing through RetNet. For the purpose of this visualization, we use the
 model trained on the \glspl{mof} dataset with the largest training set size (see
 \Section{} \ref{sec:datasets}). Moreover, for the ease of visualization, only some
-feature maps of RetNet are visualized. Please note, that each feature
-map\index{Feature map} of a given layer, combines all the feature maps of the
-precedent layer. The only exception are the pooling layers\index{Pooling layer},
-which just downsample\index{Downsample} the feature maps from the previous
-layers.
+feature maps (see \Section{} \ref{subsec:cnn} of RetNet are visualized. Please
+note, that each feature map\index{Feature map} of a given layer, combines all
+the feature maps of the precedent layer. The only exception are the pooling
+layers\index{Pooling layer}, which just downsample\index{Downsample} the feature
+maps from the previous layers.
 
-For example, each feature map of the \conv{2} layer takes into account all
-the 12 feature maps of \conv{1} layer. In contrast, the feature maps of the
-\pool{1} layer, are just downsampled versions of the corresponding feature maps
-in \conv{2} layer. Although feature maps of \glspl{cnn} are not meant to be
+For example, each feature map of the \conv{2} layer takes into account all the
+12 feature maps of \conv{1} layer. In contrast, the feature maps of the \pool{1}
+layer, are just downsampled versions of the corresponding feature maps in
+\conv{2} layer. Although feature maps of \glspl{cnn} are not meant to be
 interpreted by humans---especially the ones found deeper in the network---it is
-worth noticing that early Conv layers\index{Conv layer} (i.e. \conv{1} and
-\conv{2}) emphasize the texture of the structure. For instance, the 3rd
-feature map of \conv{1} layer delineates the skeleton of the framework.
+worth noticing that early convolutional layers\index{Convolutional layer} (i.e.
+\conv{1} and \conv{2}) emphasize the texture of the structure. For instance, the
+3rd feature map of \conv{1} layer delineates the skeleton of the framework.
 
-Moving towards the output layer, the alternation of MaxPool and Conv layers
-continues until the Flatten layer\index{Flatten layer}, which just flattens out
-and concatenates\footnote{Given $m$ feature maps of size $n \times n \times n$,
-a Flatten layer converts them into a vector of size $mn^3$.} all feature maps
-from \conv{2} layer into a single vector of size \num{3240}. This vector is then
-processed by a \gls{fcnn}---i.e. the stack of Dense\index{Dense layer} and
-Output layers---to give the final prediction. Since the Output
-layer\index{Output layer} is really nothing more than a linear
-layer\index{Linear layer}, all that RetNet does is the following:
-
+Moving towards the output layer, the alternation of max pooling and
+convolutional layers continues until the flatten layer\index{Flatten layer},
+which just flattens out and concatenates\footnote{Given $m$ feature maps of size
+$n \times n \times n$, a flatten layer converts them into a vector of size
+$mn^3$.} all feature maps from \conv{2} layer into a single vector of size
+\num{3240}. This vector is then processed by a \gls{fcnn}---i.e. the stack of
+dense\index{Dense layer} and output layers---to give the final prediction. Since
+the output layer\index{Output layer} is really nothing more than a linear
+layer\index{Linear layer} (see \Section{} \ref{subsec:nn}), all that RetNet does
+is the following:
 \begin{equation}
 	\label{eq:retnet}
 	\underbrace{\overbrace{\vcx}^\text{PES}}_\text{input}
@@ -81,7 +81,7 @@ layer\index{Linear layer}, all that RetNet does is the following:
 extracts a fingerprint\index{Energetic fingerprint}---that is, a high level
 representation\index{High level representation} of the \gls{pes}---and then
 predicts the gas uptake by using a linear model on top of this fingerprint}. All
-intermediate layers between Input\index{Input layer} and Output layer
+intermediate layers between input\index{Input layer} and output layer
 participate in this feature extraction step, with the Dense\num{2} layer
 determining the size of the fingerprint, which is a vector of size \num{20},
 i.e. $\phi(\vcx) \in \mathbb{R}^{20}$ (see \Figure{} \ref{fig:fingerprints}). The
@@ -139,17 +139,13 @@ the performance of the conventional model.
 
 The fact that in both cases, the learning curves of the proposed models lie
 above the corresponding ones of the conventional models, should be credited to
-the following factors:
-\begin{enumerate*}[label=\roman*).]
-	\item The increased informativeness of the voxelized the voxelized
-		\gls{pes}---in comparison to geometric descriptors.
-	\item The ability of \glspl{cnn} to handle images and image-like
-		data\index{Image-like data}, such as the voxelized \gls{pes}, which is
-		essentially a single channel 3D image.
-	\item The data augmentation\index{Data augmentation} technique, which was
-		applied during the \gls{cnn} training (see \Section{}
-		\ref{subsec:data_augmentation}).
-\end{enumerate*}
+the following factors. First, the increased informativeness of the voxelized the
+voxelized \gls{pes} in comparison to geometric descriptors. Second, the ability
+of \glspl{cnn} to handle images and image-like data\index{Image-like data}, such
+as the voxelized \gls{pes}, which is essentially a single channel 3D image. And
+last but not least, the data augmentation\index{Data augmentation} technique,
+which was applied during the \gls{cnn} training (see \Section{}
+\ref{subsec:data_augmentation}).
 
 \begin{figure}
 	\centering
@@ -223,23 +219,24 @@ the other conditions.
 Throughout this work we focused on gas adsorption, but of course this doesn't
 mean we are not interested in predicting other properties of reticular
 materials\index{Reticular materials}. \emph{What if we are asked to predict
-properties such as band gap or bulk modulus?} In that case, quantities such as
-\emph{electron density}\index{Electron density} are more informative over
-host-guest interactions\index{Host-guest interactions} with regards to the
-aforementioned properties. This entails that the \emph{voxelized electron
+properties such as band gap\index{Band gap} or bulk modulus\index{Bulk
+modulus}?} In that case, quantities such as \emph{electron
+density}\index{Electron density} are more informative over host-guest
+interactions\index{Host-guest interactions} with regards to the aforementioned
+properties. This entails that the \emph{voxelized electron
 density}\index{Voxelized electron density} should substitute the voxelized
 \gls{pes}, as input to the 3D \gls{cnn}. Nevertheless, \emph{\textbf{wouldn't be
 great if all properties could be predicted from one and only one input?}} If our
 aim is to predict \emph{different properties for the same structure, shouldn't
 the structure itself be used as input?} Currently, the approaches to tackle this
-challenge are based on \emph{text representations}\index{Text representations}
-\parencite{Cao2023, Bucior2019} \emph{and crystal graphs}\index{Crystal graphs}
+challenge are based on \emph{text representations}\index{Text representation}
+\parencite{Cao2023, Bucior2019} \emph{and crystal graphs}\index{Crystal graph}
 \parencite{Chen2019, Xie2018}. The main drawback of these approaches, is their
 inability to represent exactly the structure, that is the \emph{exact
 arrangement of the atoms in the 3D space}.
 
-\emph{\textbf{Point clouds}} \parencite{Qi2016, Bello2020} are a natural way to
-solve this problem, since they are just \emph{a set of
+\emph{\textbf{Point clouds}\index{Point cloud}} \parencite{Qi2016, Bello2020}
+are a natural way to solve this problem, since they are just \emph{a set of
 coordinates\index{Coordinates} and associated features}. In our context, the
 coordinates are the coordinates of the atoms, and the associated features are
 the types of the atoms. It should be emphasized, that \emph{a point cloud is not

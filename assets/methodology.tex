@@ -176,12 +176,13 @@ whereas a PyTorch implementation is publicly available in:
 \href{https://github.com/frudakis-research-group/retnet}{RetNet}\index{RetNet}.
 Kernel size\index{Kernel size} is set to \num{3} for \conv{1}, \conv{2} and
 \num{2} for \conv{3}, \conv{4} and \conv{5} layers. Stride\index{Stride} equals
-\num{1} for all Conv layers\index{Conv layer} and only \conv{1} layer is padded,
-with ``same'' padding\index{Padding} and ``periodic'' mode. For both MaxPool
-layers\index{MaxPool layer}, kernel size and stride are both set to \num{2}. For
-the Dropout\index{Dropout} layer, the dropout rate\index{Dropout rate} $p$
-equals \num{0.3}, while the negative slope is set to \num{0.01} for all
-LeakyReLU layers\index{LeakyReLU layer}.
+\num{1} for all convolutional layers\index{Convolutional layer} and only
+\conv{1} layer is padded, with ``same'' padding\index{Padding} and ``periodic''
+mode. For both MaxPool layers\index{MaxPool layer}, kernel size and stride are
+both set to \num{2}. For the Dropout\index{Dropout} layer (see also
+\ref{subsec:regularization_nn}), the dropout rate\index{Dropout rate} $p$ equals
+\num{0.3}, while the negative slope is set to \num{0.01} for all \gls{lrelu}
+layers\index{\gls{lrelu}}.
 
 \subsection{Preprocessing \textit{\&} \acrshort{cnn} training details}
 \label{subsec:preprocessing}

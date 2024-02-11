@@ -3,14 +3,14 @@
 \lettrine[
 	nindent=0em, findent=0.5em, loversize=-0.12, lines=5
 ]{\initfamily{D}}{\bfseries\color{Blue}eep learning}\index{Deep learning},
-\emph{a class of \gls{ml}\index{Machine learning} algorithms based on
-\glspl{nn}}, has revolutionized the way we tackle a problem from a \gls{ml}
+\emph{a class of \acrlong{ml}\index{Machine learning} algorithms based on
+\acrlongpl{nn}}, has revolutionized the way we tackle a problem from a \gls{ml}
 perspective and is one if not the most important factor for recent \gls{ml}
 achievements. Solving complex tasks such image classification\index{Image
 classification} or language translation\index{Language translation}, that for
 years have bedevilled traditional \gls{ml} algorithms, constitutes the signature
 of \gls{dl}. Admittedly, \emph{the advent of a deep
-\gls{cnn}\index{Convolutional neural network}}, the AlexNet \parencite{alexnet}
+\acrlong{cnn}\index{Convolutional neural network}}, the AlexNet \parencite{alexnet}
 on September 30 of 2012, signified the ``modern birthday'' of this field. On
 this day, AlexNet\index{AlexNet} not only won the ImageNet \parencite{Deng_2009}
 \gls{ilsvrc}, but dominated it, achieving a top-5 accuracy\index{Top-5 accuracy}
@@ -155,7 +155,6 @@ design problem}\index{Inverse design} in chemistry\index{Chemistry}.
 		\caption{Classification.}
 		\label{fig:classification}
 	\end{subfigure}
-	\hfill
 	\begin{subfigure}[b]{0.49\textwidth}
 		\begin{tikzpicture}
 			\centering
@@ -212,14 +211,14 @@ is some relationship between $\vcx$ and $\vcy$:
 \end{equation}
 and we want to estimate $f$ from the data. The function $f$ represents the
 \emph{systematic information} that $\vcx$ gives about $\vcy$ while
-$\vc{\epsilon}$ is a random \emph{error term}\index{Error term} independent of
-$\vcx$ and with zero mean. More formally, we have an input space $X$, an output
-space $Y$ and we are interested in learning a function $\hat{h} \colon \mcl{X}
-\to \mcl{Y}$, called the \emph{hypothesis}\index{Hypothesis}, which produces an
-output $\vcy \in \mcl{Y}$ given an input $\vcx \in \mcl{X}$. At our disposal we have a
-collection of input-output pairs $(\vcx_i, \vcy_i)$, forming the
-\emph{\textbf{training set}}\index{Training set} denoted as $\dtrain$, with the
-pairs drawn \acrshort{iid} from $p(\vcx, \vcy)$.
+$\vc{\epsilon}$ is a \emph{random error term}\index{Random error term}
+independent of $\vcx$ and with zero mean. More formally, we have an input space
+$X$, an output space $Y$ and we are interested in learning a function $\hat{h}
+\colon \mcl{X} \to \mcl{Y}$, called the \emph{hypothesis}\index{Hypothesis},
+which produces an output $\vcy \in \mcl{Y}$ given an input $\vcx \in \mcl{X}$.
+At our disposal we have a collection of input-output pairs $(\vcx_i, \vcy_i)$,
+forming the \emph{\textbf{training set}}\index{Training set} denoted as
+$\dtrain$, with the pairs drawn \acrshort{iid} from $p(\vcx, \vcy)$.
 
 Ideally, we would like to learn a hypothesis that minimizes the
 \emph{\textbf{generalization error or loss}}\index{Generalization
@@ -280,14 +279,14 @@ A simple example of a hypothesis space, is the one used in univariate
 \emph{linear regression}\index{Linear regression}:
 \begin{equation}
 	\label{eq:linear}
-	\hat{y} = \beta_0 + \beta x
+	\hat{y} = b + w x
 \end{equation}
 where $\mcl{H}$ contains all lines (or hyperplanes in the multivariate case)
 defined by \Equation{} \ref{eq:linear}. Of course, one can get \emph{a
 more expressive} hypothesis space, by including polynomial terms, e.g.:
 \begin{equation}
 	\label{eq:polynomial}
-	\hat{y} = \beta_0 + \beta_1 x + \beta_2 x^2
+	\hat{y} = b + w_1 x + w_2 x^2
 \end{equation}
 The more expressive the hypothesis space, the larger the
 \emph{\textbf{representational capacity}}\index{Representational capacity} of
@@ -346,7 +345,7 @@ training phase\index{Training phase}.} In order to see how $\lambda$ penalizes
 model complexity, assume we perform univariate polynomial
 regression\index{Polynomial regression} of degree $k$:
 \begin{equation}
-	\hat{y} = \beta_0 + \sum_{i=1}^k \beta_i x^i
+	\hat{y} = b + \sum_{i=1}^k w_i x^i
 \end{equation}
 combining \gls{msl}\index{Mean squared loss} and \emph{lasso
 regularization}\index{Lasso regularization} as training loss:
@@ -355,14 +354,14 @@ regularization}\index{Lasso regularization} as training loss:
 	\loss_\text{train} = \frac{1}{\lvert \dtrain \rvert} \sum_{i \in \dtrain}
 	\ell(\hat{y}_i - y_i)^2
 	+
-	\lambda \sum_{i=1}^k \lvert \beta_i \rvert
+	\lambda \sum_{i=1}^k \lvert w_i \rvert
 \end{equation}
 Let's apply a very strong regularization by setting $\lambda \to \infty$ (in
 practice we set $\lambda$ to a very large value) and observe what happens to the
-\emph{weights}\index{Weights} $\beta_i$. By setting $\lambda \to
+\emph{weights}\index{Weights} $w_i$. By setting $\lambda \to
 \infty$, the regularization term dominates the \gls{msl} and as such, the only
-way to minimize the training loss is by setting $\beta_i = 0$. This leave us
-with a very simple model---only the \emph{bias}\index{Bias} $\beta_0$
+way to minimize the training loss is by setting $w_i = 0$. This leave us
+with a very simple model---only the \emph{bias}\index{Bias} term $b$
 survives---which always predicts the mean value of $y$ in the training set.
 
 Applying a regularizer\index{Regularizer}, is also useful when we need to select
@@ -643,7 +642,7 @@ out that the learning and complexity curves\index{Complexity curve} (see \Figure
 performance as function of experience and complexity.
 
 \begin{figure}
-	\begin{subfigure}{0.5\textwidth}
+	\begin{subfigure}{0.49\textwidth}
 		\centering
 		\begin{tikzpicture}%[trim axis left, trim axis right]
 			\begin{axis}[
@@ -663,7 +662,7 @@ performance as function of experience and complexity.
 		\caption{Learning curve of learner with low complexity\index{Low
 		complexity}.}
 	\end{subfigure}
-	\begin{subfigure}{0.5\textwidth}
+	\begin{subfigure}{0.49\textwidth}
 		\centering
 		\begin{tikzpicture}%[trim axis left, trim axis right]
 			\begin{axis}[
@@ -752,13 +751,13 @@ decision-making can be described mathematically as following:
 	\text{decision}
 	=
 	\begin{cases}
-		1 \quad \text{if}\; \vc{b}^\top \vcx + \beta_0 > 0 \\
+		1 \quad \text{if}\; \vc{w}^\top \vcx + b > 0 \\
 		0 \quad \text{otherwise}
 	\end{cases}
 	\quad
 	\text{where}
 	\quad
-	\vc{b}^\top\vcx \coloneqq \sum_i \beta_i x_i
+	\vc{w}^\top\vcx \coloneqq \sum_i w_i x_i
 \end{equation}
 If this weighted sum\index{Weighted sum} plus the bias\index{Bias}\footnote{If
 you prefer the neuroscientific analogy, you can think of bias as how easy is for
@@ -772,10 +771,10 @@ positive, otherwise negative.
 			on grid, node distance=1.4cm and 1.8cm, thick,
 		]
 		\node[custom node] (x) {$\vc{x}$};
-		\node[custom node, above right=of x] (w) {$\vc{\beta}$};
+		\node[custom node, above right=of x] (w) {$\vc{w}$};
 		\node[custom node, right=of x] (dot) {\Huge$\cdot$}
 			edge[<-] (x) edge[<-] (w);
-		\node[custom node, below right=of x] (b) {$\beta_0$};
+		\node[custom node, below right=of x] (b) {$b$};
 		\node[
 			custom node, right=of dot, circle split,
 			rotate=90, inner sep=2pt,
@@ -794,18 +793,19 @@ The simple decision-making rule specified by \Equation{} \ref{eq:perceptron}, wh
 is known as the \emph{\textbf{perceptron}}\index{Perceptron}
 \parencite{Rosenblatt1957}, is schematically depicted in \Figure{}
 \ref{fig:perceptron}. Essentially, the perceptron is a linear binary
-classifier\index{Binary classifier}\index{Linear binary classifier} (see also
-\Figure{} \ref{fig:classification}). If we pay a little more attention to \Equation{}
-\ref{eq:perceptron}, we can see that that the decision is basically an
-\emph{application of a linear function\index{Linear function}}\footnote{Formally
-speaking it is an affine function\index{Function}. We can turn it into a linear
-by ``absorbing'' the bias term into the weights and adding $1$ to the input
-vector, a procedure known as the \emph{bias trick}\index{Bias trick}.}
-\emph{followed by a nonlinearityity\index{Non-linearity}}. As such, we can rewrite
-\Equation{} \ref{eq:perceptron} as following:
+classifier\index{Binary classifier}\index{Linear binary classifier} (see
+\Figure{} \ref{fig:classification}). If we pay a little more attention to
+\Equation{} \ref{eq:perceptron}, we can see that that the decision is basically
+an \emph{application of a linear function\index{Linear
+function}}\footnote{Formally speaking it is an affine function\index{Function}.
+We can turn it into a linear by ``absorbing'' the bias term into the weights and
+adding $1$ to the input vector, a procedure known as the \emph{bias
+trick}\index{Bias trick}.} \emph{followed by a
+nonlinearityity\index{Non-linearity}}. As such, we can rewrite \Equation{}
+\ref{eq:perceptron} as following:
 \begin{equation}
 	\label{eq:neuron}
-	y = \phi\left(\vc{\beta}^\top \vcx + \beta_0\right)
+	y = \phi\left(\vc{w}^\top \vcx + b\right)
 \end{equation}
 where $\phi(\cdot)$ is the nonlinear function aka \emph{\textbf{activation
 function}}\index{Activation function}.
@@ -849,7 +849,7 @@ complex by combining simple elements}.
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[
-				no marks, domain=-4:4, trim axis left, trim axis right,
+				thick, no marks, domain=-4:4,
 				ymin=0, ymax=1, thick, legend columns=-1, enlargelimits=true,
 				legend style={at={(0.5, 1)}, anchor=south},
 				width=0.5\textwidth
@@ -867,6 +867,7 @@ complex by combining simple elements}.
 \end{figure}
 
 \subsection{Neural networks}
+\label{subsec:nn}
 
 \Acrlongpl{nn} can be thought as \emph{\textbf{collection of neurons} organized
 in layers} and can be represented as \emph{computational
@@ -892,7 +893,7 @@ shallow otherwise. A typical architecture known as \gls{mlp}\index{Multilayer
 perceptron}\footnote{The term \gls{mlp} is kind of a misnomer, since the step
 function used originally in the perceptron is no longer used in modern
 \glspl{nn}.} or \gls{fcnn}\index{Fully connected neural network} is presented in
-\Figure{} \ref{fig:mlp}. In should be emphasized that all the neurons in the hidden
+\Figure{} \ref{fig:mlp}. It should be emphasized that all the neurons in the hidden
 layers aka \emph{hidden units}\index{Hidden unit} of the network perform exactly
 the same operation as that of the perceptron, described in \Equation{}
 \ref{eq:neuron}. As such all the \emph{hidden units at a given layer make
@@ -912,20 +913,21 @@ distribution\index{Distribution} at hand.
 			output/.style={
 				circular drop shadow, circle, fill=green!20, draw=green, thick
 			},
-			new set=hid1, new set=hid2, new set=hid3, new set=hid4,
+			new set=hid1, new set=hid2, new set=hid3,
+			new set=hid4, new set=hid5, new set=hid5, new set=hid6
 		]
-		\foreach \l in {1, 2, 3, 4}
-			\foreach \n in {1, 2, 3, 4} {
+		\foreach \l in {1, 2, 3, 4, 5, 6}
+			\foreach \n in {1, 2, 3, 4, 5, 6} {
 				\node[hidden, set=hid\l] at (\l, \n) {};
 			}
-		\node at (2.5, 4.5) {Hidden layer};
-		\node at (2.5, 0.5) {Feature extraction};
+		\node at (3.5, 6.5) {Hidden layer};
+		\node at (3.5, 0.5) {Feature extraction};
 		\node[
 			input, label=left:\shortstack{Input \\ layer}
-		] at (0, 2.5) (inp) {$\vcx$};
+		] at (0, 3.5) (inp) {$\vcx$};
 		\node[
 			output, label=right:\shortstack{Output \\ layer}
-		] at (5, 2.5) (out) {$\vcy$};
+		] at (7, 3.5) (out) {$\vcy$};
 		\graph[
 			grow right sep=1cm,
 		] {
@@ -933,6 +935,8 @@ distribution\index{Distribution} at hand.
 			-> [complete bipartite] (hid2)
 			-> [complete bipartite] (hid3)
 			-> [complete bipartite] (hid4)
+			-> [complete bipartite] (hid5)
+			-> [complete bipartite] (hid6)
 			-> (out)
 		};
 	\end{tikzpicture}
@@ -1028,28 +1032,28 @@ object parts. The deeper we are into the network---i.e. the closer to the output
 layer\index{Output layer}---the more abstract and task-specific the detected
 features become.
 
-In a \gls{fcnn} with $n$ hidden layers, each hidden layer performs the following
+In a \gls{fcnn} with $N$ hidden layers, each hidden layer performs the following
 operation:
 \begin{equation}
-	\vc{h}^{t} =
-	\vc{\phi}\left({W^t\vc{h}^{t-1} + \vc{\beta}_0}\right)
+	\vc{h}^{l} =
+	\vc{\phi}\left({W^l \vc{h}^{l-1} + \vc{b}^l}\right)
 	\quad
 	\text{where}
 	\quad
-	1 \leq t \leq n
+	1 \leq l \leq N
 	\quad
 	\text{and}
 	\quad
 	\vc{h}^0 \coloneqq \vcx
 \end{equation}
-which is just a matrix version of \Equation{} \ref{eq:neuron} with the matrix $W^t$
+which is just a matrix version of \Equation{} \ref{eq:neuron} with the matrix $W^l$
 playing the role of the ``synapses''\index{Synapses} between the
-neurons\index{Neuron} of the layers $t-1$ and $t$. Since the ``stacking'' of
+neurons\index{Neuron} of the layers $l-1$ and $l$. Since the ``stacking'' of
 many hidden layers is equivalent to a huge composite function\index{Composite
 function}:
 \begin{equation}
 	\vc{\tau}(\vcx) \coloneqq
-	\left(\vc{h}^t \circ \vc{h}^{t-1}
+	\left(\vc{h}^l \circ \vc{h}^{l-1}
 	\cdots
 	\circ \vc{h}^{1}\right)(\vcx)
 \end{equation}
@@ -1057,16 +1061,16 @@ and the output layer is just a linear function of the last hidden
 layer, the output\index{Output} of the \gls{fcnn} can be written as:
 \begin{equation}
 	\hat{y} =
-	\vc{\beta}^\top \vc{\tau}(\vcx) + \beta_0
+	\vc{w}^\top \vc{\tau}(\vcx) + b
 \end{equation}
 or in the general case of multi-valued output\index{Multi-valued output}:
 \begin{equation}
 	\label{eq:mlp}
 	\hat{\vc{y}} =
-	W\vc{\tau}(\vcx) + \vc{\beta}_0
+	W\vc{\tau}(\vcx) + \vc{b}
 \end{equation}
 In other words, \emph{a linear model\index{Linear model} on top of the extracted
-features\index{Extracted features}}. It should be emphasided that \Equation{}
+features\index{Extracted feature}}. It should be emphasided that \Equation{}
 \ref{eq:mlp} is not specific to \glspl{fcnn}, but describes every type of
 \gls{nn} used for classification\index{Classification} and
 regression\index{Regression}. Moreover, the use of activation function
@@ -1090,7 +1094,7 @@ the data at hand}.
 	\begin{subfigure}[b]{0.49\textwidth}
 		\begin{tikzpicture}
 			\begin{axis}[
-					width=\textwidth, xtick={0, 1}, ytick={0, 1},
+					thick, width=\textwidth, xtick={0, 1}, ytick={0, 1},
 					xlabel=$x_1 \phantom{h_1}$, ylabel=$x_2$,
 					title=Original space, only marks,
 				]
@@ -1102,7 +1106,7 @@ the data at hand}.
 	\begin{subfigure}[b]{0.49\textwidth}
 		\begin{tikzpicture}
 			\begin{axis}[
-					width=\textwidth, xlabel=$h_1$, ylabel=$h_2$,
+					thick, width=\textwidth, xlabel=$h_1$, ylabel=$h_2$,
 					title=Transformed space, only marks,
 					xtick={0, 1, 2}, ytick={0, 1, 2}
 				]
@@ -1238,7 +1242,7 @@ increasing the \gls{nn}'s tolerance in different lighting conditions. Of course,
 we can further augment our training set by composing geometric and color
 transformations. The performance boost thanks to data augmentation can be
 understood in two ways:
-\begin{enumerate*}[label=\roman*).]
+\begin{enumerate*}
 	\item More data is better.
 	\item As introducing a useful inductive bias.
 \end{enumerate*}
@@ -1282,230 +1286,13 @@ on just a few of them, making them robust to the loss of any individual piece of
 evidence}. Or to put it differently, it strengthens them by forcing them to
 ``live'' in a stochastic handicap environment.  Another way to understand
 dropout is the following. When different sets of neurons are ``dropped out'', it
-is like we are training different \glspl{nn}.  That is, the dropout procedure
-acts as an average of these different networks.  The latter will overfit in
+is like we are training different \glspl{nn}. That is, the dropout procedure
+acts as an average of these different networks. The latter will overfit in
 different ways and so the net effect of dropout will hopefully mitigate this
 effect.
 
-%\subsection{Training neural networks}
-%\label{subsec:nn_training}
-
-%\begin{figure}
-%	\centering
-%	\begin{tikzpicture}
-%		\begin{axis}[
-%				xmin=0, xmax=1, ymin=0.15, ymax=0.85,
-%				ticks=none, xlabel=$\theta_1$, ylabel=$\theta_2$,
-%				width=0.5\textwidth, legend columns=-1,
-%				legend style={at={(0.5, 0)}, anchor=south,},
-%			]
-%			% Draw the contours
-%			\pgfmathsetseed{1}
-%			\pgfplotsforeachungrouped \i/\c in {
-%				0.5/Blue!90, 0.4/Blue!80, 0.3/Blue!70,
-%				0.2/Blue!50, 0.15/Blue!30, 0.1/Blue!15,
-%				0.05/Blue!5
-%			}{
-%				\edef\temp{\noexpand
-%					\draw[
-%						thick, black, fill=\c
-%					] (0.5, 0.5) ellipse[x radius=\i, y radius=\i*0.7];
-%				}\temp
-%			}
-%			% Gradient descent
-%			\addplot+[
-%				samples=10, draw=gray!30, thick, mark options={fill=red},
-%				domain=0.01:0.5, variable=\t,
-%			] ({divide(1.5*t, 1+t)}, {0.5});
-%			\addlegendentry{BGD};
-%			% Mini-batch gradient descent
-%			\addplot+[
-%				samples=10, draw=gray!30, thick, mark options={mark=*, fill=orange},
-%				domain=0:0.45, variable=\t
-%			] ({0.5 + 0.08*rnd - 0.05}, {0.83 - divide(1.2*t, 1+t)});
-%			\addlegendentry {MBGD};
-%			% Stochastic gradient descent
-%			\addplot+[
-%				samples=15, draw=gray!30, thick, mark options={mark=*, fill=green},
-%				domain=0.01:0.35, variable=\t
-%			] ({1 - divide(1.8*t, 1+t)}, {0.4 + 0.2*rnd});
-%			\addlegendentry{SGD};
-%		\end{axis}
-%	\end{tikzpicture}
-%	\caption{Variants of gradient descent.}
-%\end{figure}
-
-%\begin{algorithm}[H]
-%	\KwIn{
-%		$\dtrain$, loss function $\ell$,
-%		model parameters $\vcth$, learning rate
-%		$\eta$, batch size $\lvert\mcl{B}\rvert$
-%	}
-%	%\KwOut{Optimized parameters $\vcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\mcl{B} \gets$ sample $\lvert\mcl{B}\rvert$ datapoints from $\dtrain$\;
-%		$\gloss \gets \frac{1}{\lvert\mcl{B}\rvert} \sum_{i \in \mcl{B}}
-%		\nabla_{\vcth}\ell_i(\vcth)$\;
-%		$\vcth \gets \vcth - \eta\gloss$\;
-%	}
-%	\Return{optimized parameters $\vcth$}
-%	\caption[Batch, mini-batch and stochastic gradient
-%	descent]{Batch\index{Batch gradient descent}, mini-batch\index{Mini-batch
-%	gradient descent} and stochastic gradient descent\index{Stochastic gradient
-%	descent} \parencite{Bottou1998}}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$}
-%	%\KwOut{Optimized parameters $\vcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\vc{m} \gets \beta\vc{m} - \gloss$\;
-%		$\vcth \gets \vcth + \vc{m}$\;
-%	}
-%	\Return{optimized parameters $\vcth$}
-%	\caption[Momentum]{Momentum\index{Momentum} \parencite{Polyak1964}}
-%	\label{algo:momentum}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$}
-%	%\KwOut{Optimized parameters $\vcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\vc{m} \gets \beta\vc{m} -
-%		\eta\nabla_{\vcth}\loss(\vcth + \beta\vc{m})$\;
-%		$\vcth \gets \vcth + \vc{m}$\;
-%	}
-%	\Return{optimized parameters $\vcth$}
-%	\caption[Nesterov momentum]{Nesterov momentum\index{Nesterov momentum}
-%	\parencite{Sutskever2013}}
-%	\label{algo:nesterov}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{
-%		Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$,
-%		smoothing term $\epsilon$
-%	}
-%	%\KwOut{Optimized parameters $\vcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\vc{s} \gets \vc{s} + \gloss \odot \gloss$\;
-%		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
-%	}
-%	\Return{optimized parameters $\vcth$}
-%	\caption[AdaGrad]{AdaGrad\index{AdaGrad} \parencite{Duchi2011}}
-%	\label{algo:adagrad}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{
-%		Model parameters $\vcth$, decay rate $\beta$, learning rate $\eta$,
-%		smoothing term $\epsilon$
-%	}
-%	%\KwOut{Optimized parameters $\vcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\vc{s} \gets \vc{s} + (1 - \beta) \gloss \odot \gloss$\;
-%		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
-%	}
-%	\Return{optimized parameters $\vcth$}
-%	\caption[RMSProp]{RMSProp\index{RMSProp} \parencite{Tieleman2012}}
-%	\label{algo:rmsprop}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{
-%		Model parameters $\vcth$,
-%		learning rate $\eta$, smoothing term $\epsilon$,
-%		momentum decay $\beta_1$, scaling decay $\beta_2$
-%	}
-%	%\KwOut{Optimized parameters $\vcth$}
-%	\BlankLine
-%	$\vcth \gets$ random initialization\;
-%	\While{stopping criterion not met}{
-%		$\vc{m} \gets \beta_1\vc{m} - (1 - \beta_1) \gloss$\;
-%		$\vc{s} \gets \beta_2\vc{s} + (1 - \beta_2) \gloss \odot \gloss$\;
-%		$\vc{\widehat{m}} \gets \frac{\vc{m}}{1 - \beta_1^t}$\;
-%		$\vc{\widehat{s}} \gets \frac{\vc{s}}{1 - \beta_2^t}$\;
-%		$\vcth \gets \vcth + \eta\widehat{\vc{m}}
-%		\oslash \sqrt{\vc{\widehat{s}} + \epsilon}$\;
-%	}
-%	\Return{optimized parameters $\vcth$}
-%	\caption[Adam]{Adam\index{Adam} \parencite{Kingma2017}}
-%	\label{algo:adam}
-%\end{algorithm}
-%
-%\begin{algorithm}[H]
-%	\KwIn{Computational graph $\mcl{G}$ where nodes $u_i$ follow a topological
-%	ordering\footnote{Any ordering such that parents come before children.}}
-%	\BlankLine
-%	\tcc{Forward pass}
-%	\For{$i=1$ \KwTo $N$}{
-%		Compute $u_i$ as a function of $\text{Pa}_\mcl{G}(u_i)$\;
-%	}
-%	$u_N = 1$\;
-%	\tcc{Backward pass}
-%	\For{$i=N-1$ \KwTo $1$}{
-%		$\bar{u}_i =
-%		\sum_{j \in \text{Ch}_\mcl{G}(u_i)} \bar{u}_j \pd{u_j}{u_i}$\;
-%	}
-%	\Return{derivatives $\bar{u}_i$}
-%	\caption[Backpropagation]{Backpropagation\index{Backpropagation}
-%	\parencite{Rumelhart1986}}
-%	\label{algo:backpropagation}
-%\end{algorithm}
-%
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=\textwidth]{momentum.pdf}
-%\end{figure}
-%
-%\begin{figure}
-%	\centering
-%	\includegraphics[width=\textwidth]{nesterov.pdf}
-%\end{figure}
-
-%\begin{figure}
-%	\centering
-%	\begin{tikzpicture}
-%		\pgfplotsset{width=0.8\textwidth}
-%		\begin{axis}[
-%				clip mode=individual, custom axis, domain=-8:8, ymin=0, ymax=10,
-%				no markers, xlabel=$w$, ylabel=$\mathcal{L}(w)$, samples=500, grid=none
-%			]
-%			\draw[gray, fill=gray!30] (-2, 0) rectangle (2, 10);
-%			\addplot {pow(x-2, 2)};
-%			\addlegendentry{$\mathcal{L}_1$};
-%			\addplot {pow(x, 2)};
-%			\addlegendentry{$\mathcal{L}_2$};
-%			\addplot {pow(x+2, 2)};
-%			\addlegendentry{$\mathcal{L}_3$};
-%			\addplot {pow(3*x, 2) + 2.667};
-%			\addlegendentry{$\mathcal{L}_{\mathrm{T}}$};
-%			%\node at (-2, -0.9) [font=\scriptsize] {$\min_i w_i$};
-%			\node at (-2, -0.9)  {$\min_i w_i$};
-%			%\node at (2, -0.9) [font=\scriptsize] {$\max_i w_i$};
-%			\node at (2, -0.9)  {$\max_i w_i$};
-%			\node at (0, 2.4) {$w^*$};
-%			%\draw[dotted, -Diamond] (0, 0) -- (0, 2.1) node[above] {$w^*$};
-%		\end{axis}
-%	\end{tikzpicture}
-%	\caption{Explaining why SGD works.}
-%\end{figure}
-
-%\begin{itemize}
-%	\item Universal approximation theorem and no free-lunch theorem
-%\end{itemize}
-
 \subsection{Convolutional neural networks}
+\label{subsec:cnn}
 
 \Acrlongpl{cnn} are specialized \gls{nn} architectures to process image-like
 data\index{Image-like data} and in general, data which exhibit spatio-temporal
@@ -1526,7 +1313,7 @@ the $y$-axis and shifted. In \gls{cnn} terminology the first argument of the
 convolution operation is referred to as the \emph{input} and the second one as
 the \emph{\textbf{kernel}\index{Kernel} or \textbf{filter}\index{Filter}}. What
 is the interpretation? It is just a \emph{moving inner product between the two
-functions}. Recall, that the inner product\index{Inner product} between two
+functions}. Recall that the inner product\index{Inner product} between two
 vectors $\vc{f}$ and $\vc{g}$ is defined as:
 \begin{equation}
 	\label{eq:inner_product}
@@ -1577,37 +1364,40 @@ $K$ is defined as:
 \end{equation}
 and is schematically shown in \Figure{} \ref{fig:convolution}. The reason that
 the flipping of the filter is not necessary in \gls{ml} applications, is simply
-because the \emph{values of the filter are adapted, i.e. learned, during the
+because \emph{the values of the filter are adapted, i.e. learned, during the
 training phase}. Many \gls{dl} frameworks instead of the convolution implement a
 related operation called \emph{cross-correlation}, which is the same as
 convolution but without flipping the filter. We will stick to this convention
 for the rest of this section.
 
 Now that the convolution operation has been presented, we can appreciate its
-conbtribution to the mechanics of a \gls{cnn}. \emph{The convolution operation
-introduces a beneficial inductive bias} to the network, namely
-\emph{\textbf{sparse connections}\index{Sparse connections} and
-\textbf{parameter sharing}\index{Parameter sharing}}, as shown in \Figure{}
+contribution to the mechanics of a \gls{cnn}. \emph{Convolution introduces a
+beneficial inductive bias to the network, namely \textbf{sparse
+connections}\index{Sparse connections} and \textbf{parameter
+sharing}\index{Parameter sharing}}, as shown in \Figure{}
 \ref{fig:convolution_dense}, and that's why \glspl{cnn} outperform \glspl{fcnn}
 in object recognition\index{Object recognition} tasks. Sparse connections
 express the prior knowledge that closely placed pixels are related to each other
 or to put it differently, \emph{local features such as edges are useful to
 understand images}. On the other hand, parameter sharing encodes the idea that
 \emph{a feature detector that is useful in one part of the image is also useful
-in another part of the image}. For example, we would like to detect a ``face''
-irrespective of its position in the image.
+in another part of the image}. Thanks to parameter sharing, once the \gls{cnn}
+has learned to recognize a pattern in one location, it can recognize it in any
+other location. In contrast, once a \gls{fcnn} has learned to recognize a
+pattern in one location, it can recognize it only in that particular location
+\parencite{ml}.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.6\textwidth]{fig/convolution_dense.pdf}
-	\caption[Neuron's arrangement in convolutional and dense layers.]{Neuron's
-	arrangement in convolutional and fully connected aka dense layers. In
-	convolutional layers, neurons are organized into groups and share the same
-	parameters. The receptive field of each member is a small region of the
-	input. In contrast, the receptive field of neurons in a dense layer is the
-	whole input and there is no parameters sharing. Note that the receptive
-	field of neurons increases as we transition to convolutional layers deeper
-	in the network.}
+	\caption[Neurons' arrangement in convolutional and dense layers.]{Neurons'
+	arrangement in convolutional and dense layers. In convolutional layers,
+	neurons are organized into groups and share the same parameters. The
+	receptive field of each member is a small region of the input. In contrast,
+	the receptive field of neurons in a dense layer is the whole input and there
+	is no parameter sharing. Note that the receptive field of neurons
+	incrementally increases as we transition to convolutional layers deeper in
+	the network.}
 	\label{fig:convolution_dense}
 \end{figure}
 
@@ -1653,15 +1443,16 @@ same idea. You can play with different filters
 	\end{bmatrix}
 \end{equation}
 What about the \gls{fcnn}? \Figure{} \ref{fig:convolution} gives the answer. A
-neuron in a dense layer can also learn to detect edges \emph{by just zeroing the
-weights for its inputs except the small region where the edge needs to be
-detected}\footnote{We can view each neuron in a dense layer as performing
-convolution with a kernel size\index{Kernel size} as large as the input.}. For
-this region, it must learn the weights specified by \Equation{} \ref{eq:edge}.
-The problem is that the aforementioned zeroing of weights and the non-zero
-weights themselves, must be learned by many other neurons for horizontal
-edges\index{Horizontal edge} to be detected at different positions, which is of
-course not guaranteed with limited amount of training data\index{Training data}.
+neuron in a fully connected aka \emph{dense layer}\index{Dense layer} can also
+learn to detect edges \emph{by just zeroing the weights for its inputs except
+the small region where the edge needs to be detected}\footnote{We can view each
+neuron in a dense layer as performing convolution with a kernel
+size\index{Kernel size} as large as the input.}. For this region, it must learn
+the weights specified by \Equation{} \ref{eq:edge}.  The problem is that the
+aforementioned zeroing of weights and the non-zero weights themselves, must be
+learned by many other neurons for horizontal edges\index{Horizontal edge} to be
+detected at different positions, which is of course not guaranteed with limited
+amount of training data\index{Training data}.
 
 Besides convolutional layers, another typical of building block of \glspl{cnn}
 are the \emph{\textbf{pooling layers}}. Their role is to downsample (reduce the
@@ -1681,9 +1472,639 @@ convolution, the idea of pooling generalizes to more than two dimensions.
 	\centering
 	\includegraphics[width=0.6\textwidth]{fig/pooling.pdf}
 	\caption[Max pooling operation.]{Max pooling operation. Small translations
-	to the input (input B is just a shifted version of input A by 1 pixel to the
+	to the input (input B is just a shifted version of input A by one pixel to the
 	right) produce the same output when passed through the max pooling layer,
 	meaning that the latter introduces into the network some level of invariance
 	to small translations.}
 	\label{fig:pooling}
 \end{figure}
+
+\subsection{Training neural networks}
+\label{subsec:nn_training}
+
+Training deep \glspl{nn} might seem like a nightmare, given their enormous number
+of parameters. However, modern techniques make it possible to train very deep
+networks very efficiently. We will start this section by discussing some of the
+challenges one might face when training deep \glspl{nn} and then move to
+describe the optimizers which take the hard job of finding model parameters that
+hopefully will generalize well. The training of \glspl{nn} essentially boils
+down to the following two steps:
+\begin{enumerate*}
+	\item Initialize model parameters
+	\item Update model parameters
+\end{enumerate*}.
+
+Therefore, the first question that must be answered is how the parameters must
+be initialized. First of all, it is important that \emph{all weights are
+initialized randomly, otherwise training will fail}. For instance, suppose that
+all weights and biases are initialized to the same constant value, e.g. zero.
+\emph{Then, all neurons in a given layer will be perfectly identical and thus,
+any update of the parameters will affect the in exactly the same way}. That is,
+despite having hundreds or thousands of neurons per layer, the model will end up
+having ``duplicates'' of a single neuron in each layer, or to put it
+differently, \emph{it will act as if it had only one neuron per layer}
+\parencite{ml}. On the contrary, the random initialization of weights
+\emph{breaks the symmetry} and makes it possible to train a diverse team of
+neurons. What about the biases? Well, since the asymmetry breaking is already
+provided by the random initialization of the weights, it is possible and common
+to initialize the biases to be zero.
+
+It is important that random initialization is performed carefully, otherwise we
+may end up with \emph{\textbf{vanishing} or \textbf{exploding
+gradients}}\index{Vanishing gradients}\index{Exploding gradients}. Since we need
+the gradients with respect to the parameters in order to update them, if these
+gradients vanish---i.e. take very small values---then the learning will be very
+slow. On the other hand, if they explode---i.e. take very large values---then
+the training either stops due to \acrshortpl{nan} or diverges. For simplicity,
+but without loss of generality consider a \gls{nn} with $N$ hidden layers and
+one neuron per layer. The gradient of the loss with respect to the layer $l$
+found $k$ steps behind the final hidden layer, equals:
+\begin{equation}
+	\label{eq:grad}
+	\pdf{\ltrain}{w^l} =
+	\pdf{\ltrain}{y} \cdot \pdf{y}{h^n}
+	\cdot
+	\left(\prod_{i=0}^k \pdf{h^{n-i}}{h^{n-i-1}}\right)
+	\cdot
+	\pdf{h^{n-k}}{w^{n-k}}
+	\quad
+	\text{where}
+	\quad
+	n - k = l
+\end{equation}
+The origin of vanishing and exploding gradients is rooted in the middle term of
+\Equation{} \ref{eq:grad}, which can be expanded to:
+\begin{equation}
+	\label{eq:grad_van_exp}
+	\prod_{i=0}^k \pdf{h^{n-i}}{h^{n-i-1}} =
+	\prod_{i=0}^k \phi'(z^{n-i}) w^{n-i}
+	\quad
+\end{equation}
+The right hand side of \Equation{} \ref{eq:grad_van_exp} essentially says that
+the \emph{calculation of gradient involves a series of multiplications}. If the
+terms involved are all greater than one, then we end up with a very large
+gradient. In contrast, if all the terms are smaller than one, then the gradient
+vanishes\footnote{A toy example to understand the problem of unstable gradients
+is the following. First, replace the activation function $\phi(\cdot)$ with the
+identity function, i.e. $\phi(z) = z$, then set all weights to the same value
+$w$ (either smaller or greater than one). In that case, the right hand side of
+\Equation{} \ref{eq:grad_van_exp} reduces to $w^k$ which for $w=\num{1.2}$ and
+$k=\num{50}$ is approximately equal to \num{9.1e4}.}. These effects are more
+pronounced for earlier layers.
+
+How can we avoid these problems? In essence, we need to find a way to
+\emph{control the magnitude of this product}. First, notice that \Equation{}
+\ref{eq:grad_van_exp} besides the values of weights involves also the derivative
+values of the activation function $\phi$. If these are smaller than one, then
+vanishing gradients are more likely to appear. This is the case when the
+sigmoid\index{Sigmoid} is used as activation function, since the maximum value
+of its derivative equals \num{0.25}. For this reason, the sigmoid is no longer
+used as activation function in modern \gls{nn} architectures. The hyperbolic
+tangent\index{Hyperbolic tangent} was used as a replacement but due to its
+derivative taking values extremely close to zero for large inputs, has given its
+position to \gls{relu} and its variants. Nevertheless, even if we use \gls{relu}
+the risk of unstable gradients remains due to the repeated multiplications of
+weights in \Equation{} \ref{eq:grad_van_exp}. An answer that
+elegantly accounts for all these subtleties was given by \cite{He2015}, who
+proposed\footnote{Similar ideas were proposed by \cite{Glorot2010} five years
+earlier for \glspl{nn} with $\tanh$ as activation function, when the latter was
+still a common choice.} an initialization scheme that mitigates the problem of
+unstable gradients\index{Unstable gradients}, at least in the early stages of
+training. For a \gls{fcnn} with \gls{relu} as activation function this scheme
+suggests\footnote{Similar scheme applies for \glspl{cnn} and \gls{relu}
+variants.}:
+\begin{equation}
+	\label{eq:he_initialization}
+	W_{ij}^l \sim \mcl{N}\left(0, \sqrt{\frac{2}{n^{l-1}}}\right)
+\end{equation}
+where $n^{l}$ denotes the size (i.e. number of neurons) of layer $l$.
+
+Although proper initialization can significantly reduce the risk of unstable
+gradients at the beginning of the training, it doesn't guarantee that they won't
+come back later on. The reason is as the training training phase proceeds,
+the parameters keep changing, so the initial control over the product in
+\Equation{} \ref{eq:grad_van_exp} is lost. A techique called \emph{\textbf{batch
+normalization}}\index{Batch normalization} \parencite{Ioffe2015} was proposed to
+address the problem of unstable gradients and its steps are summarized in
+\Algorithm{} \ref{algo:batch_norm}. A batch normalization layer\index{Batch
+normalization layer} is inserted between or after the activation function of
+each hidden layer and it contains two learnable parameters that allow the model
+to learn the optimal scale and mean of each of the layer's inputs.
+
+\begin{algorithm}[H]
+	\KwIn{Values of $x_i$ over mini-batch $\mcl{B} \subset \dtrain$,
+	learnable parameters $\gamma$ and $\beta$}
+	\BlankLine
+	\tcc{Mini-batch mean}
+	$\mu_{\lvert \mcl{B}\rvert} = \frac{1}{\mcl{B}} \sum_i x_i$\;
+	\tcc{Mini-batch variance}
+	$\sigma_{\mcl{B}}^2 =
+	\frac{1}{\lvert \mcl{B}\rvert} \sum_i (x_i - \mu_{\mcl{B}})^2$\;
+	\tcc{Normalize}
+	$\widehat{x}_i \gets
+	\frac{x_i - \mu_{\mcl{B}}}{\sqrt{\sigma_{\mcl{B}}^2 + \epsilon}}$\;
+	\tcc{Scale and shift}
+	$z_i \gets \gamma \widehat{x}_i + \beta$\;
+	\Return{$z_i$ for all samples in mini-batch $\mcl{B}$}
+	\caption{Batch normalization}
+	\label{algo:batch_norm}
+\end{algorithm}
+The authors demonstrated that the addition of batch normalization layers
+improved all \glspl{nn} they experimented with, leading to significant
+improvements in the ImageNet classification task. Moreover, the vanishing
+gradients problem was significantly reduced, making even possible the use of
+$\tanh$ and sigmoid as activation functions. Adding batch normalization layers
+decreased the sensitivity to weight initialization and also allowed the use of
+higher learning rates, accelerating the learning process. Additionaly, since the
+mean and the variance are calculated over mini-batches, batch normalization
+brings a regularization effect due to noisy estimates. It should be noted that
+during testing the mean and variance are obtained from a running average of the
+values seen during training.
+
+Training \glspl{nn} efficiently requires that the calculation of the gradient is
+extremely fast. A naive approach to calculate the gradient of the training
+loss\index{Training loss} with respect to model parameters is based on the
+definition of the gradient:
+\begin{equation}
+	\pdf{\loss}{\theta_{ij}} \approx
+	\frac{\loss(\vcth + h\vc{e}_{ij}) - \loss(\vcth)}{h}
+\end{equation}
+That is, first the training loss for a given parameter configuration $\vcth$ is
+calculated by performing a \emph{forward pass}\index{Forward pass} of our
+training data\index{Training data} through the network. Then, we perturb each
+parameter $\theta_{ij}$ by a small amount, perform another forward pass and
+compare it with the initial loss. The main drawback of this approach is that we
+need to \emph{perform as many forward passes as the number of model parameters}.
+Such computational overhead is of course prohibitive for training modern
+\glspl{nn}.
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[
+			on grid, inner sep=2pt,
+			input/.style={
+				circular drop shadow, circle, fill=blue!20, draw=blue, thick
+			},
+			hidden/.style={
+				circular drop shadow, circle, fill=orange!20, draw=orange, thick
+			},
+			output/.style={
+				circular drop shadow, circle, fill=green!20, draw=green, thick
+			},
+			other/.style={circular drop shadow, circle, fill=black,
+			text=white, thick},
+			derivative/.style={text=black, bend right},
+			new set=hidden, new set=params,
+		]
+		\tikzmath{let \d = 2.3cm;}
+		% Draw input
+		\node[input] (x) at (0, 0) {$\vc{x}$};
+		% Draw hidden
+		\foreach \i in {1, 2, 3} {
+			\node[set=hidden, hidden] (h_\i) at (\i*\d, 0) {$\vc{h}_\i$};
+		}
+		% Draw output
+		\node[set=hidden, output, right=\d of h_3] (y) {$\vc{y}$};
+		% Draw loss
+		\node[other, right=\d of y] (loss) {$\mcl{L}$};
+		% Draw the parameters
+		\foreach \i in {1, ..., 4} {
+			\node[set=params, other] (p_\i) at (\i*\d, 1.7cm) {$\bst{\i}$};
+		}
+		% Connect the input-hidden-output-loss
+		\graph[->] {(x) -> (h_1) -> (h_2) -> (h_3) -> (y) -> (loss)};
+		\graph[->] {(params) -> (hidden)};
+		% Draw the partial derivatives
+		\draw[thick, blue!40, ->] (loss)
+			to[
+				derivative, bend left,
+				edge label=$1 \cdot \pdf{\mcl{L}}{\vc{y}}$
+			] (y);
+		\draw[thick, blue!40, ->] (y)
+			to[
+				derivative,
+				edge label'=$\vc{\bar{y}} \cdot \pdf{\vc{y}}{\vcth_4}$
+			] (p_4);
+		\draw[thick, blue!40, ->] (y)
+			to[
+				derivative, bend left,
+				edge label=$\vc{\bar{y}}\cdot \pdf{\vc{y}}{\vc{h}_3}$
+			] (h_3);
+		\draw[thick, blue!40, ->] (h_3)
+			to[
+				derivative,
+				edge label'=$\vc{\bar{h}}_3 \cdot \pdf{\vc{h}_3}{\vcth_3}$
+			] (p_3);
+
+		\foreach \i in {2, 1} {
+			\draw[thick, blue!40, ->] (h_\i)
+				to[
+					derivative,
+					edge label'=$\vc{\bar{h}}_\i \cdot \pdf{\vc{h}_\i}{\vcth_{\i}}$
+				] (p_\i);
+			}
+		\foreach \i/\j in {3/2, 2/1} {
+			\draw[thick, blue!40, ->] (h_\i)
+				to[
+					derivative, bend left,
+					edge label=$\vc{\bar{h}}_\i \cdot \pdf{\vc{h}_\i}{\vc{h}_\j}$
+				] (h_\j);
+			}
+	\end{tikzpicture}
+	\caption[Illustration of back-propagation.]{Illustration of
+	back-propagation. The black and blue arrows show the information flow
+	during the forward and backward pass, respectively. The notation
+	$\vc{\bar{z}}$ denotes the partial derivative of the loss with respect to
+	the node $\vc{z}$. That is, $\vc{\bar{z}} \coloneqq \pdf{\loss}{\vc{z}}$.}
+	\label{fig:back-propagation}
+\end{figure}
+
+Since a \gls{nn} is ultimately a huge composite function\index{composite
+function}, a more refined approach is to employ the tools of
+calculus\index{Calculus} and calculate the derivatives based on the \emph{chain
+rule}\index{Chain rule}. For a network with \num{3} hidden layers this amounts
+to the following calculations:
+\begin{equation}
+	\label{eq:chain_rule}
+	\begin{aligned}
+		\pdpl{4} &=
+		\pdyl \cdot \pdf{\vc{y}}{\bst{4}} \\
+		\pdpl{3} &= \textcolor{red}{\pdyl} \cdot \pdhy \cdot \pdph{3}{3} \\
+		\pdpl{2} &= \textcolor{red}{\pdyl \cdot \pdhy} \cdot \pdhh{2}{3} \cdot \pdph{2}{2} \\
+		\pdpl{1} &= \textcolor{red}{\pdyl \cdot \pdhy \cdot \pdhh{2}{3}} \cdot
+		\pdhh{1}{2} \cdot \pdph{1}{1}
+	\end{aligned}
+\end{equation}
+From \Equation{} \ref{eq:chain_rule} it is obvious that \emph{some calculations
+are repeated}. As such, a faster calculation of the gradient is possible by
+avoiding these repetitions. This is the main idea behind the algorithm called
+\emph{\textbf{back-propagation}}\index{Back-propagation} algorithm, often simply
+called \emph{\textbf{backprop}}. The procedure for a general computational graph
+is described in \Algorithm{} \ref{algo:back-propagation} whereas a schematic
+representation for the aforementioned \gls{nn} is provided in \Figure{}
+\ref{fig:back-propagation}. With this algorithm, a single forward and backward
+are enough to obtain the gradient.
+
+\begin{algorithm}[H]
+	\KwIn{Computational graph $\mcl{G}$ where nodes $u_i$ follow a topological
+	ordering}
+	\BlankLine
+	\tcc{Forward pass}
+	\For{$i=1$ \KwTo $N$}{
+		Compute $u_i$ as a function of $\text{Pa}_\mcl{G}(u_i)$\;
+	}
+	$u_N = 1$\;
+	\tcc{Backward pass}
+	\For{$i=N-1$ \KwTo $1$}{
+		$\bar{u}_i =
+		\sum_{j \in \text{Ch}_\mcl{G}(u_i)} \bar{u}_j \pd{u_j}{u_i}$\;
+	}
+	\Return{derivatives $\bar{u}_i$}
+	\caption[Back-propagation]{Back-propagation\index{Back-propagation}
+	\parencite{Rumelhart1986}}
+	\label{algo:back-propagation}
+\end{algorithm}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\begin{tikzpicture}
+			\pgfmathsetseed{1}
+			\begin{axis}[
+					width=\textwidth, legend columns=-1,
+					legend style={at={(0.5, 1)}, anchor=south},
+					xlabel=$x\phantom{\vcth}$, ylabel=$f_{\vcth} (x)$,
+					thick, domain=-2:2, ticks=none,
+					legend entries={
+						$f_{\textcolor{blue}{\vcth}}$,
+						$f_{\textcolor{red}{\vcth}}$
+					}
+				]
+				\addlegendimage{no markers, thick, blue}
+				\addlegendimage{no markers, thick, red}
+				% Train data
+				\addplot+[mark options={black}, samples=10] {x^2 - x^3 + 3.5*rnd};
+				% True function
+				\addplot+[no marks] {x^2 - x^3 + 1};
+			\end{axis}
+		\end{tikzpicture}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\begin{tikzpicture}
+			\begin{axis}[
+					thick, ticks=none, xlabel=$\vcth$, ylabel=$\mcl{L}(\vcth)$,
+					legend columns=-1, legend style={at={(0.5, 1)}, anchor=south},
+				]
+				% Train loss
+				\addplot[samples=100, black, thick] {
+					-0.5*exp(-0.3*x^2) - exp(-5*(x-4)^2)
+				};
+				\addlegendentry{$\ltrain$};
+				% Test loss
+				\addplot[samples=100, black, dashed, thick] {
+					-0.5*exp(-0.3*(x+1)^2) - exp(-5*(x-3)^2)
+				};
+				\addlegendentry{$\ltest$};
+				\fill[red] (0, -0.5) circle[radius=2pt];
+				\fill[blue] (4, -1) circle[radius=2pt];
+			\end{axis}
+		\end{tikzpicture}
+	\end{subfigure}
+	\caption[Machine learning $\neq$ optimization.]{Machine learning $\neq$
+	optimization\index{Optimization}. Finding good model parameters is
+	essentially an optimization problem. From a purely optimization perspective,
+	the blue solution is the ideal. In contrast, from a generalization
+	point of view the red solution is preferred since it has lower error on new
+	unseen samples.}
+	\label{fig:ml_optimization}
+\end{figure}
+
+In the rest of this section, the most common optimizers used for
+training \glspl{nn} are presented. All of them are first-order iterative
+optimization methods, meaning that they can be trapped in local minima of the
+training loss landscape. However, this is not much of a problem since in
+\gls{ml} \emph{the interest is in finding parameters that generalize well, not
+necessarily the ones that perfectly fits the training data}. As shown in
+\Figure{} \ref{fig:ml_optimization} a local minimum might be a better choice than
+the global optimum. Moreover, flatter minima should be preferable because they are
+less sensitive to parameter perturbations or to put it differently, they are
+less tailored to the specifics of the training set at hand.
+
+Since the training loss\index{Training loss} is a sum of individual losses (see
+\Equation{} \ref{eq:training_loss}) and the gradient operator\index{Gradient
+operator} $\nabla(\cdot)$ is linear, the gradient of the training loss with
+respect to model parameters equals:
+\begin{equation}
+	\label{eq:training_loss_grad}
+	\gltrain = \frac{1}{\lvert\dtrain\rvert}
+	\sum_{i \in \dtrain} \nabla_{\vcth}\ell_i(\vcth)
+\end{equation}
+The problem is that \emph{we need to compute all the individual gradients of the
+training samples}. Typical datasets these days contain million training
+instances, hence it seems wasteful to perform all these calculations for just a
+single parameter update. Vanilla gradient descent variants come at the rescue by
+using a only a small subset---aka mini-batch in the \gls{dl} jargon---of the
+training set or just one sample, in the case of \gls{sgd}. The insight of these
+algorithms is that \emph{the gradient over the whole training set is an
+expectation and as such, it may be approximately estimated using only a small
+number of training samples}.
+
+The mini-batches are usually drawn from the training set without replacement.
+These algorithms pass through the training samples until all the training data
+are used, at which point they start sampling from the full training
+set\index{Training set} again. A single pass through the training set is called
+\emph{\textbf{epoch}} and the number epochs is the most common criterion for
+stopping the traning of \gls{dl} algorithms. Depending on the batch size
+$\lvert\mcl{B}\rvert$, the gradient descent variants are classified as
+following\footnote{Essentially, the \gls{bgd} algorithm is the vanilla gradient
+descent.}:
+\begin{equation}
+	\begin{aligned}
+	\text{variants} =
+		\begin{cases}
+			\text{\gls{sgd}} \quad &
+			\lvert \dtrain \rvert = 1 \\
+			\text{\gls{mbgd}} \quad &
+			1 < \lvert \mcl{B} \rvert < \lvert \dtrain \rvert \\
+			\text{\acrshort{bgd}} \quad & 
+			\lvert \mcl{B} \rvert = \lvert \dtrain \rvert \\
+		\end{cases}
+	\end{aligned}
+\end{equation}
+The decrease in the computational cost at each iteration comes at the expense of
+noisy updates as shown in \Figure{} \ref{fig:gd_variants}, meaning that these
+algorithms can't settle at the minimum. Although this is not a major problem, it
+can be mitigated by increasing the batch size\index{Batch size} at the last
+iterations or decrease the learning rate\index{Learning rate} gradually (or
+both). Usually, the value of the batch size remains constant and only the
+learning rate changes through the training phase via a \emph{learning rate
+scheduling} scheme. It should be added that the noisy gradient estimates might
+be beneficial since they can escape ``bad'' (e.g. sharp) local minima and saddle
+points. The aforementioed optimizers are described in \Algorithm{}
+\ref{algo:gd_variants}.
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+				thick, xmin=0, xmax=1, ymin=0.15, ymax=0.85,
+				ticks=none, xlabel=$\theta_1$, ylabel=$\theta_2$,
+				width=0.5\textwidth, legend columns=-1,
+				legend style={at={(0.5, 0)}, anchor=south,},
+			]
+			% Draw the contours
+			\pgfmathsetseed{1}
+			\pgfplotsforeachungrouped \i/\c in {
+				0.5/Blue!90, 0.4/Blue!80, 0.3/Blue!70,
+				0.2/Blue!50, 0.15/Blue!30, 0.1/Blue!15,
+				0.05/Blue!5
+			}{
+				\edef\temp{\noexpand
+					\draw[
+						thick, black, fill=\c
+					] (0.5, 0.5) ellipse[x radius=\i, y radius=\i*0.7];
+				}\temp
+			}
+			% Gradient descent
+			\addplot+[
+				samples=10, draw=gray!30, thick, mark options={fill=red},
+				domain=0.01:0.5, variable=\t,
+			] ({divide(1.5*t, 1+t)}, {0.5});
+			\addlegendentry{BGD};
+			% Mini-batch gradient descent
+			\addplot+[
+				samples=10, draw=gray!30, thick, mark options={mark=*, fill=orange},
+				domain=0:0.45, variable=\t
+			] ({0.5 + 0.08*rnd - 0.05}, {0.83 - divide(1.2*t, 1+t)});
+			\addlegendentry {MBGD};
+			% Stochastic gradient descent
+			\addplot+[
+				samples=15, draw=gray!30, thick, mark options={mark=*, fill=green},
+				domain=0.01:0.35, variable=\t
+			] ({1 - divide(1.8*t, 1+t)}, {0.4 + 0.2*rnd});
+			\addlegendentry{SGD};
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Variants of gradient descent.}
+	\label{fig:gd_variants}
+\end{figure}
+
+\begin{algorithm}[H]
+	\KwIn{
+		$\dtrain$, loss function $\ell$,
+		model parameters $\vcth$, learning rate
+		$\eta$, batch size $\lvert\mcl{B}\rvert$
+	}
+	%\KwOut{Optimized parameters $\vcth$}
+	\BlankLine
+	$\vcth \gets$ random initialization\;
+	\While{stopping criterion not met}{
+		$\mcl{B} \gets$ sample $\lvert\mcl{B}\rvert$ datapoints from $\dtrain$\;
+		$\gloss \gets \frac{1}{\lvert\mcl{B}\rvert} \sum_{i \in \mcl{B}}
+		\nabla_{\vcth}\ell_i(\vcth)$\;
+		$\vcth \gets \vcth - \eta\gloss$\;
+	}
+	\Return{optimized parameters $\vcth$}
+	\caption[Batch, mini-batch and stochastic gradient
+	descent]{Batch\index{Batch gradient descent}, mini-batch\index{Mini-batch
+	gradient descent} and stochastic gradient descent\index{Stochastic gradient
+	descent} \parencite{Bottou1998}}
+	\label{algo:gd_variants}
+\end{algorithm}
+
+A common modification to the \gls{mbgd} and \gls{sgd} algorithms is the addition
+of a \emph{\textbf{momentum}} term. Instead of using only the gradient of the
+current step to guide the search, momentum also accumulates the gradient of the
+previous steps to determine the next update. Momentum keeps track of the
+previous gradients via an exponentially decaying sum controlled by the
+hyperparameter\index{Hyperparamter} $\beta \in (0, 1)$, which is typically set to
+\num{0.9}. By averaging past gradients, their zig-zag directions (see
+\Figure{} \ref{fig:gd_variants}) effectively cancels out, leading to a smoother
+trajectory. Note that the value of $\beta$ essentially controls how quickly the
+effect of the past gradients decay. 
+
+\begin{algorithm}[H]
+	\KwIn{Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$}
+	%\KwOut{Optimized parameters $\vcth$}
+	\BlankLine
+	$\vcth \gets$ random initialization\;
+	\While{stopping criterion not met}{
+		$\vc{m} \gets \beta\vc{m} - \gloss$\;
+		$\vcth \gets \vcth + \vc{m}$\;
+	}
+	\Return{optimized parameters $\vcth$}
+	\caption[Momentum]{Momentum\index{Momentum} \parencite{Polyak1964}}
+	\label{algo:momentum}
+\end{algorithm}
+
+Another commonly used optimizer\index{Optimizer} for training \glspl{nn} is the
+Adam\index{Adam} optimizer, which is described in \Algorithm{} \ref{algo:adam}.
+Besides the momentum\index{Momentum} term\footnote{Compared to momentum, Adam
+computes an exponentially decaying average rather than an exponentially decaying
+sum but these are actually equivalent except for a constant factor.} $\vc{m}$
+the update is controlled also by the term $\vc{s}$ which keeps track the
+square\footnote{That is, each $s_i$ accumulates the squares of the partial
+derivative $\pdf{\loss}{\theta_i}$.} of the past gradients. This term provides
+the means for using \emph{adaptive learning rates}\index{Adaptive learning rate}
+which can speed up convergence\index{Convergence} by pointing the resulting
+updates more towards the local minimum\index{Local minimum}. The steps 5 and 6
+are somewhat of a technical detail: since $\vc{m}$ and $\vc{s}$ are both
+initialized at $\vc{0}$, they will be biased towards $\vc{0}$ at the first
+iterations. These steps just boost $\vc{m}$ and $\vc{s}$ at the beginning
+of the training \parencite{ml}. Typical values for the hyperparameters
+$\beta_1$ and $\beta_2$ are 0.9 and 0.999, respectively. Please note that the
+symbol $\odot$ represents the element-wise multiplication wheres $\oplus$
+represents the element-wise division.
+
+\begin{algorithm}[H]
+	\KwIn{
+		Model parameters $\vcth$,
+		learning rate $\eta$, smoothing term $\epsilon$,
+		momentum decay $\beta_1$, scaling decay $\beta_2$
+	}
+	\BlankLine
+	$\vcth \gets$ random initialization\;
+	\While{stopping criterion not met}{
+		$\vc{m} \gets \beta_1\vc{m} - (1 - \beta_1) \gloss$\;
+		$\vc{s} \gets \beta_2\vc{s} + (1 - \beta_2) \gloss \odot \gloss$\;
+		$\vc{\widehat{m}} \gets \frac{\vc{m}}{1 - w_1^t}$\;
+		$\vc{\widehat{s}} \gets \frac{\vc{s}}{1 - w_2^t}$\;
+		$\vcth \gets \vcth + \eta\widehat{\vc{m}}
+		\oslash \sqrt{\vc{\widehat{s}} + \epsilon}$\;
+	}
+	\Return{optimized parameters $\vcth$}
+	\caption[Adam]{Adam\index{Adam} \parencite{Kingma2017}}
+	\label{algo:adam}
+\end{algorithm}
+
+%\begin{algorithm}[H]
+%	\KwIn{Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$}
+%	%\KwOut{Optimized parameters $\vcth$}
+%	\BlankLine
+%	$\vcth \gets$ random initialization\;
+%	\While{stopping criterion not met}{
+%		$\vc{m} \gets w\vc{m} -
+%		\eta\nabla_{\vcth}\loss(\vcth + w\vc{m})$\;
+%		$\vcth \gets \vcth + \vc{m}$\;
+%	}
+%	\Return{optimized parameters $\vcth$}
+%	\caption[Nesterov momentum]{Nesterov momentum\index{Nesterov momentum}
+%	\parencite{Sutskever2013}}
+%	\label{algo:nesterov}
+%\end{algorithm}
+%
+%\begin{algorithm}[H]
+%	\KwIn{
+%		Model parameters $\vcth$, momentum $\beta$, learning rate $\eta$,
+%		smoothing term $\epsilon$
+%	}
+%	%\KwOut{Optimized parameters $\vcth$}
+%	\BlankLine
+%	$\vcth \gets$ random initialization\;
+%	\While{stopping criterion not met}{
+%		$\vc{s} \gets \vc{s} + \gloss \odot \gloss$\;
+%		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
+%	}
+%	\Return{optimized parameters $\vcth$}
+%	\caption[AdaGrad]{AdaGrad\index{AdaGrad} \parencite{Duchi2011}}
+%	\label{algo:adagrad}
+%\end{algorithm}
+%
+%\begin{algorithm}[H]
+%	\KwIn{
+%		Model parameters $\vcth$, decay rate $\beta$, learning rate $\eta$,
+%		smoothing term $\epsilon$
+%	}
+%	%\KwOut{Optimized parameters $\vcth$}
+%	\BlankLine
+%	$\vcth \gets$ random initialization\;
+%	\While{stopping criterion not met}{
+%		$\vc{s} \gets \vc{s} + (1 - \beta) \gloss \odot \gloss$\;
+%		$\vcth \gets \vcth - \eta\gloss \oslash \sqrt{\vc{s} + \epsilon}$\;
+%	}
+%	\Return{optimized parameters $\vcth$}
+%	\caption[RMSProp]{RMSProp\index{RMSProp} \parencite{Tieleman2012}}
+%	\label{algo:rmsprop}
+%\end{algorithm}
+%
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=\textwidth]{momentum.pdf}
+%\end{figure}
+%
+%\begin{figure}
+%	\centering
+%	\includegraphics[width=\textwidth]{nesterov.pdf}
+%\end{figure}
+
+%\begin{figure}
+%	\centering
+%	\begin{tikzpicture}
+%		\begin{axis}[
+%				clip mode=individual, custom axis,
+%				domain=-8:8, ymin=0, ymax=10, ticks=none,
+%				no markers, xlabel=$w$, ylabel=$\mcl{L}(w)$,
+%				samples=500, grid=none, width=0.5\textwidth,
+%				legend style={at={(0.5, 1)}, anchor=south},
+%				legend columns=-1
+%			]
+%			\draw[gray, fill=gray!20] (-2, 0) rectangle (2, 10);
+%			\addplot {pow(x-2, 2)};
+%			\addlegendentry{$\mathcal{L}_1$};
+%			\addplot {pow(x, 2)};
+%			\addlegendentry{$\mathcal{L}_2$};
+%			\addplot+[green] {pow(x+2, 2)};
+%			\addlegendentry{$\mathcal{L}_3$};
+%			\addplot+[YellowOrange] {pow(3*x, 2) + 2.667};
+%			\addlegendentry{$\mathcal{L}_{\mathrm{T}}$};
+%			%\node at (-2, -0.9) [font=\scriptsize] {$\min_i w_i$};
+%			%\node at (-2, -0.9)  {$\min_i w_i$};
+%			%\node at (2, -0.9) [font=\scriptsize] {$\max_i w_i$};
+%			%\node at (2, -0.9)  {$\max_i w_i$};
+%			%\node at (0, 2.4) {$w^*$};
+%			\draw[dotted, -Diamond] (0, 0) -- (0, 2.8);
+%		\end{axis}
+%	\end{tikzpicture}
+%	\caption{Explaining why SGD works.}
+%\end{figure}
