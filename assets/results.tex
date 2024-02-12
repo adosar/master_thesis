@@ -118,7 +118,7 @@ longer fixed, but is an essential part of the training phase}.
 The learning curves\index{Learning curve} of the conventional models---built
 upon geometric descriptors---and the proposed ones--built upon energy
 voxels---are shown in \Figure{} \ref{fig:learning_curves_results}. As it can be
-seen from \Figure{} \ref{fig:learning_curves_mofs}, in the \gls{mof}-\ch{CO2} case,
+seen from \Figure{} \ref{fig:learning_curves_mofs}, in the \glspl{mof}-\ch{CO2} case,
 the \gls{cnn} model achieves an $R^2$ score of \num{0.859}, outperforming the
 conventional model, which shows an $R^2$ score of \num{0.690}. This amounts to
 around \SI{25}{\percent} increase in accuracy, even with such a coarse
@@ -130,7 +130,7 @@ performance of the conventional one---that is, the performance when trained with
 the maximum training set size---by requiring two orders of magnitude less
 training data, around \num{300}.
 
-Analogous results are observed when examining the \gls{cof}-\ch{CH4} case. Again
+Analogous results are observed when examining the \glspl{cof}-\ch{CH4} case. Again
 the \gls{cnn} model performs better, showing an $R^2$ score \num{0.969} compared
 to \num{0.941} for the conventional one. Similar to the previous case, a
 substantially smaller amount of training data are required---one order of
@@ -188,7 +188,7 @@ especially for adsorbates like \ch{CO2}, \ch{H2} and \ch{H2S}, is to include
 this type of interactions into the voxelized \gls{pes}}. Of course, there is no
 free lunch, since these refinements require the assignment of partial
 charges\index{Partial charge} to each framework atom, which is a computationally
-expensive task.  Luckily, \gls{ml}-based approaches have already been developed
+expensive task. Luckily, \gls{ml}-based approaches have already been developed
 \parencite{Bleiziffer2018, Raza2020, Kancharlapalli2021}, which can assign
 partial charges rapidly and with high fidelity, enabling the efficient
 construction of a more accurate voxelized \gls{pes}.

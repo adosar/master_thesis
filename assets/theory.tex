@@ -812,7 +812,7 @@ function}}\index{Activation function}.
 
 In the perceptron, the activation function is the Heavyside step
 function\index{Heavyside step function} but in modern \glspl{nn} it has
-substituted by functions such as the sigmoid\index{Sigmoid}, hyperbolic
+been substituted by functions such as the sigmoid\index{Sigmoid}, hyperbolic
 tangent\index{Hyperbolic tangent} and currently the \gls{relu}\index{\gls{relu}}
 and its variants. Some activation functions are graphically shown in \Figure{}
 \ref{fig:activation_functions}. The reason that the step function isn't used
@@ -1555,7 +1555,7 @@ pronounced for earlier layers.
 How can we avoid these problems? In essence, we need to find a way to
 \emph{control the magnitude of this product}. First, notice that \Equation{}
 \ref{eq:grad_van_exp} besides the values of weights involves also the derivative
-values of the activation function $\phi$. If these are smaller than one, then
+values of the activation function $\phi(\cdot)$. If these are smaller than one, then
 vanishing gradients are more likely to appear. This is the case when the
 sigmoid\index{Sigmoid} is used as activation function, since the maximum value
 of its derivative equals \num{0.25}. For this reason, the sigmoid is no longer
@@ -1719,7 +1719,7 @@ Such computational overhead is of course prohibitive for training modern
 	\label{fig:back-propagation}
 \end{figure}
 
-Since a \gls{nn} is ultimately a huge composite function\index{composite
+Since a \gls{nn} is ultimately a huge composite function\index{Composite
 function}, a more refined approach is to employ the tools of
 calculus\index{Calculus} and calculate the derivatives based on the \emph{chain
 rule}\index{Chain rule}. For a network with \num{3} hidden layers this amounts
@@ -1743,7 +1743,7 @@ called \emph{\textbf{backprop}}. The procedure for a general computational graph
 is described in \Algorithm{} \ref{algo:back-propagation} whereas a schematic
 representation for the aforementioned \gls{nn} is provided in \Figure{}
 \ref{fig:back-propagation}. With this algorithm, a single forward and backward
-are enough to obtain the gradient.
+pass are enough to obtain the gradient.
 
 \begin{algorithm}[H]
 	\KwIn{Computational graph $\mcl{G}$ where nodes $u_i$ follow a topological
@@ -1811,11 +1811,10 @@ are enough to obtain the gradient.
 		\end{tikzpicture}
 	\end{subfigure}
 	\caption[Machine learning $\neq$ optimization.]{Machine learning $\neq$
-	optimization\index{Optimization}. Finding good model parameters is
-	essentially an optimization problem. From a purely optimization perspective,
-	the blue solution is the ideal. In contrast, from a generalization
-	point of view the red solution is preferred since it has lower error on new
-	unseen samples.}
+	optimization\index{Optimization}. From a purely optimization perspective,
+	the blue solution is the ideal. In contrast, from a generalization point of
+	view the red solution is preferred since it has lower error on new unseen
+	samples.}
 	\label{fig:ml_optimization}
 \end{figure}
 
@@ -1844,10 +1843,9 @@ training samples}. Typical datasets these days contain million training
 instances, hence it seems wasteful to perform all these calculations for just a
 single parameter update. Vanilla gradient descent variants come at the rescue by
 using a only a small subset---aka mini-batch in the \gls{dl} jargon---of the
-training set or just one sample, in the case of \gls{sgd}. The insight of these
-algorithms is that \emph{the gradient over the whole training set is an
-expectation and as such, it may be approximately estimated using only a small
-number of training samples}.
+training set. The insight of these algorithms is that \emph{the gradient over
+the whole training set is an expectation and as such, it may be approximately
+estimated using only a small number of training samples}.
 
 The mini-batches are usually drawn from the training set without replacement.
 These algorithms pass through the training samples until all the training data
@@ -1863,7 +1861,7 @@ descent.}:
 	\text{variants} =
 		\begin{cases}
 			\text{\gls{sgd}} \quad &
-			\lvert \dtrain \rvert = 1 \\
+			\lvert \mcl{B} \rvert = 1 \\
 			\text{\gls{mbgd}} \quad &
 			1 < \lvert \mcl{B} \rvert < \lvert \dtrain \rvert \\
 			\text{\acrshort{bgd}} \quad & 
@@ -1940,9 +1938,9 @@ points. The aforementioed optimizers are described in \Algorithm{}
 	$\vcth \gets$ random initialization\;
 	\While{stopping criterion not met}{
 		$\mcl{B} \gets$ sample $\lvert\mcl{B}\rvert$ datapoints from $\dtrain$\;
-		$\gloss \gets \frac{1}{\lvert\mcl{B}\rvert} \sum_{i \in \mcl{B}}
+		$\glbatch \gets \frac{1}{\lvert\mcl{B}\rvert} \sum_{i \in \mcl{B}}
 		\nabla_{\vcth}\ell_i(\vcth)$\;
-		$\vcth \gets \vcth - \eta\gloss$\;
+		$\vcth \gets \vcth - \eta\glbatch$\;
 	}
 	\Return{optimized parameters $\vcth$}
 	\caption[Batch, mini-batch and stochastic gradient
@@ -1957,7 +1955,7 @@ of a \emph{\textbf{momentum}} term. Instead of using only the gradient of the
 current step to guide the search, momentum also accumulates the gradient of the
 previous steps to determine the next update. Momentum keeps track of the
 previous gradients via an exponentially decaying sum controlled by the
-hyperparameter\index{Hyperparamter} $\beta \in (0, 1)$, which is typically set to
+hyperparameter\index{Hyperparameter} $\beta \in (0, 1)$, which is typically set to
 \num{0.9}. By averaging past gradients, their zig-zag directions (see
 \Figure{} \ref{fig:gd_variants}) effectively cancels out, leading to a smoother
 trajectory. Note that the value of $\beta$ essentially controls how quickly the
@@ -1969,7 +1967,7 @@ effect of the past gradients decay.
 	\BlankLine
 	$\vcth \gets$ random initialization\;
 	\While{stopping criterion not met}{
-		$\vc{m} \gets \beta\vc{m} - \gloss$\;
+		$\vc{m} \gets \beta\vc{m} - \glbatch$\;
 		$\vcth \gets \vcth + \vc{m}$\;
 	}
 	\Return{optimized parameters $\vcth$}
@@ -1993,7 +1991,7 @@ initialized at $\vc{0}$, they will be biased towards $\vc{0}$ at the first
 iterations. These steps just boost $\vc{m}$ and $\vc{s}$ at the beginning
 of the training \parencite{ml}. Typical values for the hyperparameters
 $\beta_1$ and $\beta_2$ are 0.9 and 0.999, respectively. Please note that the
-symbol $\odot$ represents the element-wise multiplication wheres $\oplus$
+symbol $\oslash$ represents the element-wise multiplication whereas $\oplus$
 represents the element-wise division.
 
 \begin{algorithm}[H]
@@ -2005,8 +2003,8 @@ represents the element-wise division.
 	\BlankLine
 	$\vcth \gets$ random initialization\;
 	\While{stopping criterion not met}{
-		$\vc{m} \gets \beta_1\vc{m} - (1 - \beta_1) \gloss$\;
-		$\vc{s} \gets \beta_2\vc{s} + (1 - \beta_2) \gloss \odot \gloss$\;
+		$\vc{m} \gets \beta_1\vc{m} - (1 - \beta_1) \glbatch$\;
+		$\vc{s} \gets \beta_2\vc{s} + (1 - \beta_2) \glbatch \odot \glbatch$\;
 		$\vc{\widehat{m}} \gets \frac{\vc{m}}{1 - w_1^t}$\;
 		$\vc{\widehat{s}} \gets \frac{\vc{s}}{1 - w_2^t}$\;
 		$\vcth \gets \vcth + \eta\widehat{\vc{m}}

@@ -205,7 +205,7 @@ grid\index{Energy grid}. \emph{The latter is finally converted into a histogram,
 partitioning the energy values of the grid into bins of specific energy width}.
 By using solely these histograms as descriptors---without including any textual
 property---\textcite{bucior} trained Lasso regression
-models\index{Regression}\index{Lasso}, for predicting:
+models\index{Regression}\index{Lasso regression}, for predicting:
 \begin{enumerate*}
 	\item \ch{H2} swing capacity\index{Swing capacity} between \SI{100}{\bar}
 		and \SI{2}{\bar} at \SI{77}{\kelvin}
@@ -278,7 +278,7 @@ that mainly determine gas uptake in the low and high pressure regime
 order to be machine understandable the \gls{pes} is first voxelized---the
 voxelized \gls{pes} is essentially a 3D energy image\index{Energy image} where
 each 3D pixel aka voxel, is colorized by energy---and then, it is processed by a
-3D \gls{cnn}, known for its ability to process image-like data. The proposed
+3D \acrlong{cnn}, known for its ability to process image-like data. The proposed
 scheme is schematically presented} in \Figure{} \ref{fig:approach}.
 
 \begin{figure}

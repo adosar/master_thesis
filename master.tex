@@ -1,4 +1,8 @@
-\documentclass[listof=totoc, bibliography=totoc, chapterprefix=true]{scrreport}
+\documentclass[
+	listof=totoc,
+	bibliography=totoc,
+	chapterprefix=true
+]{scrreport}
 
 % Author information
 \author{
@@ -143,6 +147,10 @@
 \usepackage[linesnumbered, lined, ruled]{algorithm2e}
 \SetAlCapFnt{\color{Blue}\scshape}
 
+% Python code
+\usepackage{minted}
+\usemintedstyle{friendly}
+
 % Lettrine
 \usepackage{lettrine}
 \renewcommand{\LettrineFontHook}{\color{Blue}}
@@ -234,6 +242,7 @@
 \newcommand{\loss}{\mathcal{L}}
 \newcommand{\gloss}{\nabla_{\vcth}\loss}
 \newcommand{\gltrain}{\nabla_{\vcth}\ltrain}
+\newcommand{\glbatch}{\nabla_{\vcth}\loss_{\mcl{B}}}
 \newcommand{\dtrain}{\mathcal{D}_\text{train}}
 \newcommand{\dtest}{\mathcal{D}_\text{test}}
 \newcommand{\ltrain}{\mcl{L}_\text{train}}
@@ -256,34 +265,37 @@
 \newcommand{\pdhy}{\pdf{\vc{y}}{\vc{h}_3}}
 
 \includeonly{
-	%assets/abstract,
-	%assets/introduction,
+	assets/abstract,
+	assets/commision,
+	assets/introduction,
 	assets/theory,
-	%assets/methodology,
-	%assets/results,
+	assets/methodology,
+	assets/results,
+	assets/appendix,
 }
 
 %\DeclareUnicodeCharacter{2212}{\textcolor{red}{BAD}}
 
 \begin{document}
 
-%\maketitle
-%\tableofcontents
-%\listoffigures
-%\listofalgorithms
+\maketitle
+\tableofcontents
+\listoffigures
+\listofalgorithms
 % Add list of algorithms to contents page
-%\addcontentsline{toc}{chapter}{List of Algorithms}
+\addcontentsline{toc}{chapter}{List of Algorithms}
 
-
-
+\include{assets/commision}
 \include{assets/abstract}
 \include{assets/introduction}
 \include{assets/theory}
 \include{assets/methodology}
 \include{assets/results}
 
-%\printbibliography
-%\printindex
-%\printacronyms
+\printbibliography
+\printindex
+\printacronyms
+
+\include{assets/appendix}
 
 \end{document}
