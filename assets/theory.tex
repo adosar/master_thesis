@@ -1098,8 +1098,8 @@ the data at hand}.
 					xlabel=$x_1 \phantom{h_1}$, ylabel=$x_2$,
 					title=Original space, only marks,
 				]
-				\addplot+[mark=text, text mark=$\mathbf{0}$]coordinates {(0, 0) (1, 1)};
-				\addplot+[mark=text, text mark=$\mathbf{1}$] coordinates {(0, 1) (1, 0)};
+				\addplot+[mark=text, text mark=$\color{red}0$] coordinates {(0, 0) (1, 1)};
+				\addplot+[mark=text, text mark=$\color{blue}1$] coordinates {(0, 1) (1, 0)};
 			\end{axis}
 		\end{tikzpicture}
 	\end{subfigure}
@@ -1110,8 +1110,8 @@ the data at hand}.
 					title=Transformed space, only marks,
 					xtick={0, 1, 2}, ytick={0, 1, 2}
 				]
-				\addplot+[mark=text, text mark=$\mathbf{0}$] coordinates {(0, 0) (2, 1)};
-				\addplot+[mark=text, text mark=$\mathbf{1}$] coordinates {(1, 0)};
+				\addplot+[mark=text, text mark=$\color{red}0$] coordinates {(0, 0) (2, 1)};
+				\addplot+[mark=text, text mark=$\color{blue}1$] coordinates {(1, 0)};
 			\end{axis}
 		\end{tikzpicture}
 	\end{subfigure}
@@ -1955,7 +1955,7 @@ of a \emph{\textbf{momentum}} term. Instead of using only the gradient of the
 current step to guide the search, momentum also accumulates the gradient of the
 previous steps to determine the next update. Momentum keeps track of the
 previous gradients via an exponentially decaying sum controlled by the
-hyperparameter\index{Hyperparameter} $\beta \in (0, 1)$, which is typically set to
+hyperparameter\index{Hyperparameter} $\beta \in (0, 1)$ which is typically set to
 \num{0.9}. By averaging past gradients, their zig-zag directions (see
 \Figure{} \ref{fig:gd_variants}) effectively cancels out, leading to a smoother
 trajectory. Note that the value of $\beta$ essentially controls how quickly the

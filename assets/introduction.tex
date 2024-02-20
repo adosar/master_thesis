@@ -116,7 +116,7 @@ representation of a material and a corresponding property, a \gls{ml}
 algorithm\index{Machine learning algorithm}\footnote{Note that \gls{ml}
 algorithms are not limited to solve only such kind of problems, which fall under
 the umbrella of supervised learning\index{Supervised learning}. See \Section{}
-\ref{subsec:paradigms} for other types of problem tackled by \gls{ml}.} seeks to
+\ref{subsec:paradigms} for other types of problems tackled by \gls{ml}.} seeks to
 \emph{uncover the underlying structure-property relationship}. To put it in a
 nutshell, a \gls{ml} algorithm ``eats'' \emph{data}\index{Data}---which may come
 either from experiments, simulations or a combination of the two---and ``spits
@@ -129,9 +129,9 @@ quality.
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[
-				axis background/.style={fill=blue!10},
+				%axis background/.style={fill=blue!10},
 				axis lines=box, width=0.5\textwidth,
-				title=Material space,
+				thick, title=Material space,
 				xlabel=$\leftarrow$ Metal cluster $\rightarrow$,
 				ylabel=$\leftarrow$ Organic linker $\rightarrow$,
 				xlabel near ticks, ylabel near ticks,
@@ -278,8 +278,8 @@ that mainly determine gas uptake in the low and high pressure regime
 order to be machine understandable the \gls{pes} is first voxelized---the
 voxelized \gls{pes} is essentially a 3D energy image\index{Energy image} where
 each 3D pixel aka voxel, is colorized by energy---and then, it is processed by a
-3D \acrlong{cnn}, known for its ability to process image-like data. The proposed
-scheme is schematically presented} in \Figure{} \ref{fig:approach}.
+3D \acrlong{cnn}, known for its ability to process image-like data}. The proposed
+scheme is schematically presented in \Figure{} \ref{fig:approach}.
 
 \begin{figure}
 	\centering
