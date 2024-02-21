@@ -24,7 +24,7 @@ uptake.
 it is passing through RetNet. For the purpose of this visualization, we use the
 model trained on the \glspl{mof} dataset with the largest training set size (see
 \Section{} \ref{sec:datasets}). Moreover, for the ease of visualization, only some
-feature maps (see \Section{} \ref{subsec:cnn} of RetNet are visualized. Please
+feature maps (see \Section{} \ref{subsec:cnn}) of RetNet are visualized. Please
 note, that each feature map\index{Feature map} of a given layer, combines all
 the feature maps of the precedent layer. The only exception are the pooling
 layers\index{Pooling layer}, which just downsample\index{Downsample} the feature
@@ -96,7 +96,7 @@ heuristic, such as energy histograms \parencite{bucior} or average interactions
 \parencite{generic}. \emph{Hereon, feature extraction from the \gls{pes} is no
 longer fixed, but is an essential part of the training phase}.
 
-\begin{figure}
+\begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.49\textwidth}
 		\includegraphics[width=\textwidth]{fig/extracted_features_mofs.pdf}
@@ -113,7 +113,51 @@ longer fixed, but is an essential part of the training phase}.
 	\label{fig:fingerprints}
 \end{figure}
 
-\section{Learning Curves}
+\section{Learning Curves \textit{\&} Parity Plots}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{fig/learning_curves_mofs.pdf}
+		\caption{Learning curves for \glspl{mof} \textit{\&} \ch{CO2}.}
+		\label{fig:learning_curves_mofs}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{fig/learning_curves_cofs.pdf}
+		\caption{Learning curves for \glspl{cof} \textit{\&} \ch{CH4}.}
+		\label{fig:learning_curves_cofs}
+	\end{subfigure}
+	\caption[Learning curves.]{Performance ($R^2$ score) on test set as function
+	of the training set size for conventional and \gls{cnn} models. Shaded areas
+	correspond to the \SI{95}{\percent} \gls{ci}\index{Confidence interval}. The
+	$x$-coordinate of the white star denotes the trainig set size where the
+	\gls{cnn} model reaches the performance of the conventional one, the
+	$y$-coordinate. ``Geometric'' stands for geometric descriptors, while
+	``Voxels'' stands for energy voxels.}
+	\label{fig:learning_curves_results}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{fig/parity_geom_mofs_annotated.png}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.49\textwidth}
+		\includegraphics[width=\textwidth]{fig/parity_voxels_mofs_annotated.png}
+	\end{subfigure}
+	\caption[Parity plots.]{Parity plots\index{Parity plot} (top) for the
+	\gls{ml} models with geometric descriptors (\gls{rf} model) and energy
+	voxels (\gls{cnn} model) regarding \ch{CO2} uptake in \glspl{mof}.
+	Histograms (bottom) of the $R^2$ values used to constrct the
+	\SI{95}{\percent} \glspl{ci}. Both models were trained with the largest
+	training set (\num{32432} training samples).  ``Geometric'' stands for
+	geometric descriptors while ``Voxels'' stands for energy voxels. Ground
+	truth values are the theoretical values obtained from the \gls{uo} database
+	(measured in \si{\milli\mole\per\gram}). Circled points in green, blue and
+	green, correspond to the top-1, top-2 and top-3 materials, respectively.}
+	\label{fig:parity_plots}
+\end{figure}
+
 
 The learning curves\index{Learning curve} of the conventional models---built
 upon geometric descriptors---and the proposed ones--built upon energy
@@ -147,27 +191,17 @@ last but not least, the data augmentation\index{Data augmentation} technique,
 which was applied during the \gls{cnn} training (see \Section{}
 \ref{subsec:data_augmentation}).
 
-\begin{figure}
-	\centering
-	\begin{subfigure}[b]{0.49\textwidth}
-		\includegraphics[width=\textwidth]{fig/learning_curves_mofs.pdf}
-		\caption{Learning curves for \glspl{mof} \textit{\&} \ch{CO2}.}
-		\label{fig:learning_curves_mofs}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.49\textwidth}
-		\includegraphics[width=\textwidth]{fig/learning_curves_cofs.pdf}
-		\caption{Learning curves for \glspl{cof} \textit{\&} \ch{CH4}.}
-		\label{fig:learning_curves_cofs}
-	\end{subfigure}
-	\caption[Learning curves.]{Performance ($R^2$ score) on test set as function
-	of the training set size for conventional and \gls{cnn} models. Shaded areas
-	correspond to the \SI{95}{\percent} \gls{ci}\index{Confidence interval}. The
-	$x$-coordinate of the white star denotes the trainig set size where the
-	\gls{cnn} model reaches the performance of the conventional one, the
-	$y$-coordinate. ``Geometric'' stands for geometric descriptors, while
-	``Voxels'' stands for energy voxels.}
-	\label{fig:learning_curves_results}
-\end{figure}
+A parity plot is a scatter plot that compares a set of predictions from a
+\gls{ml} model against a set of benchmark (ground truth) values\footnote{Most of
+the time (and also in this work), the ground truth values are obtained from
+molecular simulations.}. Each point has $(x, y)$ coordinates, where $x$ is the
+ground truth value and $y$ is the corresponding (predicted) value from the
+model. For a perfect model, all the points should lie on the diagonal. From the
+parity plots\index{Parity plot} of \Figure{} \ref{fig:parity_plots}, it can
+be seen that the \gls{cnn} produces more reliable predictions, since more points
+are closer to the diagonal. Specifically, for the region of high-performing
+materials the conventional model significantly underestimates their performance,
+while the \gls{cnn} model ``pushes'' its predictions closer to the diagonal.
 
 \section{Discussion}
 
