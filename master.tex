@@ -72,6 +72,12 @@
 	\rule{\textwidth}{1pt}
 }
 
+% Dedication
+\dedication{
+	\itshape
+	\textbf{To my father}
+}
+
 % Koma Script
 \addtokomafont{chapter}{\color{Blue}}
 \addtokomafont{chapterentry}{\rmfamily}
@@ -166,6 +172,7 @@
 \usepackage[colorlinks]{hyperref}
 \usepackage{lipsum}
 \usepackage{chemmacros}
+\usepackage{pdfpages}
 
 % TiKZ and PGF
 \usepackage{pgfornament} % No need to load tikz
@@ -265,27 +272,29 @@
 \newcommand{\pdyl}{\pdf{\loss}{\vc{y}}}
 \newcommand{\pdhy}{\pdf{\vc{y}}{\vc{h}_3}}
 
-\includeonly{
-	assets/abstract,
-	assets/commission,
-	assets/introduction,
-	assets/theory,
-	assets/methodology,
-	assets/results,
-	assets/appendix,
-}
+%\includeonly{
+%	assets/abstract,
+%	assets/commission,
+%	assets/introduction,
+%	assets/theory,
+%	assets/methodology,
+%	assets/results,
+%	assets/appendix,
+%}
 
 %\DeclareUnicodeCharacter{2212}{\textcolor{red}{BAD}}
 
 \begin{document}
 
 \maketitle
+
 \tableofcontents
 \listoffigures
 \listofalgorithms
 % Add list of algorithms to contents page
 \addcontentsline{toc}{chapter}{List of Algorithms}
 
+\includepdf{greek/greek_title_abstract.pdf}
 \include{assets/commission}
 \include{assets/abstract}
 \include{assets/introduction}
