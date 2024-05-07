@@ -213,12 +213,13 @@ and we want to estimate $f$ from the data. The function $f$ represents the
 \emph{systematic information} that $\vcx$ gives about $\vcy$ while
 $\vc{\epsilon}$ is a \emph{random error term}\index{Random error term}
 independent of $\vcx$ and with zero mean. More formally, we have an input space
-$X$, an output space $Y$ and we are interested in learning a function $\hat{h}
-\colon \mcl{X} \to \mcl{Y}$, called the \emph{hypothesis}\index{Hypothesis},
-which produces an output $\vcy \in \mcl{Y}$ given an input $\vcx \in \mcl{X}$.
-At our disposal we have a collection of input-output pairs $(\vcx_i, \vcy_i)$,
-forming the \emph{\textbf{training set}}\index{Training set} denoted as
-$\dtrain$, with the pairs drawn \acrshort{iid} from $p(\vcx, \vcy)$.
+$\mcl{X}$, an output space $\mcl{Y}$ and we are interested in learning a
+function $\hat{h} \colon \mcl{X} \to \mcl{Y}$, called the
+\emph{hypothesis}\index{Hypothesis}, which produces an output $\vcy \in \mcl{Y}$
+given an input $\vcx \in \mcl{X}$.  At our disposal we have a collection of
+input-output pairs $(\vcx_i, \vcy_i)$, forming the \emph{\textbf{training
+set}}\index{Training set} denoted as $\dtrain$, with the pairs drawn
+\acrshort{iid} from $p(\vcx, \vcy)$.
 
 Ideally, we would like to learn a hypothesis that minimizes the
 \emph{\textbf{generalization error or loss}}\index{Generalization
@@ -233,7 +234,8 @@ $\ell$ over all possible input-output pairs. A loss function just measures the
 discrepancy of the prediction $h(\vcx) = \hat{\vcy}$ from the true value $\vcy$
 and as such, the best hypothesis is the one that minimizes this integral.
 Obviously, it is impossible to evaluate the integral in \Equation{}
-\ref{eq:generalization_loss}, since we don't have access to infinite data.
+\ref{eq:generalization_loss}, since in general we don't know the joint
+probability distribution $p(\vcx, \vcy)$.
 
 The idea is to use the \emph{training error or loss}\index{Training
 error}\index{Training loss}:
@@ -801,7 +803,7 @@ function}}\footnote{Formally speaking it is an affine function\index{Function}.
 We can turn it into a linear by ``absorbing'' the bias term into the weights and
 adding $1$ to the input vector, a procedure known as the \emph{bias
 trick}\index{Bias trick}.} \emph{followed by a
-nonlinearityity\index{Non-linearity}}. As such, we can rewrite \Equation{}
+nonlinearity\index{Non-linearity}}. As such, we can rewrite \Equation{}
 \ref{eq:perceptron} as following:
 \begin{equation}
 	\label{eq:neuron}
@@ -1575,7 +1577,7 @@ suggests\footnote{Similar scheme applies for \glspl{cnn} and \gls{relu}
 variants.}:
 \begin{equation}
 	\label{eq:he_initialization}
-	W_{ij}^l \sim \mcl{N}\left(0, \sqrt{\frac{2}{n^{l-1}}}\right)
+	W_{ij}^l \sim \mcl{N}\left(0, \frac{2}{n^{l-1}}\right)
 \end{equation}
 where $n^{l}$ denotes the size (i.e. number of neurons) of layer $l$.
 
@@ -1957,7 +1959,7 @@ previous steps to determine the next update. Momentum keeps track of the
 previous gradients via an exponentially decaying sum controlled by the
 hyperparameter\index{Hyperparameter} $\beta \in (0, 1)$ which is typically set to
 \num{0.9}. By averaging past gradients, their zig-zag directions (see
-\Figure{} \ref{fig:gd_variants}) effectively cancels out, leading to a smoother
+\Figure{} \ref{fig:gd_variants}) effectively cancel out, leading to a smoother
 trajectory. Note that the value of $\beta$ essentially controls how quickly the
 effect of the past gradients decay. 
 
@@ -1991,7 +1993,7 @@ initialized at $\vc{0}$, they will be biased towards $\vc{0}$ at the first
 iterations. These steps just boost $\vc{m}$ and $\vc{s}$ at the beginning
 of the training \parencite{ml}. Typical values for the hyperparameters
 $\beta_1$ and $\beta_2$ are 0.9 and 0.999, respectively. Please note that the
-symbol $\oslash$ represents the element-wise multiplication whereas $\oplus$
+symbol $\odot$ represents the element-wise multiplication whereas $\oslash$
 represents the element-wise division.
 
 \begin{algorithm}[H]
@@ -2005,8 +2007,8 @@ represents the element-wise division.
 	\While{stopping criterion not met}{
 		$\vc{m} \gets \beta_1\vc{m} - (1 - \beta_1) \glbatch$\;
 		$\vc{s} \gets \beta_2\vc{s} + (1 - \beta_2) \glbatch \odot \glbatch$\;
-		$\vc{\widehat{m}} \gets \frac{\vc{m}}{1 - w_1^t}$\;
-		$\vc{\widehat{s}} \gets \frac{\vc{s}}{1 - w_2^t}$\;
+		$\vc{\widehat{m}} \gets \frac{\vc{m}}{1 - \beta_1^t}$\;
+		$\vc{\widehat{s}} \gets \frac{\vc{s}}{1 - \beta_2^t}$\;
 		$\vcth \gets \vcth + \eta\widehat{\vc{m}}
 		\oslash \sqrt{\vc{\widehat{s}} + \epsilon}$\;
 	}
