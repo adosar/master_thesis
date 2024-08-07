@@ -514,9 +514,9 @@ test sets---since more data result in models of higher quality.
 	]
 	\label{thrm:bias_variance}
 	From \Equation{} \ref{eq:supervised} and under the assumption that $\epsilon
-	\sim \mcl{N}(0, 1)$, the expected squared loss\index{Squared
-	loss}\index{Expected square loss} at $\vcx^*$ can be decomposed as
-	following:
+	\sim \mcl{N}\left(0, \sigma_{\epsilon}^{2}\right)$, the expected squared
+	loss\index{Squared loss}\index{Expected square loss} at $\vcx^*$ can be
+	decomposed as following:
 	\begin{equation}
 		\label{eq:bias_variance}
 		\exp{\left(y^* - \hat{f}(\vcx^*)\right)^2}
@@ -1203,13 +1203,13 @@ animals tend to be the same color, so the worlds where the first and the second
 sheep have different colors are unlikely. In this scenario, guessing the same
 color as the first is more likely to be correct. Every learning algorithm is
 equipped with an \emph{\textbf{inductive bias}\index{Inductive
-bias}, that is a set of assumptions about the
-underlying data distribution}\footnote{For example, the \emph{composition of
-layers} in \glspl{nn} provides a type of relational inductive bias:
-\emph{hierarchical processing}. Another example of inductive bias is the linear
-relationship assumed in linear regression\index{Linear regression}.}. Whether
-algorithm $\mcl{A}_1$ will outperform $\mcl{A}_2$ on problem $\mcl{P}$, is just
-a matter of whose assumptions are better aligned with the structure of $\mcl{P}$.
+bias}, that is a set of assumptions allowing it to prioritize one hypothesis
+over another}\footnote{For example, the \emph{composition of layers} in
+\glspl{nn} provides a type of relational inductive bias: \emph{hierarchical
+processing}. Another example of inductive bias is the linear relationship
+assumed in linear regression\index{Linear regression}.}. Whether algorithm
+$\mcl{A}_1$ will outperform $\mcl{A}_2$ on problem $\mcl{P}$, is just a matter
+of who has the right inductive bias.
 
 \subsection{Regularizing neural networks}
 \label{subsec:regularization_nn}
@@ -1220,7 +1220,7 @@ memorizing a huge variety of complex training sets\index{Training set}. However,
 memorization is harmful from a generalization point of view. Therefore, it
 is necessary to employ regularization techniques\index{Regularization
 techniques} when training deep \glspl{nn}, especially when the size of the
-training set is relatively small.  Besides adding penalty terms to the training
+training set is relatively small. Besides adding penalty terms to the training
 loss\index{Training loss} as described in \Section{}
 \ref{subsec:regularization}, common regularization techniques include:
 \emph{\textbf{data augmentation}\index{Data augmentation} and
@@ -1425,10 +1425,10 @@ ones\footnote{Recall that an ``edge'' is nothing else than a significant
 local change in the image intensity. Based on the formula of
 \href{https://en.wikipedia.org/wiki/Symmetric_derivative}{symmetric derivative}:
 $
-	\partial_x f
-	\propto \textcolor{blue}{f(x+h)}
-	+ \textcolor{green}{0 \cdot f(x)}
-	- \textcolor{red}{f(x-h)}
+    \partial_x f
+	\propto \textcolor{blue}{f(x+h, y)}
+	+ \textcolor{green}{0 \cdot f(x, y)}
+	- \textcolor{red}{f(x-h, y)}
 $
 . In essence, by convolving an image with the filter specified in
 \Equation{} \ref{eq:edge}, we calculate the gradient along the $x$-axis in a
