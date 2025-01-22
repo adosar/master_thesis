@@ -135,9 +135,8 @@ $e^{-\beta\mcl{V}(\vc{r}_i)}$, which tends to \num{0} as $\mcl{V}(\vc{r}_i) \to
 \infty$, where $\beta = \frac{1}{k_\mathrm{B}T}$ is the Boltzmann
 constant\index{Boltzmann constant} and $T$ is the
 temperature\index{Temperature}, which was set at \SI{298}{\kelvin}. The Python
-package
-\href{https://github.com/frudakis-research-group/moxel}{MOX$\epsilon\lambda$}
-was introduced to facilitate and speed through
+package \href{https://github.com/adosar/moxel}{MOX$\epsilon\lambda$} was
+introduced to facilitate and speed through
 parallelization\index{Parallelization} the calculation of energy voxels. In the
 remaining of this thesis, the terms ``voxelized PES'' and ``energy
 voxels''\index{Energy voxels}, are used interchangeably.
@@ -173,13 +172,13 @@ calculated using the percentile bootstrap method \parencite{Efron_1994}, with
 
 The architecture of the 3D \gls{cnn} is presented in \Figure{} \ref{fig:retnet},
 whereas a PyTorch implementation is publicly available in:
-\href{https://github.com/frudakis-research-group/retnet}{RetNet}\index{RetNet}.
-Kernel size\index{Kernel size} is set to \num{3} for \conv{1}, \conv{2} and
-\num{2} for \conv{3}, \conv{4} and \conv{5} layers. Stride\index{Stride} equals
-\num{1} for all convolutional layers\index{Convolutional layer} and only
-\conv{1} layer is padded, with ``same'' padding\index{Padding} and ``periodic''
-mode. For both MaxPool layers\index{MaxPool layer}, kernel size and stride are
-both set to \num{2}. For the Dropout\index{Dropout} layer (see also \Section{}
+\href{https://github.com/adosar/retnet}{RetNet}\index{RetNet}.  Kernel
+size\index{Kernel size} is set to \num{3} for \conv{1}, \conv{2} and \num{2} for
+\conv{3}, \conv{4} and \conv{5} layers. Stride\index{Stride} equals \num{1} for
+all convolutional layers\index{Convolutional layer} and only \conv{1} layer is
+padded, with ``same'' padding\index{Padding} and ``periodic'' mode. For both
+MaxPool layers\index{MaxPool layer}, kernel size and stride are both set to
+\num{2}. For the Dropout\index{Dropout} layer (see also \Section{}
 \ref{subsec:regularization_nn}), the dropout rate\index{Dropout rate} $p$ equals
 \num{0.3}, while the negative slope is set to \num{0.01} for all \gls{lrelu}
 layers\index{\gls{lrelu}}.
