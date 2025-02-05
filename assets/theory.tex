@@ -1968,7 +1968,7 @@ effect of the past gradients decay.
 	\BlankLine
 	$\vcth \gets$ random initialization\;
 	\While{stopping criterion not met}{
-		$\vc{m} \gets \beta\vc{m} - \glbatch$\;
+		$\vc{m} \gets \beta\vc{m} - \eta\glbatch$\;
 		$\vcth \gets \vcth + \vc{m}$\;
 	}
 	\Return{optimized parameters $\vcth$}
