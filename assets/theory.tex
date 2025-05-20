@@ -1525,7 +1525,7 @@ found $k$ steps behind the final hidden layer, equals:
 	\pdf{\ltrain}{w^l} =
 	\pdf{\ltrain}{y} \cdot \pdf{y}{h^n}
 	\cdot
-	\left(\prod_{i=0}^k \pdf{h^{n-i}}{h^{n-i-1}}\right)
+    \left(\prod_{i=0}^{k-1} \pdf{h^{n-i}}{h^{n-i-1}}\right)
 	\cdot
 	\pdf{h^{n-k}}{w^{n-k}}
 	\quad
@@ -1537,8 +1537,8 @@ The origin of vanishing and exploding gradients is rooted in the middle term of
 \Equation{} \ref{eq:grad}, which can be expanded to:
 \begin{equation}
 	\label{eq:grad_van_exp}
-	\prod_{i=0}^k \pdf{h^{n-i}}{h^{n-i-1}} =
-	\prod_{i=0}^k \phi'(z^{n-i}) w^{n-i}
+    \prod_{i=0}^{k-1} \pdf{h^{n-i}}{h^{n-i-1}} =
+    \prod_{i=0}^{k-1} \phi'(z^{n-i}) w^{n-i}
 	\quad
 \end{equation}
 The right hand side of \Equation{} \ref{eq:grad_van_exp} essentially says that
