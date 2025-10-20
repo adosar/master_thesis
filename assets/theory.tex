@@ -312,8 +312,9 @@ classification is the \emph{binary cross entropy
 loss}\index{Binary cross entropy loss}:
 \begin{equation}
 	\label{eq:cross_entropy}
-	\ell(\hat{y}, y) \coloneqq y \cdot \log (\hat{y})
-	+ (1 - y) \cdot \log (1 - \hat{y})
+    \ell(\hat{y}, y) \coloneqq
+    - \left[ y \cdot \log (\hat{y})
+    + (1 - y) \cdot \log (1 - \hat{y}) \right]
 \end{equation}
 where $y \in \{0, 1\}$, indicating the correct class, and $\hat{y} \in [0, 1]$
 which corresponds to the predicted probability for class-$1$. Notice that in
