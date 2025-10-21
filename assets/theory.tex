@@ -1583,7 +1583,7 @@ where $n^{l}$ denotes the size (i.e. number of neurons) of layer $l$.
 
 Although proper initialization can significantly reduce the risk of unstable
 gradients at the beginning of the training, it doesn't guarantee that they won't
-come back later on. The reason is as the training training phase proceeds,
+come back later on. The reason is as the training phase proceeds,
 the parameters keep changing, so the initial control over the product in
 \Equation{} \ref{eq:grad_van_exp} is lost. A techique called \emph{\textbf{batch
 normalization}}\index{Batch normalization} \parencite{Ioffe2015} was proposed to
@@ -1759,7 +1759,7 @@ pass are enough to obtain the gradient.
 	\tcc{Backward pass}
 	\For{$i=N-1$ \KwTo $1$}{
 		$\bar{u}_i =
-		\sum_{j \in \text{Ch}_\mcl{G}(u_i)} \bar{u}_j \pd{u_j}{u_i}$\;
+		\sum_{j \in \text{Ch}_\mcl{G}(u_i)} \bar{u}_j \pd{u_i}{u_j}$\;
 	}
 	\Return{derivatives $\bar{u}_i$}
 	\caption[Back-propagation]{Back-propagation\index{Back-propagation}
